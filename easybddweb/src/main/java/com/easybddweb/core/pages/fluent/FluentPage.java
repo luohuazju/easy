@@ -1,4 +1,4 @@
-package com.easybddweb.core.pages;
+package com.easybddweb.core.pages.fluent;
 
 import org.jbehave.web.selenium.WebDriverPage;
 import org.jbehave.web.selenium.WebDriverProvider;
