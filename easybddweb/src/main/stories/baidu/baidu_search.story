@@ -4,7 +4,7 @@ Scenario: Visit BAIDU Home Page and News Page
 
 Given open the home page <home_link>
 When I click the link URL <url_link>
-Then I can see the picture link<pic_link>
+Then I can see the picture link <pic_link>
 
 Examples:
 |home_link|url_link|pic_link|
@@ -14,7 +14,7 @@ Scenario: Visit BAIDU Home Page and Picture Page
 
 Given open the home page <home_link>
 When I click the link URL <url_link>
-Then I can see the picture link<pic_link>
+Then I can see the picture link <pic_link>
 
 Examples:
 |home_link|url_link|pic_link|

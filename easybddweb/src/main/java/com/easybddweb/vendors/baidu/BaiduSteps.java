@@ -28,12 +28,12 @@ public class BaiduSteps extends PerStoryWebDriverSteps {
         home.go(homeLink);
     }
 	
-	@When("I click the <url_link>")
+	@When("I click the link URL <url_link>")
 	public void clickLink(@Named("url_link")String urlLink){
 		home.lickLink(urlLink);
 	}
 	
-	@Then("I can see the <pic_link>")
+	@Then("I can see the picture link <pic_link>")
 	public void isTherePictureLink(@Named("pic_link")String picLink){
 		assertThat(home.foundPictureLink(picLink), Matchers.greaterThan(0));
 	}
