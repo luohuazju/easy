@@ -17,10 +17,12 @@ public class BaiduHomePage extends VanillaPage implements HomePage {
 
 	public void go(String url) {
 		get(url);
+		waitForSeconds(10);
 	}
 
 	public void lickLink(String linkSrc) {
 		findElement(By.xpath("//a[@href = '" + linkSrc + "']")).click();
+		waitForSeconds(5);
 	}
 
 	public int foundPictureLink(String picLink) {

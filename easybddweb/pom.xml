@@ -12,7 +12,7 @@
 		<jbehave.web.version>3.4.3</jbehave.web.version>
 		<jbehave.site.version>3.1.1</jbehave.site.version>
 		<selenium.version>2.17.0</selenium.version>
-		<ignore.failures>true</ignore.failures>
+		<ignore.failures>false</ignore.failures>
 		<meta.filter></meta.filter>
 		<threads>1</threads>
 		<skip>false</skip>
