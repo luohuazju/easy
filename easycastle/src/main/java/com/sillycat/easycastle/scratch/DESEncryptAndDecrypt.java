@@ -1,4 +1,4 @@
-package com.sillycat.easycastle.runner;
+package com.sillycat.easycastle.scratch;
 
 import java.security.InvalidKeyException;
 import java.security.Key;

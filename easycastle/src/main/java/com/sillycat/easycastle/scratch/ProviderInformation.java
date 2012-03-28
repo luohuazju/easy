@@ -1,4 +1,4 @@
-package com.sillycat.easycastle.tools;
+package com.sillycat.easycastle.scratch;
 
 import java.security.Provider;
 import java.security.Security;
