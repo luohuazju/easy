@@ -51,7 +51,6 @@ public class DESEncryptAndDecrypt {
 		} catch (BadPaddingException e) {
 			e.printStackTrace();
 		} catch (NoSuchProviderException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
