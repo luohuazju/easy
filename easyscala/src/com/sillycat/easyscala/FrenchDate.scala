@@ -9,8 +9,8 @@ object FrenchDate {
     val now = new Date
     val df = DateFormat.getDateInstance(DateFormat.LONG, Locale.FRANCE)
     println(df format now)
-    
-    print(1+2*3)
+
+    print(1 + 2 * 3)
   }
 
 }
