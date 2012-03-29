@@ -16,7 +16,7 @@ import java.util.Map;
 
 import javax.crypto.Cipher;
 
-public class RSACoder extends Coder {
+public abstract class RSACoder extends Coder {
 
 	public static final String KEY_ALGORITHM = "RSA";
 	public static final String SIGNATURE_ALGORITHM = "MD5withRSA";
