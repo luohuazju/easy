@@ -13,7 +13,7 @@ public class DESCoderTest {
 		System.out.println("Ô­ÎÄ:\t" + inputStr);
 
 		System.out.println("ÃÜÔ¿:\t" + key);
-
+   
 		byte[] inputData = inputStr.getBytes();
 		inputData = DESCoder.encrypt(inputData, key);
 

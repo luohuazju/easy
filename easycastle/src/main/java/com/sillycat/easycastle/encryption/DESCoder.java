@@ -109,7 +109,8 @@ public abstract class DESCoder extends Coder {
 			secureRandom = new SecureRandom(decryptBASE64(seed));
 		} else {
 			secureRandom = new SecureRandom();
-		}
+		}   
+		
 
 		KeyGenerator kg = KeyGenerator.getInstance(ALGORITHM);
 		kg.init(secureRandom);
