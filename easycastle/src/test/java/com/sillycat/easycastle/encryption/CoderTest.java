@@ -10,32 +10,32 @@ public class CoderTest {
 
 	@Test
 	public void test() throws Exception {
-		String inputStr = "简单加密";
-		System.out.println("原文:" + inputStr);
+		String inputStr = "Just a Test";
+		System.out.println("Original:" + inputStr);
 
 		byte[] inputData = inputStr.getBytes();
 		String code = Coder.encryptBASE64(inputData);
-		System.out.println("BASE64加密后:" + code);
+		System.out.println("BASE64 encryption:" + code);
 
 		byte[] output = Coder.decryptBASE64(code);
 		String outputStr = new String(output);
-		System.out.println("BASE64解密后:" + outputStr);
+		System.out.println("BASE64 decryption:" + outputStr);
 
-		// 验证BASE64加密解密一致性
+		// assert the base64 original message and decryption message
 		assertEquals(inputStr, outputStr);
 
-		// 验证MD5对于同一内容加密是否一致
+		// assert that md5 encrypt the same string to the same encryption string
 		assertArrayEquals(Coder.encryptMD5(inputData),
 				Coder.encryptMD5(inputData));
 
-		// 验证SHA对于同一内容加密是否一致
+		// assert that sha encrypt the same string to the same encryption string
 		assertArrayEquals(Coder.encryptSHA(inputData),
 				Coder.encryptSHA(inputData));
 
 		String key = Coder.initMacKey();
-		System.out.println("Mac密钥:" + key);
+		System.out.println("Mac Key:" + key);
 
-		// 验证HMAC对于同一内容，同一密钥加密是否一致
+		// assert that hmac encrypt the same string with same keys to the same encryption string
 		assertArrayEquals(Coder.encryptHMAC(inputData, key),
 				Coder.encryptHMAC(inputData, key));
 

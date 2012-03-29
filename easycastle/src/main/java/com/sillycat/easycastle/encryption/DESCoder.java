@@ -12,9 +12,9 @@ import javax.crypto.spec.DESKeySpec;
 public abstract class DESCoder extends Coder {
 
 	/**
-	 * ALGORITHM 算法 <br>
-	 * 可替换为以下任意一种算法，同时key值的size相应改变。
-	 * 
+	 * ALGORITHM
+	 * we can change the algorithm to every value as follow, 
+	 * the key size will change according to the algorithm you choose
 	 * <pre>
 	 * DES                  key size must be equal to 56 
 	 * DESede(TripleDES)    key size must be equal to 112 or 168 
@@ -23,20 +23,11 @@ public abstract class DESCoder extends Coder {
 	 * RC2                  key size must be between 40 and 1024 bits 
 	 * RC4(ARCFOUR)         key size must be between 40 and 1024 bits
 	 * </pre>
-	 * 
-	 * 在Key toKey(byte[] key)方法中使用下述代码
-	 * <code>SecretKey secretKey = new SecretKeySpec(key, ALGORITHM);</code> 替换
-	 * <code> 
-	 * DESKeySpec dks = new DESKeySpec(key); 
-	 * SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(ALGORITHM); 
-	 * SecretKey secretKey = keyFactory.generateSecret(dks); 
-	 * </code>
 	 */
 	public static final String ALGORITHM = "DES";
 
 	/**
-	 * 转换密钥<br>
-	 * 
+	 * convert to key
 	 * @param key
 	 * @return
 	 * @throws Exception
@@ -46,15 +37,14 @@ public abstract class DESCoder extends Coder {
 		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(ALGORITHM);
 		SecretKey secretKey = keyFactory.generateSecret(dks);
 
-		// 当使用其他对称加密算法时，如AES、Blowfish等算法时，用下述代码替换上述三行代码
+		// If we want to use other algorithm as AES,Blowfish, Just use the follow statement
 		// SecretKey secretKey = new SecretKeySpec(key, ALGORITHM);
 
 		return secretKey;
 	}
 
 	/**
-	 * 解密
-	 * 
+	 * decrypt the data 
 	 * @param data
 	 * @param key
 	 * @return
@@ -70,7 +60,7 @@ public abstract class DESCoder extends Coder {
 	}
 
 	/**
-	 * 加密
+	 * encrypt
 	 * 
 	 * @param data
 	 * @param key
@@ -86,7 +76,7 @@ public abstract class DESCoder extends Coder {
 	}
 
 	/**
-	 * 生成密钥
+	 * generate the key
 	 * 
 	 * @return
 	 * @throws Exception
@@ -96,7 +86,7 @@ public abstract class DESCoder extends Coder {
 	}
 
 	/**
-	 * 生成密钥
+	 * generate the key
 	 * 
 	 * @param seed
 	 * @return

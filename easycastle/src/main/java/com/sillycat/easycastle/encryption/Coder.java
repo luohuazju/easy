@@ -16,7 +16,7 @@ public abstract class Coder {
 	public static final String KEY_MD5 = "MD5";
 
 	/**
-	 * MAC算法可选以下多种算法
+	 * MAC provide a lot of algorithm as follow
 	 * 
 	 * <pre>
 	 * HmacMD5  
@@ -29,7 +29,7 @@ public abstract class Coder {
 	public static final String KEY_MAC = "HmacMD5";
 
 	/**
-	 * BASE64解密
+	 * BASE64 decrypt
 	 * 
 	 * @param key
 	 * @return
@@ -40,7 +40,7 @@ public abstract class Coder {
 	}
 
 	/**
-	 * BASE64加密
+	 * BASE64 encrypt
 	 * 
 	 * @param key
 	 * @return
@@ -51,7 +51,7 @@ public abstract class Coder {
 	}
 
 	/**
-	 * MD5加密
+	 * MD5 encrypt
 	 * 
 	 * @param data
 	 * @return
@@ -67,7 +67,7 @@ public abstract class Coder {
 	}
 
 	/**
-	 * SHA加密
+	 * SHA encrypt
 	 * 
 	 * @param data
 	 * @return
@@ -83,7 +83,7 @@ public abstract class Coder {
 	}
 
 	/**
-	 * 初始化HMAC密钥
+	 * initiate HMAC key
 	 * 
 	 * @return
 	 * @throws Exception
@@ -96,7 +96,7 @@ public abstract class Coder {
 	}
 
 	/**
-	 * HMAC加密
+	 * HMAC encrypt
 	 * 
 	 * @param data
 	 * @param key
