@@ -8,23 +8,23 @@ public class PBECoderTest {
 
 	@Test
 	public void test() throws Exception {
-		String inputStr = "abc";
-		System.out.println("原文: " + inputStr);
+		String inputStr = "abcdefghijklmn";
+		System.out.println("original: " + inputStr);
 		byte[] input = inputStr.getBytes();
 
-		String pwd = "efg";
-		System.out.println("密码: " + pwd);
+		String pwd = "password_hello";
+		System.out.println("password: " + pwd);
 
 		byte[] salt = PBECoder.initSalt();
 
 		byte[] data = PBECoder.encrypt(input, pwd, salt);
 
-		System.out.println("加密后: " + PBECoder.encryptBASE64(data));
+		System.out.println("encryption: " + PBECoder.encryptBASE64(data));
 
 		byte[] output = PBECoder.decrypt(data, pwd, salt);
 		String outputStr = new String(output);
 
-		System.out.println("解密后: " + outputStr);
+		System.out.println("decryption: " + outputStr);
 		assertEquals(inputStr, outputStr);
 	}
 

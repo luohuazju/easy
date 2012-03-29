@@ -12,8 +12,7 @@ import javax.crypto.spec.PBEParameterSpec;
 public abstract class PBECoder extends Coder {
 
 	/**
-	 * 支持以下任意一种算法
-	 * 
+	 * provide all the algorithm
 	 * <pre>
 	 * PBEWithMD5AndDES  
 	 * PBEWithMD5AndTripleDES  
@@ -24,8 +23,7 @@ public abstract class PBECoder extends Coder {
 	public static final String ALGORITHM = "PBEWITHMD5andDES";
 
 	/**
-	 * 盐初始化
-	 * 
+	 * random salt number
 	 * @return
 	 * @throws Exception
 	 */
@@ -37,7 +35,7 @@ public abstract class PBECoder extends Coder {
 	}
 
 	/**
-	 * 转换密钥<br>
+	 * convert to the key
 	 * 
 	 * @param password
 	 * @return
@@ -47,58 +45,42 @@ public abstract class PBECoder extends Coder {
 		PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray());
 		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(ALGORITHM);
 		SecretKey secretKey = keyFactory.generateSecret(keySpec);
-
 		return secretKey;
 	}
 
 	/**
-	 * 加密
-	 * 
+	 * encryption
 	 * @param data
-	 *            数据
 	 * @param password
-	 *            密码
 	 * @param salt
-	 *            盐
 	 * @return
 	 * @throws Exception
 	 */
 	public static byte[] encrypt(byte[] data, String password, byte[] salt)
 			throws Exception {
-
 		Key key = toKey(password);
-
 		PBEParameterSpec paramSpec = new PBEParameterSpec(salt, 100);
 		Cipher cipher = Cipher.getInstance(ALGORITHM);
 		cipher.init(Cipher.ENCRYPT_MODE, key, paramSpec);
-
 		return cipher.doFinal(data);
-
 	}
 
 	/**
-	 * 解密
+	 * decryption
 	 * 
 	 * @param data
-	 *            数据
 	 * @param password
-	 *            密码
 	 * @param salt
-	 *            盐
 	 * @return
 	 * @throws Exception
 	 */
 	public static byte[] decrypt(byte[] data, String password, byte[] salt)
 			throws Exception {
-
 		Key key = toKey(password);
-
 		PBEParameterSpec paramSpec = new PBEParameterSpec(salt, 100);
 		Cipher cipher = Cipher.getInstance(ALGORITHM);
 		cipher.init(Cipher.DECRYPT_MODE, key, paramSpec);
-
 		return cipher.doFinal(data);
-
 	}
 
 }
