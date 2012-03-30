@@ -22,8 +22,7 @@ public abstract class DHCoder extends Coder {
 	public static final String ALGORITHM = "DH";
 
 	/**
-	 * 默认密钥字节数
-	 * 
+	 * default key size
 	 * <pre>
 	 * DH 
 	 * Default Keysize 1024   
@@ -33,15 +32,14 @@ public abstract class DHCoder extends Coder {
 	private static final int KEY_SIZE = 1024;
 
 	/**
-	 * DH加密下需要一种对称加密算法对数据加密，这里我们使用DES，也可以使用其他对称加密算法。
+	 * DH need a symmetry like DES to encrypt the data
 	 */
 	public static final String SECRET_ALGORITHM = "DES";
 	private static final String PUBLIC_KEY = "DHPublicKey";
 	private static final String PRIVATE_KEY = "DHPrivateKey";
 
 	/**
-	 * 初始化甲方密钥
-	 * 
+	 * initiate A key pair
 	 * @return
 	 * @throws Exception
 	 */
@@ -49,131 +47,101 @@ public abstract class DHCoder extends Coder {
 		KeyPairGenerator keyPairGenerator = KeyPairGenerator
 				.getInstance(ALGORITHM);
 		keyPairGenerator.initialize(KEY_SIZE);
-
 		KeyPair keyPair = keyPairGenerator.generateKeyPair();
-
-		// 甲方公钥
+		//a public key
 		DHPublicKey publicKey = (DHPublicKey) keyPair.getPublic();
-
-		// 甲方私钥
+		//a private key
 		DHPrivateKey privateKey = (DHPrivateKey) keyPair.getPrivate();
-
 		Map<String, Object> keyMap = new HashMap<String, Object>(2);
-
 		keyMap.put(PUBLIC_KEY, publicKey);
 		keyMap.put(PRIVATE_KEY, privateKey);
 		return keyMap;
 	}
 
 	/**
-	 * 初始化乙方密钥
-	 * 
+	 * initiate the b key pair
 	 * @param key
-	 *            甲方公钥
+	 *            a public key
 	 * @return
 	 * @throws Exception
 	 */
-	public static Map<String, Object> initKey(String key) throws Exception {
-		// 解析甲方公钥
-		byte[] keyBytes = decryptBASE64(key);
+	public static Map<String, Object> initKey(String aPublicKey) throws Exception {
+		//convert a public key
+		byte[] keyBytes = decryptBASE64(aPublicKey);
 		X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
 		KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
 		PublicKey pubKey = keyFactory.generatePublic(x509KeySpec);
 
-		// 由甲方公钥构建乙方密钥
+		// generate b private key from a public key
 		DHParameterSpec dhParamSpec = ((DHPublicKey) pubKey).getParams();
-
 		KeyPairGenerator keyPairGenerator = KeyPairGenerator
 				.getInstance(keyFactory.getAlgorithm());
 		keyPairGenerator.initialize(dhParamSpec);
-
 		KeyPair keyPair = keyPairGenerator.generateKeyPair();
-
-		// 乙方公钥
+		//b public key
 		DHPublicKey publicKey = (DHPublicKey) keyPair.getPublic();
-
-		// 乙方私钥
+		//b private key
 		DHPrivateKey privateKey = (DHPrivateKey) keyPair.getPrivate();
-
 		Map<String, Object> keyMap = new HashMap<String, Object>(2);
-
 		keyMap.put(PUBLIC_KEY, publicKey);
 		keyMap.put(PRIVATE_KEY, privateKey);
-
 		return keyMap;
 	}
 
 	/**
-	 * 加密<br>
+	 * encryption
 	 * 
 	 * @param data
-	 *            待加密数据
 	 * @param publicKey
-	 *            甲方公钥
 	 * @param privateKey
-	 *            乙方私钥
 	 * @return
 	 * @throws Exception
 	 */
 	public static byte[] encrypt(byte[] data, String publicKey,
 			String privateKey) throws Exception {
-
-		// 生成本地密钥
+		//generate the local key from public and private keys.
 		SecretKey secretKey = getSecretKey(publicKey, privateKey);
-
-		// 数据加密
+		//encrypt the data
 		Cipher cipher = Cipher.getInstance(secretKey.getAlgorithm());
 		cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-
 		return cipher.doFinal(data);
 	}
 
 	/**
-	 * 解密<br>
-	 * 
+	 * decryption
 	 * @param data
-	 *            待解密数据
 	 * @param publicKey
-	 *            乙方公钥
 	 * @param privateKey
-	 *            乙方私钥
 	 * @return
 	 * @throws Exception
 	 */
 	public static byte[] decrypt(byte[] data, String publicKey,
 			String privateKey) throws Exception {
-
-		// 生成本地密钥
+		// generate the local key from public and private keys
 		SecretKey secretKey = getSecretKey(publicKey, privateKey);
-		// 数据解密
+		// decrypt the data
 		Cipher cipher = Cipher.getInstance(secretKey.getAlgorithm());
 		cipher.init(Cipher.DECRYPT_MODE, secretKey);
-
 		return cipher.doFinal(data);
 	}
 
 	/**
-	 * 构建密钥
+	 * generate the local key
 	 * 
 	 * @param publicKey
-	 *            公钥
 	 * @param privateKey
-	 *            私钥
 	 * @return
 	 * @throws Exception
 	 */
 	private static SecretKey getSecretKey(String publicKey, String privateKey)
 			throws Exception {
-		// 初始化公钥
+		//decrypt the public key string
 		byte[] pubKeyBytes = decryptBASE64(publicKey);
-
 		KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
 		X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(pubKeyBytes);
 		PublicKey pubKey = keyFactory.generatePublic(x509KeySpec);
-
-		// 初始化私钥
+		//decrypt the private key string
 		byte[] priKeyBytes = decryptBASE64(privateKey);
-
 		PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(priKeyBytes);
 		Key priKey = keyFactory.generatePrivate(pkcs8KeySpec);
 
@@ -181,16 +149,13 @@ public abstract class DHCoder extends Coder {
 				.getAlgorithm());
 		keyAgree.init(priKey);
 		keyAgree.doPhase(pubKey, true);
-
-		// 生成本地密钥
+		//generate the local key
 		SecretKey secretKey = keyAgree.generateSecret(SECRET_ALGORITHM);
-
 		return secretKey;
 	}
 
 	/**
-	 * 取得私钥
-	 * 
+	 * get the private key from key map
 	 * @param keyMap
 	 * @return
 	 * @throws Exception
@@ -198,13 +163,11 @@ public abstract class DHCoder extends Coder {
 	public static String getPrivateKey(Map<String, Object> keyMap)
 			throws Exception {
 		Key key = (Key) keyMap.get(PRIVATE_KEY);
-
 		return encryptBASE64(key.getEncoded());
 	}
 
 	/**
-	 * 取得公钥
-	 * 
+	 * get the public key from key map
 	 * @param keyMap
 	 * @return
 	 * @throws Exception
@@ -212,8 +175,6 @@ public abstract class DHCoder extends Coder {
 	public static String getPublicKey(Map<String, Object> keyMap)
 			throws Exception {
 		Key key = (Key) keyMap.get(PUBLIC_KEY);
-
 		return encryptBASE64(key.getEncoded());
 	}
-
 }
