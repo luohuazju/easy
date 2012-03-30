@@ -1,6 +1,8 @@
 package com.sillycat.easycastle.encryption;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -12,57 +14,54 @@ public class CertificateCoderTest {
 	private String keyStorePath = "/Users/karl/work/easy/easycastle/src/main/resources/sillycat.keystore";
 
 	@Test
-	public void test() throws Exception {
-		System.out.println("公钥加密——私钥解密");
-		String inputStr = "Ceritifcate";
+	public void testPublic2Private() throws Exception {
+		System.out.println("\npublic key encrypt——private key decrypt\n");
+		String inputStr = "A new world will come at the end.";
 		byte[] data = inputStr.getBytes();
-
 		byte[] encrypt = CertificateCoder.encryptByPublicKey(data,
 				certificatePath);
-
 		byte[] decrypt = CertificateCoder.decryptByPrivateKey(encrypt,
 				keyStorePath, alias, password);
 		String outputStr = new String(decrypt);
-
-		System.out.println("加密前: " + inputStr + "\n\r" + "解密后: " + outputStr);
-
-		// 验证数据一致
+		String encryptStr = new String(encrypt);
+		System.out.println("data: " + inputStr);
+		System.out.println("decryption: " + outputStr);
+		System.out.println("encryption: " + encryptStr);
 		assertArrayEquals(data, decrypt);
-
-		// 验证证书有效
+		// verify the cer file
 		assertTrue(CertificateCoder.verifyCertificate(certificatePath));
+	}
 
+	@Test
+	public void testPrivate2Public() throws Exception {
+		System.out.println("\nprivate encryption——public decryption\n");
+		String inputStr = "what is the status?";
+		byte[] data = inputStr.getBytes();
+		byte[] encodedData = CertificateCoder.encryptByPrivateKey(data,
+				keyStorePath, alias, password);
+		byte[] decodedData = CertificateCoder.decryptByPublicKey(encodedData,
+				certificatePath);
+		String outputStr = new String(decodedData);
+		String encryptStr = new String(encodedData);
+		System.out.println("data: " + inputStr);
+		System.out.println("decryption: " + outputStr);
+		System.out.println("encryption: " + encryptStr);
+		assertEquals(inputStr, outputStr);
 	}
 
 	@Test
 	public void testSign() throws Exception {
-		System.out.println("私钥加密——公钥解密");
-
-		String inputStr = "sign";
-		byte[] data = inputStr.getBytes();
-
-		byte[] encodedData = CertificateCoder.encryptByPrivateKey(data,
-				keyStorePath, alias, password);
-
-		byte[] decodedData = CertificateCoder.decryptByPublicKey(encodedData,
-				certificatePath);
-
-		String outputStr = new String(decodedData);
-		System.out.println("加密前: " + inputStr + "\n\r" + "解密后: " + outputStr);
-		assertEquals(inputStr, outputStr);
-
-		System.out.println("私钥签名——公钥验证签名");
-		// 产生签名
-		String sign = CertificateCoder.sign(encodedData, keyStorePath, alias,
+		System.out.println("\nprivate sign——public verify signature\n");
+		String data = "It is rainy out side.";
+		// generate the sign
+		String sign = CertificateCoder.sign(data.getBytes(), keyStorePath, alias,
 				password);
-		System.out.println("签名:\r" + sign);
-
-		// 验证签名
-		boolean status = CertificateCoder.verify(encodedData, sign,
+		System.out.println("signature:\r" + sign);
+		// verification
+		boolean status = CertificateCoder.verify(data.getBytes(), sign,
 				certificatePath);
-		System.out.println("状态:\r" + status);
+		System.out.println("status:\r" + status);
 		assertTrue(status);
-
 	}
 
 }

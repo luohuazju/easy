@@ -15,14 +15,14 @@ import javax.crypto.Cipher;
 public abstract class CertificateCoder extends Coder {
 
 	/**
-	 * Java密钥库(Java Key Store，JKS)KEY_STORE
+	 * (Java Key Store，JKS)KEY_STORE
 	 */
 	public static final String KEY_STORE = "JKS";
 
 	public static final String X509 = "X.509";
 
 	/**
-	 * 由KeyStore获得私钥
+	 * get the private key from keystore
 	 * 
 	 * @param keyStorePath
 	 * @param alias
@@ -38,7 +38,7 @@ public abstract class CertificateCoder extends Coder {
 	}
 
 	/**
-	 * 由Certificate获得公钥
+	 * get the public key from certificate
 	 * 
 	 * @param certificatePath
 	 * @return
@@ -51,50 +51,25 @@ public abstract class CertificateCoder extends Coder {
 		return key;
 	}
 
-	/**
-	 * 获得Certificate
-	 * 
-	 * @param certificatePath
-	 * @return
-	 * @throws Exception
-	 */
 	private static Certificate getCertificate(String certificatePath)
 			throws Exception {
+		FileInputStream in = null;
+		Certificate certificate = null;
 		CertificateFactory certificateFactory = CertificateFactory
 				.getInstance(X509);
-		FileInputStream in = new FileInputStream(certificatePath);
-
-		Certificate certificate = certificateFactory.generateCertificate(in);
+		in = new FileInputStream(certificatePath);
+		certificate = certificateFactory.generateCertificate(in);
 		in.close();
-
 		return certificate;
 	}
 
-	/**
-	 * 获得Certificate
-	 * 
-	 * @param keyStorePath
-	 * @param alias
-	 * @param password
-	 * @return
-	 * @throws Exception
-	 */
 	private static Certificate getCertificate(String keyStorePath,
 			String alias, String password) throws Exception {
 		KeyStore ks = getKeyStore(keyStorePath, password);
 		Certificate certificate = ks.getCertificate(alias);
-
 		return certificate;
 	}
 
-	/**
-	 * 获得KeyStore
-	 * 
-	 * @param keyStorePath
-	 * @param password
-	 * @return
-	 * @throws Exception
-	 */
 	private static KeyStore getKeyStore(String keyStorePath, String password)
 			throws Exception {
 		FileInputStream is = new FileInputStream(keyStorePath);
@@ -105,7 +80,7 @@ public abstract class CertificateCoder extends Coder {
 	}
 
 	/**
-	 * 私钥加密
+	 * encrypt the data using private key
 	 * 
 	 * @param data
 	 * @param keyStorePath
@@ -116,19 +91,16 @@ public abstract class CertificateCoder extends Coder {
 	 */
 	public static byte[] encryptByPrivateKey(byte[] data, String keyStorePath,
 			String alias, String password) throws Exception {
-		// 取得私钥
+		// get private key
 		PrivateKey privateKey = getPrivateKey(keyStorePath, alias, password);
-
-		// 对数据加密
+		// encrypt the data
 		Cipher cipher = Cipher.getInstance(privateKey.getAlgorithm());
 		cipher.init(Cipher.ENCRYPT_MODE, privateKey);
-
 		return cipher.doFinal(data);
-
 	}
 
 	/**
-	 * 私钥解密
+	 * decrypt the data using private key
 	 * 
 	 * @param data
 	 * @param keyStorePath
@@ -139,20 +111,16 @@ public abstract class CertificateCoder extends Coder {
 	 */
 	public static byte[] decryptByPrivateKey(byte[] data, String keyStorePath,
 			String alias, String password) throws Exception {
-		// 取得私钥
+		// get the private key
 		PrivateKey privateKey = getPrivateKey(keyStorePath, alias, password);
-
-		// 对数据加密
+		// decrypt the data
 		Cipher cipher = Cipher.getInstance(privateKey.getAlgorithm());
 		cipher.init(Cipher.DECRYPT_MODE, privateKey);
-
 		return cipher.doFinal(data);
-
 	}
 
 	/**
-	 * 公钥加密
-	 * 
+	 * encrypt data based on public key
 	 * @param data
 	 * @param certificatePath
 	 * @return
@@ -160,20 +128,16 @@ public abstract class CertificateCoder extends Coder {
 	 */
 	public static byte[] encryptByPublicKey(byte[] data, String certificatePath)
 			throws Exception {
-
-		// 取得公钥
+		// get the public key
 		PublicKey publicKey = getPublicKey(certificatePath);
-		// 对数据加密
+		// encrypt the data
 		Cipher cipher = Cipher.getInstance(publicKey.getAlgorithm());
 		cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-
 		return cipher.doFinal(data);
-
 	}
 
 	/**
-	 * 公钥解密
-	 * 
+	 * decrypt data based on public key
 	 * @param data
 	 * @param certificatePath
 	 * @return
@@ -181,20 +145,16 @@ public abstract class CertificateCoder extends Coder {
 	 */
 	public static byte[] decryptByPublicKey(byte[] data, String certificatePath)
 			throws Exception {
-		// 取得公钥
+		// get the public key
 		PublicKey publicKey = getPublicKey(certificatePath);
-
-		// 对数据加密
+		// decrypt data
 		Cipher cipher = Cipher.getInstance(publicKey.getAlgorithm());
 		cipher.init(Cipher.DECRYPT_MODE, publicKey);
-
 		return cipher.doFinal(data);
-
 	}
 
 	/**
-	 * 验证Certificate
-	 * 
+	 * verify Certificate
 	 * @param certificatePath
 	 * @return
 	 */
@@ -203,8 +163,7 @@ public abstract class CertificateCoder extends Coder {
 	}
 
 	/**
-	 * 验证Certificate是否过期或无效
-	 * 
+	 * verify Certificate valid
 	 * @param date
 	 * @param certificatePath
 	 * @return
@@ -212,9 +171,8 @@ public abstract class CertificateCoder extends Coder {
 	public static boolean verifyCertificate(Date date, String certificatePath) {
 		boolean status = true;
 		try {
-			// 取得证书
+			// get the certificate
 			Certificate certificate = getCertificate(certificatePath);
-			// 验证证书是否过期或无效
 			status = verifyCertificate(date, certificate);
 		} catch (Exception e) {
 			status = false;
@@ -222,13 +180,6 @@ public abstract class CertificateCoder extends Coder {
 		return status;
 	}
 
-	/**
-	 * 验证证书是否过期或无效
-	 * 
-	 * @param date
-	 * @param certificate
-	 * @return
-	 */
 	private static boolean verifyCertificate(Date date, Certificate certificate) {
 		boolean status = true;
 		try {
@@ -241,27 +192,23 @@ public abstract class CertificateCoder extends Coder {
 	}
 
 	/**
-	 * 签名
-	 * 
+	 * signature
 	 * @param keyStorePath
 	 * @param alias
 	 * @param password
-	 * 
 	 * @return
 	 * @throws Exception
 	 */
 	public static String sign(byte[] sign, String keyStorePath, String alias,
 			String password) throws Exception {
-		// 获得证书
 		X509Certificate x509Certificate = (X509Certificate) getCertificate(
 				keyStorePath, alias, password);
-		// 获取私钥
 		KeyStore ks = getKeyStore(keyStorePath, password);
-		// 取得私钥
+		//get private key
 		PrivateKey privateKey = (PrivateKey) ks.getKey(alias,
 				password.toCharArray());
 
-		// 构建签名
+		//generate signature object
 		Signature signature = Signature.getInstance(x509Certificate
 				.getSigAlgName());
 		signature.initSign(privateKey);
@@ -270,8 +217,7 @@ public abstract class CertificateCoder extends Coder {
 	}
 
 	/**
-	 * 验证签名
-	 * 
+	 * verify the signature
 	 * @param data
 	 * @param sign
 	 * @param certificatePath
@@ -280,23 +226,19 @@ public abstract class CertificateCoder extends Coder {
 	 */
 	public static boolean verify(byte[] data, String sign,
 			String certificatePath) throws Exception {
-		// 获得证书
 		X509Certificate x509Certificate = (X509Certificate) getCertificate(certificatePath);
-		// 获得公钥
+        //get public key
 		PublicKey publicKey = x509Certificate.getPublicKey();
-		// 构建签名
+		//generate signature
 		Signature signature = Signature.getInstance(x509Certificate
 				.getSigAlgName());
 		signature.initVerify(publicKey);
 		signature.update(data);
-
 		return signature.verify(decryptBASE64(sign));
-
 	}
 
 	/**
-	 * 验证Certificate
-	 * 
+	 * verify keystore
 	 * @param keyStorePath
 	 * @param alias
 	 * @param password
@@ -316,8 +258,7 @@ public abstract class CertificateCoder extends Coder {
 	}
 
 	/**
-	 * 验证Certificate
-	 * 
+	 * verify key store
 	 * @param keyStorePath
 	 * @param alias
 	 * @param password
