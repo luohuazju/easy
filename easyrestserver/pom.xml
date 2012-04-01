@@ -1,21 +1,104 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.sillycat.easyrestserver</groupId>
-  <artifactId>easyrestserver</artifactId>
-  <packaging>war</packaging>
-  <version>1.0</version>
-  <name>easyrestserver Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  <build>
-    <finalName>easyrestserver</finalName>
-  </build>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sillycat.easyrestserver</groupId>
+	<artifactId>easyrestserver</artifactId>
+	<packaging>war</packaging>
+	<version>1.0</version>
+	<name>easyrestserver Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>3.0-alpha-1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.6</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>easyrestserver</finalName>
+	</build>
+	
+	<repositories>
+		<repository>
+            <id>rddev_artifactory</id>
+            <name>rddev artifactory Repository</name>
+            <url>http://125.69.77.100:8081/artifactory/repo/</url>
+        </repository>
+		<repository>
+            <id>rddev_archiva</id>
+            <name>rddev archiva Repository</name>
+            <url>http://125.69.77.100:8080/archiva/repository/internal/</url>
+        </repository>
+    	<repository>
+            <id>preview</id>
+            <name>preview Repository</name>
+            <url>http://preview.digby.com:8086/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>alfresco-maven-release</id>
+            <name>Alfresco Maven Release Repository</name>
+            <url>http://maven.alfresco.com/nexus/content/repositories/releases/</url>
+        </repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+            <id>rddev_artifactory</id>
+            <name>rddev artifactory Repository</name>
+            <url>http://125.69.77.100:8081/artifactory/repo/</url>
+        </pluginRepository>
+		<pluginRepository>
+            <id>rddev_archiva</id>
+            <name>rddev archiva Repository</name>
+            <url>http://125.69.77.100:8080/archiva/repository/internal/</url>
+        </pluginRepository>
+    	<pluginRepository>
+            <id>preview</id>
+            <name>preview Repository</name>
+            <url>http://preview.digby.com:8086/nexus/content/groups/public/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>alfresco-maven-release</id>
+            <name>Alfresco Maven Release Repository</name>
+            <url>http://maven.alfresco.com/nexus/content/repositories/releases/</url>
+        </pluginRepository>
+	</pluginRepositories>
+	
 </project>
