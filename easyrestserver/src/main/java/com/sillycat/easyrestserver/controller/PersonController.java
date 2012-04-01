@@ -24,7 +24,7 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/person/{id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public @ResponseBody
 	Person get(@PathVariable("id") String id) {
 		log.info("Get method is invoked. ==========================");
@@ -53,7 +53,7 @@ public class PersonController {
 		return p;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, value = "/person/{id}")
+	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
 	public @ResponseBody
 	Person update(@RequestBody Person p, @PathVariable("id") String id) {
 		log.info("Update method is invoked.===========================");
@@ -63,7 +63,7 @@ public class PersonController {
 		return p;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/person/{id}")
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
 	public @ResponseBody
 	void remove(@PathVariable("id") String id) {
 		log.info("Remove method is invoked.=============================");

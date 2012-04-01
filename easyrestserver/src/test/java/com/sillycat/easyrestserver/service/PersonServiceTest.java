@@ -1,28 +1,33 @@
 package com.sillycat.easyrestserver.service;
 
-import com.sillycat.easyrestserver.base.BaseTestCase;
+import junit.framework.Assert;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import com.sillycat.easyrestserver.model.Person;
 
-public class PersonServiceTest extends BaseTestCase {
+@RunWith(SpringJUnit4ClassRunner.class)  
+@ContextConfiguration(locations = {"file:src/test/resources/test-context.xml" }) 
+public class PersonServiceTest {
 
-	private PersonService personService;
+	@Autowired  
+    @Qualifier("personService")  
+    private PersonService personService;  
 
-	public void setUp() throws Exception {
-		super.setUp();
-		personService = (PersonService) ctx.getBean("personService");
+	@Test
+	public void dumy() {
+		Assert.assertTrue(true);
 	}
 
-	public void tearDown() throws Exception {
-		super.tearDown();
-	}
-	
-	public void testDumy() {
-		assertTrue(true);
-	}
-
-	public void testGet() {
+	@Test
+	public void get() {
 		Person p = personService.get(Integer.valueOf(1));
-		assertNotNull(p);
+		Assert.assertNotNull(p);
 		System.out.println(p);
 	}
 
