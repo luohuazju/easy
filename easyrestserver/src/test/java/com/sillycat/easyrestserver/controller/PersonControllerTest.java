@@ -23,7 +23,7 @@ public class PersonControllerTest {
 
 	@BeforeClass
 	public static void setUp() {
-		String[] configs = { "file:src/test/resources/test-context.xml" };
+		String[] configs = { "file:src/test/resources/test-context.xml","file:src/main/webapp/WEB-INF/*-servlet.xml" };
 		XmlWebApplicationContext context = new XmlWebApplicationContext();
 		context.setConfigLocations(configs);
 		mockServletContent = new MockServletContext();
@@ -36,6 +36,7 @@ public class PersonControllerTest {
 				.getBean(DefaultAnnotationHandlerMapping.class);
 		handlerAdapter = (HandlerAdapter) context.getBean(context
 				.getBeanNamesForType(AnnotationMethodHandlerAdapter.class)[0]);
+		
 	}
 
 	@Test
@@ -56,5 +57,6 @@ public class PersonControllerTest {
 				response, chain.getHandler());
 
 		Assert.assertNotNull(modelAndView);
+		
 	}
 }
