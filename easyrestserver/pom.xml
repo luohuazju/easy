@@ -82,11 +82,6 @@
             <name>rddev artifactory Repository</name>
             <url>http://125.69.77.100:8081/artifactory/repo/</url>
         </repository>
-		<repository>
-            <id>rddev_archiva</id>
-            <name>rddev archiva Repository</name>
-            <url>http://125.69.77.100:8080/archiva/repository/internal/</url>
-        </repository>
     	<repository>
             <id>preview</id>
             <name>preview Repository</name>
@@ -104,11 +99,6 @@
             <id>rddev_artifactory</id>
             <name>rddev artifactory Repository</name>
             <url>http://125.69.77.100:8081/artifactory/repo/</url>
-        </pluginRepository>
-		<pluginRepository>
-            <id>rddev_archiva</id>
-            <name>rddev archiva Repository</name>
-            <url>http://125.69.77.100:8080/archiva/repository/internal/</url>
         </pluginRepository>
     	<pluginRepository>
             <id>preview</id>
