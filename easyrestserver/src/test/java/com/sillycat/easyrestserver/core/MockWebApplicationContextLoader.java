@@ -20,13 +20,13 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 public class MockWebApplicationContextLoader extends AbstractContextLoader {
 
-	private MockWebApplication configuration;
+	MockWebApplication configuration;
 
-	private MockServletContext servletContext;
+	static MockServletContext servletContext;
 
-	MockServletConfig servletConfig;
+	static MockServletConfig servletConfig;
 
-	XmlWebApplicationContext webApplicationContext;
+	static XmlWebApplicationContext webApplicationContext;
 
 	public ApplicationContext loadContext(
 			MergedContextConfiguration mergedConfig) throws Exception {

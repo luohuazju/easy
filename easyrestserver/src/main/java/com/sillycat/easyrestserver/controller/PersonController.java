@@ -72,4 +72,10 @@ public class PersonController {
 		log.info("==============================================================");
 	}
 
+	public void setPersonService(PersonService personService) {
+		this.personService = personService;
+	}
+	
+	
+
 }
