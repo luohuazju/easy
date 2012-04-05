@@ -1,62 +1,54 @@
 package com.sillycat.easyrestserver.controller;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
+import junit.framework.Assert;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.mock.web.MockServletContext;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.XmlWebApplicationContext;
-import org.springframework.web.servlet.HandlerAdapter;
-import org.springframework.web.servlet.HandlerExecutionChain;
-import org.springframework.web.servlet.HandlerMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
-import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.servlet.DispatcherServlet;
 
+import com.sillycat.easyrestserver.core.MockWebApplication;
+import com.sillycat.easyrestserver.core.MockWebApplicationContextLoader;
+import com.sillycat.easyrestserver.service.PersonService;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(loader = MockWebApplicationContextLoader.class)
+@MockWebApplication(name = "easyrestserver", locations = "classpath:test-context.xml")
 public class PersonControllerTest {
-	private static HandlerMapping handlerMapping;
-	private static HandlerAdapter handlerAdapter;
 
-	private static MockServletContext mockServletContent;
-
-	@BeforeClass
-	public static void setUp() {
-		String[] configs = { "file:src/test/resources/test-context.xml","file:src/main/webapp/WEB-INF/*-servlet.xml" };
-		XmlWebApplicationContext context = new XmlWebApplicationContext();
-		context.setConfigLocations(configs);
-		mockServletContent = new MockServletContext();
-		context.setServletContext(mockServletContent);
-		context.refresh();
-		mockServletContent.setAttribute(
-				WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,
-				context);
-		handlerMapping = (HandlerMapping) context
-				.getBean(DefaultAnnotationHandlerMapping.class);
-		handlerAdapter = (HandlerAdapter) context.getBean(context
-				.getBeanNamesForType(AnnotationMethodHandlerAdapter.class)[0]);
-		
+	@Autowired
+	private DispatcherServlet servlet;
+	
+	@Mock
+	private PersonService mockPersonService;
+	
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
 	}
 
 	@Test
-	public void get() throws Exception {
-		MockHttpServletRequest request = new MockHttpServletRequest();
+	public void get() throws ServletException, IOException {
+		MockHttpServletRequest request = new MockHttpServletRequest("GET",
+				"/person/1");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
-		request.setRequestURI("/person/1");
-		request.setMethod("GET");
-
-		// HandlerMapping
-		HandlerExecutionChain chain = handlerMapping.getHandler(request);
-		Assert.assertEquals(true,
-				chain.getHandler() instanceof PersonController);
-
-		// HandlerAdapter
-		final ModelAndView modelAndView = handlerAdapter.handle(request,
-				response, chain.getHandler());
-
-		Assert.assertNotNull(modelAndView);
-		
+		servlet.service(request, response);
+		String results = response.getContentAsString().trim();
+		Assert.assertEquals(
+				"{\"id\":1,\"personName\":\"UserName1\",\"company\":{\"id\":1,\"companyName\":\"CompanyName1\",\"persons\":null}}",
+				results);
 	}
+
 }
