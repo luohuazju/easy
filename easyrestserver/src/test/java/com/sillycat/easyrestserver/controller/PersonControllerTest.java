@@ -5,6 +5,8 @@ import static org.springframework.test.web.server.result.MockMvcResultMatchers.j
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -40,10 +42,17 @@ public class PersonControllerTest {
 		personController = new PersonController();
 		personController.setPersonService(mockPersonService);
 
-		person = new Person();
-		person.setCompany(new Company());
-		person.setId(3);
-		person.setPersonName("person3");
+		person = new Person(3, "person3");
+		Person person1 = new Person(1, "person1");
+
+		Company company1 = new Company(1, "company1");
+
+		List<Person> personList = new ArrayList<Person>();
+		personList.add(person);
+		personList.add(person1);
+		company1.setPersons(personList);
+
+		person.setCompany(company1);
 
 		jsonMapper = new ObjectMapper();
 	}
@@ -65,9 +74,23 @@ public class PersonControllerTest {
 	}
 
 	@Test
+	public void throwJSONError() throws Exception {
+		person.setId(13);
+		Mockito.when(mockPersonService.get(13)).thenReturn(person);
+
+		MockMvcBuilders
+				.standaloneSetup(personController)
+				.build()
+				.perform(
+						MockMvcRequestBuilders.get("/person/13").accept(
+								MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound());
+	}
+
+	@Test
 	public void add() throws Exception {
 		person.setId(null);
-		
+
 		String jsonPerson = jsonMapper.writeValueAsString(person);
 		MockMvcBuilders
 				.standaloneSetup(personController)

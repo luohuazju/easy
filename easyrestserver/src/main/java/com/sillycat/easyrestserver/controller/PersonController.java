@@ -1,17 +1,22 @@
 package com.sillycat.easyrestserver.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sillycat.easyrestserver.exception.JsonServiceException;
 import com.sillycat.easyrestserver.model.Person;
 import com.sillycat.easyrestserver.service.PersonService;
 
@@ -25,9 +30,13 @@ public class PersonController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/person/{id}")
 	public @ResponseBody
-	Person get(@PathVariable("id") String id) {
+	Person get(@PathVariable("id") String id) throws JsonServiceException {
 		log.info("Get method is invoked. ==========================");
 		log.info("id=" + id);
+		if (id.equalsIgnoreCase("13")) {
+			throw new JsonServiceException("101",
+					"Id can not be 13. Because I do not like it.");
+		}
 		Person person = personService.get(Integer.valueOf(id));
 		log.info("========================================================");
 		return person;
@@ -71,10 +80,15 @@ public class PersonController {
 		log.info("==============================================================");
 	}
 
+	@ExceptionHandler(JsonServiceException.class)
+	public void handleJsonServiceException(JsonServiceException exception,
+			HttpServletResponse response) throws IOException {
+		response.sendError(HttpServletResponse.SC_NOT_FOUND,
+				exception.getErrorMessage());
+	}
+
 	public void setPersonService(PersonService personService) {
 		this.personService = personService;
 	}
-	
-	
 
 }

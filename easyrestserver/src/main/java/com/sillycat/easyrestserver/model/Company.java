@@ -2,6 +2,8 @@ package com.sillycat.easyrestserver.model;
 
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 public class Company {
 
 	private Integer id;
@@ -9,6 +11,15 @@ public class Company {
 	private String companyName;
 
 	private List<Person> persons;
+	
+	public Company(){
+		
+	}
+	
+	public Company(Integer id, String companyName){
+		this.id = id;
+		this.companyName = companyName;
+	}
 
 	public Integer getId() {
 		return id;
@@ -26,6 +37,7 @@ public class Company {
 		this.companyName = companyName;
 	}
 
+	@JsonManagedReference("Company-Person")
 	public List<Person> getPersons() {
 		return persons;
 	}
