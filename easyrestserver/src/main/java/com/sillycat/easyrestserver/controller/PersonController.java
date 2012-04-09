@@ -16,7 +16,6 @@ import com.sillycat.easyrestserver.model.Person;
 import com.sillycat.easyrestserver.service.PersonService;
 
 @Controller
-@RequestMapping("/person")
 public class PersonController {
 
 	private final Log log = LogFactory.getLog(this.getClass());
@@ -24,7 +23,7 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/person/{id}")
 	public @ResponseBody
 	Person get(@PathVariable("id") String id) {
 		log.info("Get method is invoked. ==========================");
@@ -34,7 +33,7 @@ public class PersonController {
 		return person;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/persons")
+	@RequestMapping(method = RequestMethod.GET, value = "/person/persons")
 	public @ResponseBody
 	List<Person> getAll() {
 		log.info("GetAll method is invoked.========================");
@@ -43,7 +42,7 @@ public class PersonController {
 		return persons;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/person")
+	@RequestMapping(method = RequestMethod.POST, value = "/person/person")
 	public @ResponseBody
 	Person add(@RequestBody Person p) {
 		log.info("Add method is invoked.=============================");
@@ -53,7 +52,7 @@ public class PersonController {
 		return p;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+	@RequestMapping(method = RequestMethod.PUT, value = "/person/{id}")
 	public @ResponseBody
 	Person update(@RequestBody Person p, @PathVariable("id") String id) {
 		log.info("Update method is invoked.===========================");
@@ -63,7 +62,7 @@ public class PersonController {
 		return p;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+	@RequestMapping(method = RequestMethod.DELETE, value = "/person/{id}")
 	public @ResponseBody
 	void remove(@PathVariable("id") String id) {
 		log.info("Remove method is invoked.=============================");
