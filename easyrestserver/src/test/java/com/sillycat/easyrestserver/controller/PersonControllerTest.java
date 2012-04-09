@@ -67,12 +67,13 @@ public class PersonControllerTest {
 	@Test
 	public void add() throws Exception {
 		person.setId(null);
+		
 		String jsonPerson = jsonMapper.writeValueAsString(person);
 		MockMvcBuilders
 				.standaloneSetup(personController)
 				.build()
 				.perform(
-						MockMvcRequestBuilders.post("/person")
+						MockMvcRequestBuilders.post("/person/person")
 								.contentType(MediaType.APPLICATION_JSON)
 								.accept(MediaType.APPLICATION_JSON)
 								.body(jsonPerson.getBytes()))

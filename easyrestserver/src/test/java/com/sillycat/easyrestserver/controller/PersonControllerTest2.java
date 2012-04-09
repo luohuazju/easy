@@ -16,7 +16,7 @@ public class PersonControllerTest2 extends ControllerTestBase{
 
 	@Test  
     public void testAdd() throws Exception {  
-    MockHttpServletRequest request = new MockHttpServletRequest();  
+		MockHttpServletRequest request = new MockHttpServletRequest();  
         MockHttpServletResponse response = new MockHttpServletResponse();  
         request.setRequestURI("/person/1");  
         request.setMethod("GET");  
