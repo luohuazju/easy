@@ -37,8 +37,11 @@ function upload(response, request) {
         tried to rename to an already existing file */
      fs.rename(files.upload.path, "/tmp/test.png", function(err) {
        if(err){
+    	 console.log("error happend on windows1");
          fs.unlink("/tmp/test.png");
-         fs.rename(files.upload.path, "/tmp/test.png");
+         console.log("error happend on windows2 " + files.upload.path);
+         //I fail on windows system to rename the file
+         fs.rename(files.upload.path, "d:\\tmp\test.png");
        }
      });
      response.writeHead(200, {"Content-Type": "text/html"});
