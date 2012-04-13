@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.sillycat.com/schema/groovy"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:beans="http://www.springframework.org/schema/beans"
+	targetNamespace="http://www.sillycat.com/schema/groovy"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:import namespace="http://www.springframework.org/schema/beans" />
+	<xsd:import namespace="http://www.springframework.org/schema/tool" />
+
+	<xsd:annotation>
+		<xsd:documentation><![CDATA[
+        	Defines utility elements for groovy script convenience operations
+        ]]></xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:element name="scan">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[
+        		Allows for scanning the file system for groovy scripts and defining
+        		dynamic language beans for them in the application context 
+            ]]></xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:complexType>
+			<xsd:attribute name="source-pattern" type="xsd:string"
+				use="required" />
+		</xsd:complexType>
+
+	</xsd:element>
+
+</xsd:schema>
