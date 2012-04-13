@@ -22,26 +22,28 @@
 			http://www.sillycat.com/schema/groovy 
 			http://www.sillycat.com/schema/groovy/groovy.xsd
 			">
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
-		<property name="ignoreResourceNotFound" value="true" />
-		<property name="locations">
-			<list>
-				<value>
-					classpath*:config.properties
-				</value>
-			</list>
-		</property>
+	<webflow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices">
+		<webflow:flow-location path="classpath:flows/shopping.xml"
+			id="shopping" />
+	</webflow:flow-registry>
+
+	<webflow:flow-executor id="flowExecutor" />
+
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name = "flowExecutor" ref="flowExecutor" />
+	</bean>
+	
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="flowRegistry" ref="flowRegistry" />
+		<property name="order" value="1"/>
 	</bean>
 
-	<context:annotation-config />
-	<context:component-scan base-package="com.sillycat">
-	</context:component-scan>
-    
-	<import resource="classpath:controller-context.xml" />
-	<import resource="classpath:flow-context.xml" />
+	<webflow:flow-builder-services id="flowBuilderServices"
+		view-factory-creator="mvcViewFactoryCreator" />
+		
+	<bean id="mvcViewFactoryCreator"
+		class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<property name="viewResolvers" ref="velocityViewResolver" />
+	</bean>
+
 </beans>
-
-
-

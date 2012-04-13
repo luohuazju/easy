@@ -3,14 +3,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
-	<view-state id="viewCart">
+	<view-state id="viewCart" view="viewCart">
 		<transition on="submit" to="viewOrder" />
 	</view-state>
-	<view-state id="viewOrder">
+	<view-state id="viewOrder" view="viewOrder">
 		<transition to="viewConfirmed" on="confirm"></transition>
 	</view-state>
-	<view-state id="viewConfirmed">
+	<view-state id="viewConfirmed" view="orderConfirmed">
 		<transition to="returnToIndex" on="returnToIndex"></transition>
 	</view-state>
-	<end-state id="returnToIndex"></end-state>
+	<end-state id="returnToIndex"
+		view="externalRedirect:servletRelative:/index.jsp">
+	</end-state>
 </flow>

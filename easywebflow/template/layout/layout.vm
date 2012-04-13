@@ -1,0 +1,12 @@
+<html>   
+    <head>   
+       <title>First Layout1</title>
+    </head>   
+    <body>   
+        <div id="header">#parse('common/header.vm')</div>   
+        <div id="content">   
+            <div id="main">$screen_content</div>   
+        </div>
+        <div id="footer">#parse('common/footer.vm')</div>   
+    </body>   
+</html>
