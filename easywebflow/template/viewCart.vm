@@ -22,3 +22,5 @@ Total: ${cart.totalPrice} <br />
 	<br />
 #end 
 <br />
+
+<a href="${flowExecutionUrl}&_eventId=cancelShopping">Cancel Shopping</a>

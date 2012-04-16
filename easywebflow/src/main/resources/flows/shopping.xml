@@ -33,4 +33,8 @@
 	<end-state id="returnToIndex"
 		view="externalRedirect:servletRelative:../index.jsp">
 	</end-state>
+	
+	<global-transitions>
+		<transition on="cancelShopping" to="returnToIndex"/>
+	</global-transitions>
 </flow>

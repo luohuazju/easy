@@ -1,2 +1,4 @@
 <h1>Order Confirmed</h1>
-<a href="${flowExecutionUrl}&_eventId=returnToIndex">Return to index</a>
+
+<a href="${flowExecutionUrl}&_eventId=returnToIndex">Return to index</a><br />
+<a href="${flowExecutionUrl}&_eventId=cancelShopping">Cancel Shopping</a>
