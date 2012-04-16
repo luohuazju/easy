@@ -1,2 +1,24 @@
 <h1>View Cart</h1>
+<h2>Items in Your Cart</h2>
+#if ($null.isNull($cart.items) || $cart.items.size()==0)
+ <p> Your Cart is empty.</p>
+#else
+ #foreach( $item in $cart.items)
+ 	${item.product.description}
+ 	${item.quantity}
+ 	${item.product.price}
+ 	<br />
+ #end
+#end
+Total: ${cart.totalPrice} <br />
+
 <a href="${flowExecutionUrl}&_eventId=submit">Submit</a>
+
+<h2>Products for Your Choice</h2>
+#foreach( $product in ${products} ) 
+	${product.description}
+	${product.price}
+	<a href="${flowExecutionUrl}&_eventId=addToCart&productId=${product.id}">[add to cart]</a>
+	<br />
+#end 
+<br />
