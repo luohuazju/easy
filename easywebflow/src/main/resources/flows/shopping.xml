@@ -8,26 +8,35 @@
 	
 	<on-start>
 		<set name="conversationScope.cart" value="myCart" />
+		<set name="flowScope.previousState" value="'viewCart'" />
 	</on-start>
 	
 	<view-state id="viewCart" view="viewCart">
 		<on-render>
 			<evaluate expression="productService.getProducts()" result="viewScope.products"/>
 		</on-render>
-		<transition on="submit" to="viewOrder" />
+		<transition on="submit" to="viewOrderDecistion">
+		</transition>
 		<transition on="addToCart" to="addProductToCart" />
 	</view-state>
 	
+	<decision-state id="viewOrderDecistion">
+		<if test="cart.empty" then="viewCart" else="viewOrder" />
+	</decision-state>
+	
 	<subflow-state id="addProductToCart" subflow="addToCart">
-		<transition on="productAdded" to="viewCart"/>
+		<transition on="productAdded" to="viewCart">
+		</transition>
 	</subflow-state>
 	
 	<view-state id="viewOrder" view="viewOrder">
-		<transition to="viewConfirmed" on="confirm"></transition>
+		<transition to="viewConfirmed" on="confirm">
+		</transition>
 	</view-state>
 	
 	<view-state id="viewConfirmed" view="orderConfirmed">
-		<transition to="returnToIndex" on="returnToIndex"></transition>
+		<transition to="returnToIndex" on="returnToIndex">
+		</transition>
 	</view-state>
 	
 	<end-state id="returnToIndex"

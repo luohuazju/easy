@@ -20,6 +20,14 @@ public class Cart implements Serializable {
 		this.map = map;
 	}
 	
+	public boolean isEmpty(){
+		if(map == null || map.isEmpty()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public List<CartItem> getItems() {
 		return new ArrayList<CartItem>(map.values());
 	}
