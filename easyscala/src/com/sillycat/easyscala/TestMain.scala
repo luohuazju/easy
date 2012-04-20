@@ -18,6 +18,6 @@ object TestMain extends App {
 
   var r1 = new Rational(1, 3)
   var r3 = new Rational(3, 4)
-  println(r1 < r3)
-  println(r3 < r1)
+  println(r1 < r3) //true
+  println(r3 < r1) //false
 }
