@@ -1,4 +1,6 @@
 footer is here!
 <br />
 $!{previousState} ---> $!{flowRequestContext.flowExecutionContext.activeSession.state.id}<br />
+#if ($null.isNull($flowExecutionUrl))
 <a href="${flowExecutionUrl}&_eventId=${previousState}">Back</a>
+#end
