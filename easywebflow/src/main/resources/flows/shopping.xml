@@ -4,6 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 	
+	<secured attributes="ROLE_USER" />
+	
 	<var name="myCart" class="com.sillycat.easywebflow.model.Cart" />
 	
 	<on-start>

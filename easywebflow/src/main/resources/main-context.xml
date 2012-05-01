@@ -41,6 +41,7 @@
     
 	<import resource="classpath:controller-context.xml" />
 	<import resource="classpath:flow-context.xml" />
+	<import resource="classpath:security-context.xml" />
 </beans>
 
 

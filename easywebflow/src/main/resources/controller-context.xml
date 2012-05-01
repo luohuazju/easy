@@ -4,6 +4,7 @@
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:lang="http://www.springframework.org/schema/lang" xmlns:webflow="http://www.springframework.org/schema/webflow-config"
 	xmlns:groovy="http://www.sillycat.com/schema/groovy"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 			http://www.springframework.org/schema/aop 
@@ -17,7 +18,9 @@
 			http://www.springframework.org/schema/webflow-config 
 			http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd 
 			http://www.sillycat.com/schema/groovy 
-			http://www.sillycat.com/schema/groovy/groovy.xsd
+			http://www.sillycat.com/schema/groovy/groovy.xsd 
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
 			">
 
 	<bean id="velocityConfig"
@@ -51,5 +54,8 @@
 	
 	<!--  file://D:/work/easy/easywebflow/groovy/*.groovy -->
 	<groovy:scan source-pattern="/groovy/*.groovy" />
+	
+	<mvc:view-controller path="/login.do" view-name="login"/>
+	<mvc:view-controller path="/logoutSuccess.do" view-name="logoutSuccess"/>
 
 </beans>
