@@ -27,6 +27,7 @@
 	</decision-state>
 	
 	<subflow-state id="addProductToCart" subflow="addToCart">
+		<secured attributes="ROLE_SUPERVISOR"/>
 		<transition on="productAdded" to="viewCart">
 		</transition>
 	</subflow-state>
