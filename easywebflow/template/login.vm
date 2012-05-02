@@ -1,8 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<%@ page import="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter" %>
-<%@ page import="org.springframework.security.core.AuthenticationException" %>
 
 <div class="span-5">
 	<p>Valid username/passwords are:</p>
