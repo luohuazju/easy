@@ -17,19 +17,26 @@ public class TestSardine {
 	 * @throws IOException 
      */  
     public static void main(String[] args) throws IOException {  
-        Sardine sardine = SardineFactory.begin("admin", "admin");  
-          
-        if (sardine.exists("http://192.168.1.71:4502/crx/repository/crx.default/content/dam/")) {  
-            System.out.println("/content/dam folder exists");  
+        //Sardine sardine = SardineFactory.begin("admin", "admin");  
+        Sardine sardine = SardineFactory.begin();  
+        
+        sardine.disableCompression();
+        sardine.disablePreemptiveAuthentication();
+        
+        if (sardine.exists("http://localhost:8080/netstore-webdav/shared/")) {  
+            System.out.println("shared folder exists");  
         }  
-          
-        sardine.createDirectory("http://192.168.1.71:4502/crx/repository/crx.default/content/dam/testfolder/");  
-          
-        InputStream fis = new FileInputStream(new File("img12.jpg"));  
-        sardine.put("http://192.168.1.71:4502/crx/repository/crx.default/content/dam/testfolder/img12.jpg", fis);  
-          
+        
+        if(!sardine.exists("http://localhost:8080/netstore-webdav/shared/testfolder/")){
+        	sardine.createDirectory("http://localhost:8080/netstore-webdav/shared/testfolder/");  
+        	System.out.println("testfolder not folder exists");  
+        }
+        
+        InputStream fis = new FileInputStream(new File("d://1.txt"));  
+        sardine.put("http://localhost:8080/netstore-webdav/shared/testfolder/2.txt", fis);  
+        
         @SuppressWarnings("deprecation")
-		List<DavResource> resources = sardine.getResources("http://192.168.1.71:4502/crx/repository/crx.default/content/dam/testfolder/");  
+		List<DavResource> resources = sardine.getResources("http://localhost:8080/netstore-webdav/shared/testfolder/");  
         for (DavResource res : resources)  
         {  
              System.out.println(res); // calls the .toString() method.  
