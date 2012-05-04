@@ -41,7 +41,7 @@ public class TestJackrabbit {
 				+ put.getStatusText());
 
 		DavMethod find = new PropFindMethod(
-				"http://localhost:8080/netstore-webdav/shared/testfolder",
+				"http://localhost:8080/netstore-webdav/shared/testfolder/",
 				DavConstants.PROPFIND_ALL_PROP, DavConstants.DEPTH_1);
 		client.executeMethod(find);
 		MultiStatus multiStatus = find.getResponseBodyAsMultiStatus();
