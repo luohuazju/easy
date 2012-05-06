@@ -50,7 +50,7 @@ public class JNDIConfig extends AbstractConfig {
     public void init(Properties props) throws ServletException {
         super.init(props);
         // add all props whose name starts with 'java.namming.' to the env
-        Iterator iter = props.keySet().iterator();
+        Iterator<Object> iter = props.keySet().iterator();
         while (iter.hasNext()) {
             String name = (String) iter.next();
             if (name.startsWith("java.naming.")) {
@@ -62,7 +62,8 @@ public class JNDIConfig extends AbstractConfig {
     public void init(ServletConfig ctx) throws ServletException  {
         super.init(ctx);
         // add all params whose name starts with 'java.namming.' to the env
-        Enumeration names = ctx.getInitParameterNames();
+        @SuppressWarnings("rawtypes")
+		Enumeration names = ctx.getInitParameterNames();
         while (names.hasMoreElements()) {
             String name = (String) names.nextElement();
             if (name.startsWith("java.naming.")) {

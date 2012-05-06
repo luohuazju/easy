@@ -2,6 +2,7 @@ package org.apache.jackrabbit.j2ee;
 
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletConfig;
@@ -21,14 +22,15 @@ public abstract class AbstractConfig {
 
     protected boolean valid;
 
-    private BeanMap map = new BeanMap(this);
+    @SuppressWarnings({ "deprecation", "unchecked" })
+	private Map<String, String> map = new BeanMap(this);
 
     /**
      * Initializes the configuration with values from the given properties
      * @param props the configuration properties
      */
     public void init(Properties props) throws ServletException {
-        Iterator iter = props.keySet().iterator();
+        Iterator<Object> iter = props.keySet().iterator();
         while (iter.hasNext()) {
             String name = (String) iter.next();
             String mapName = toMapName(name, '.');
@@ -44,7 +46,8 @@ public abstract class AbstractConfig {
     }
 
     public void init(ServletConfig ctx) throws ServletException {
-        Enumeration names = ctx.getInitParameterNames();
+        @SuppressWarnings("rawtypes")
+		Enumeration names = ctx.getInitParameterNames();
         while (names.hasMoreElements()) {
             String name = (String) names.nextElement();
             String mapName = toMapName(name, '-');
@@ -81,7 +84,8 @@ public abstract class AbstractConfig {
     public void logInfos() {
         log.info("Configuration of {}", Text.getName(this.getClass().getName(), '.'));
         log.info("----------------------------------------------");
-        Iterator iter = map.keySet().iterator();
+        @SuppressWarnings("rawtypes")
+		Iterator iter = map.keySet().iterator();
         while (iter.hasNext()) {
             String name = (String) iter.next();
             log.info("  {}: {}", name, map.get(name));
