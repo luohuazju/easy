@@ -11,32 +11,36 @@ import com.googlecode.sardine.Sardine;
 import com.googlecode.sardine.SardineFactory;
 
 public class TestSardine {
+	
+	//private static final String WEBDAV_URL = "http://localhost:8080/netstore-webdav/shared/";
+	
+	private static final String WEBDAV_URL = "http://localhost:8080/jackrabbit-webapp/repository/default/";
 
 	/** 
      * @param args 
 	 * @throws IOException 
      */  
     public static void main(String[] args) throws IOException {  
-        //Sardine sardine = SardineFactory.begin("admin", "admin");  
-        Sardine sardine = SardineFactory.begin();  
+        Sardine sardine = SardineFactory.begin("admin", "admin");  
+        //Sardine sardine = SardineFactory.begin();  
         
         sardine.disableCompression();
         sardine.disablePreemptiveAuthentication();
         
-        if (sardine.exists("http://localhost:8080/netstore-webdav/shared/")) {  
-            System.out.println("shared folder exists");  
+        if (sardine.exists(WEBDAV_URL)) {  
+            System.out.println(WEBDAV_URL + " folder exists");  
         }  
         
-        if(!sardine.exists("http://localhost:8080/netstore-webdav/shared/testfolder/")){
-        	sardine.createDirectory("http://localhost:8080/netstore-webdav/shared/testfolder/");  
+        if(!sardine.exists( WEBDAV_URL + "testfolder/")){
+        	sardine.createDirectory( WEBDAV_URL + "testfolder/");  
         	System.out.println("testfolder not folder exists");  
         }
         
         InputStream fis = new FileInputStream(new File("d://1.txt"));  
-        sardine.put("http://localhost:8080/netstore-webdav/shared/testfolder/2.txt", fis);  
+        sardine.put( WEBDAV_URL + "testfolder/2.txt", fis);  
         
         @SuppressWarnings("deprecation")
-		List<DavResource> resources = sardine.getResources("http://localhost:8080/netstore-webdav/shared/testfolder/");  
+		List<DavResource> resources = sardine.getResources(WEBDAV_URL + "testfolder/");  
         for (DavResource res : resources)  
         {  
              System.out.println(res); // calls the .toString() method.  

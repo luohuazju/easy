@@ -20,19 +20,22 @@ import org.apache.jackrabbit.webdav.client.methods.PutMethod;
 
 public class TestJackrabbit {
 
+	//private static final String WEBDAV_URL = "http://localhost:8080/netstore-webdav/shared/";
+
+	private static final String WEBDAV_URL = "http://localhost:8080/jackrabbit-webapp/repository/default/";
+
 	public static void main(String[] args) throws IOException, DavException {
 		HttpClient client = new HttpClient();
-		//Credentials creds = new UsernamePasswordCredentials("admin", "admin");
-		//client.getState().setCredentials(AuthScope.ANY, creds);
+		Credentials creds = new UsernamePasswordCredentials("admin",
+		"admin");
+		client.getState().setCredentials(AuthScope.ANY, creds);
 
-		DavMethod mkCol = new MkColMethod(
-				"http://localhost:8080/netstore-webdav/shared/testfolder/");
+		DavMethod mkCol = new MkColMethod(WEBDAV_URL + "testfolder/");
 		client.executeMethod(mkCol);
 		System.out.println("mkcol testfolder:" + mkCol.getStatusCode() + " "
 				+ mkCol.getStatusText());
 
-		PutMethod put = new PutMethod(
-				"http://localhost:8080/netstore-webdav/shared/testfolder/1.txt");
+		PutMethod put = new PutMethod(WEBDAV_URL + "testfolder/1.txt");
 		RequestEntity requestEntity = new InputStreamRequestEntity(
 				new FileInputStream("d://1.txt"));
 		put.setRequestEntity(requestEntity);
@@ -40,8 +43,7 @@ public class TestJackrabbit {
 		System.out.println("put image file:" + put.getStatusCode() + " "
 				+ put.getStatusText());
 
-		DavMethod find = new PropFindMethod(
-				"http://localhost:8080/netstore-webdav/shared/testfolder/",
+		DavMethod find = new PropFindMethod(WEBDAV_URL + "testfolder/",
 				DavConstants.PROPFIND_ALL_PROP, DavConstants.DEPTH_1);
 		client.executeMethod(find);
 		MultiStatus multiStatus = find.getResponseBodyAsMultiStatus();
