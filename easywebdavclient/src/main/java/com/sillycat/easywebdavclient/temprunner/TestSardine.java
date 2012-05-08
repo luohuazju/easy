@@ -14,7 +14,7 @@ public class TestSardine {
 	
 	//private static final String WEBDAV_URL = "http://localhost:8080/netstore-webdav/shared/";
 	
-	private static final String WEBDAV_URL = "http://localhost:8080/jackrabbit-webapp/repository/default/";
+	private static final String WEBDAV_URL = "http://localhost:8080/easywebdavserver/repository/default/";
 
 	/** 
      * @param args 

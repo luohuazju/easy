@@ -22,7 +22,7 @@ public class TestJackrabbit {
 
 	//private static final String WEBDAV_URL = "http://localhost:8080/netstore-webdav/shared/";
 
-	private static final String WEBDAV_URL = "http://localhost:8080/jackrabbit-webapp/repository/default/";
+	private static final String WEBDAV_URL = "http://localhost:8080/easywebdavserver/repository/default/";
 
 	public static void main(String[] args) throws IOException, DavException {
 		HttpClient client = new HttpClient();
