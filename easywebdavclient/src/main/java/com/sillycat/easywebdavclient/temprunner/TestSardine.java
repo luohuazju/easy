@@ -37,7 +37,7 @@ public class TestSardine {
         }
         
         InputStream fis = new FileInputStream(new File("d://1.txt"));  
-        sardine.put( WEBDAV_URL + "testfolder/2.txt", fis);  
+        sardine.put( WEBDAV_URL + "testfolder/3.txt", fis);  
         
         @SuppressWarnings("deprecation")
 		List<DavResource> resources = sardine.getResources(WEBDAV_URL + "testfolder/");  
