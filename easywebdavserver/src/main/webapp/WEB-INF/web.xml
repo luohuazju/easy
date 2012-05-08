@@ -120,10 +120,93 @@
 			</init-param -->
 		<load-on-startup>5</load-on-startup>
 	</servlet>
+	
+	<!-- ====================================================================== -->
+    <!-- W E B D A V  S E R V L E T                                              -->
+    <!-- ====================================================================== -->
+    <servlet>
+        <servlet-name>Webdav</servlet-name>
+        <description>
+            The webdav servlet that connects HTTP request to the repository.
+        </description>
+        <servlet-class>org.apache.jackrabbit.j2ee.CustomerSimpleWebdavServlet</servlet-class>
+
+        <init-param>
+            <param-name>resource-path-prefix</param-name>
+            <param-value>/repository</param-value>
+            <description>
+                defines the prefix for spooling resources out of the repository.
+            </description>
+        </init-param>
+         <init-param>
+             <param-name>missing-auth-mapping</param-name>
+             <param-value>anonymous:anonymous</param-value>
+             <description>
+                 Defines how a missing authorization header should be handled.
+                 1) If this init-param is missing, a 401 response is generated.
+                    This is suitable for clients (eg. webdav clients) for which
+                    sending a proper authorization header is not possible if the
+                    server never sent a 401.
+                 2) If this init-param is present with an empty value,
+                    null-credentials are returned, thus forcing an null login
+                    on the repository.
+                 3) If this init-param is present with the value 'guestcredentials'
+                    java.jcr.GuestCredentials are used to login to the repository.
+                 4) If this init-param has a 'user:password' value, the respective
+                    simple credentials are generated.
+             </description>
+         </init-param>
+        <!--
+            Optional parameter to define the value of the 'WWW-Authenticate' header
+        -->
+        <!--
+        <init-param>
+            <param-name>authenticate-header</param-name>
+            <param-value>Basic realm="Jackrabbit Webdav Server"</param-value>
+            <description>
+                Defines the value of the 'WWW-Authenticate' header.
+            </description>
+        </init-param>
+        -->
+        <!--
+            Parameter used to configure behaviour of webdav resources such as:
+            - distinction between collections and non-collections
+            - resource filtering
+        -->
+        <init-param>
+            <param-name>resource-config</param-name>
+            <param-value>/WEB-INF/config.xml</param-value>
+            <description>
+                Defines various dav-resource configuration parameters.
+            </description>
+        </init-param>
+       <!--
+            Optional parameter to define the behaviour of the referrer-based CSRF protection
+        -->
+        <!--
+        <init-param>
+            <param-name>csrf-protection</param-name>
+            <param-value>host1.domain.com,host2.domain.org</param-value>
+            <description>
+                Defines the behaviour of the referrer based CSRF protection
+                1) If omitted or left empty the (default) behaviour is to allow only requests with
+                   an empty referrer header or a referrer host equal to the server host
+                2) May also contain a comma separated list of additional allowed referrer hosts
+                3) If set to 'disabled' no referrer checking will be performed at all
+            </description>
+        </init-param>
+        -->
+        <load-on-startup>4</load-on-startup>
+    </servlet>
 
 	<servlet-mapping>
 		<servlet-name>JCRWebdavServer</servlet-name>
 		<url-pattern>/sillycat/*</url-pattern>
 	</servlet-mapping>
+	
+	 <servlet-mapping>
+        <servlet-name>Webdav</servlet-name>
+        <url-pattern>/repository/*</url-pattern>
+    </servlet-mapping>
 
 </web-app>
