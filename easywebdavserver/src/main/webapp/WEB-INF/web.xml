@@ -140,7 +140,7 @@
         </init-param>
          <init-param>
              <param-name>missing-auth-mapping</param-name>
-             <param-value>anonymous:anonymous</param-value>
+             <param-value>admin:admin</param-value>
              <description>
                  Defines how a missing authorization header should be handled.
                  1) If this init-param is missing, a 401 response is generated.
