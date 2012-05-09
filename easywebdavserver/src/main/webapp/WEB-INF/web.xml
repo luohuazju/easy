@@ -145,6 +145,29 @@
         -->
         <load-on-startup>4</load-on-startup>
     </servlet>
+    
+    <servlet>
+		<servlet-name>tomcatWebDAV</servlet-name>
+		<servlet-class>com.sillycat.easywebdavserver.servlets.CustomerWebdavServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>0</param-value>
+		</init-param>
+		<init-param>
+			<param-name>listings</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>readonly</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>tomcatWebDAV</servlet-name>
+		<url-pattern>/sillycat/*</url-pattern>
+	</servlet-mapping>
+    
 
 	 <servlet-mapping>
         <servlet-name>Webdav</servlet-name>
