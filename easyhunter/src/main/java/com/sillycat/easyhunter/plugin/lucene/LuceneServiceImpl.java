@@ -17,6 +17,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
@@ -39,6 +40,66 @@ public class LuceneServiceImpl implements LuceneService {
 	private static final String INDEX_PATH = "D:\\lucene\\index";
 
 	private String indexPath;
+
+	public List<Document> search(String[] keys, String search, boolean isMore) {
+		IndexSearcher searcher = null;
+		IndexReader reader = null;
+		ScoreDoc[] hits = null;
+		Directory dir = null;
+		List<Document> documents = null;
+		Query query = null;
+		try {
+			dir = FSDirectory.open(new File(this.getIndexPath()));
+			reader = IndexReader.open(dir);
+			searcher = new IndexSearcher(reader);
+			MultiFieldQueryParser queryParser = new MultiFieldQueryParser(
+					Version.LUCENE_36, keys, analyzer);
+			queryParser.setDefaultOperator(QueryParser.Operator.OR);
+			query = queryParser.parse(search);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		TopDocs results = null;
+		int numTotalHits = 0;
+
+		// 5 pages first
+		try {
+			results = searcher.search(query, 5 * 10);
+			hits = results.scoreDocs;
+			numTotalHits = results.totalHits;
+			if (isMore && numTotalHits > 0) {
+				// total pages
+				hits = searcher.search(query, numTotalHits).scoreDocs;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if (hits != null && hits.length > 0) {
+			documents = new ArrayList<Document>(hits.length);
+		}
+		for (int i = 0; i < hits.length; i++) {
+			try {
+				Document doc = searcher.doc(hits[i].doc);
+				documents.add(doc);
+			} catch (CorruptIndexException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		try {
+			searcher.close();
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return documents;
+
+	}
 
 	/**
 	 * 搜索
@@ -78,7 +139,7 @@ public class LuceneServiceImpl implements LuceneService {
 			results = searcher.search(query, 5 * 10);
 			hits = results.scoreDocs;
 			numTotalHits = results.totalHits;
-			if (isMore) {
+			if (isMore && numTotalHits > 0) {
 				// total pages
 				hits = searcher.search(query, numTotalHits).scoreDocs;
 			}

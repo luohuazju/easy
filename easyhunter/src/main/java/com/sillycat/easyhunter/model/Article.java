@@ -42,7 +42,7 @@ public class Article implements LuceneObject, Serializable {
 		}
 		if (StringUtil.isNotBlank(this.getAuthor())) {
 			doc.add(new Field("author", this.getAuthor(), Field.Store.YES,
-					Field.Index.NOT_ANALYZED_NO_NORMS));
+					Field.Index.ANALYZED_NO_NORMS));
 		}
 		if (StringUtil.isNotBlank(this.getWebsiteURL())) {
 			doc.add(new Field("websiteURL", this.getWebsiteURL(),

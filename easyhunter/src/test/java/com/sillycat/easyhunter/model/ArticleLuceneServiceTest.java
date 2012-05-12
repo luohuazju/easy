@@ -19,14 +19,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.sillycat.easyhunter.plugin.lucene.LuceneObject;
 import com.sillycat.easyhunter.plugin.lucene.LuceneService;
 
-@RunWith(SpringJUnit4ClassRunner.class)  
-@ContextConfiguration(locations = {"file:src/test/resources/test-context.xml" }) 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "file:src/test/resources/test-context.xml" })
 public class ArticleLuceneServiceTest {
 
-	@Autowired  
-    @Qualifier("articleLuceneService")  
+	@Autowired
+	@Qualifier("articleLuceneService")
 	private LuceneService articleLuceneService;
-
 
 	@Test
 	public void dumy() {
@@ -44,25 +43,35 @@ public class ArticleLuceneServiceTest {
 		a1.setTitle("中文的技术BLOG");
 		a1.setWebsiteURL("http://sillycat.iteye.com");
 		Article a2 = new Article();
-		a2.setAuthor("弓飞箭");
+		a2.setAuthor("康怡怡");
 		a2.setContent("罗华用中文语言写的一篇文章，发布在网页上。");
 		a2.setGmtCreate(new Date());
 		a2.setId("2");
-		a2.setTitle("英文的技术BLOG");
+		a2.setTitle("英文的BLOG");
 		a2.setWebsiteURL("http://hi.baidu.com/luohuazju");
 		list.add(a1);
 		list.add(a2);
-		articleLuceneService.buildIndex(list,true);
-		List<Document> results = articleLuceneService.search("content", "网页",true);
+		articleLuceneService.buildIndex(list, true);
+		List<Document> results = articleLuceneService.search("content", "网页",
+				true);
+		Assert.assertNotNull(results);
 		assertEquals(1, results.size());
 		Document doc = results.get(0);
-		assertEquals("弓飞箭", doc.get("author"));
+		assertEquals("康怡怡", doc.get("author"));
 		assertEquals("2", doc.get("id"));
-		assertEquals("英文的技术BLOG", doc.get("title"));
-		
-		results = articleLuceneService.search("content", "中文",true);
+		assertEquals("英文的BLOG", doc.get("title"));
+
+		results = articleLuceneService.search("content", "中文", true);
+		Assert.assertNotNull(results);
 		assertEquals(2, results.size());
 
+		results = articleLuceneService.search(new String[]{"title", "content", "author"}, "技术", true);
+		Assert.assertNotNull(results);
+		assertEquals(1, results.size());
+		
+		results = articleLuceneService.search(new String[]{"title", "content", "author"}, "康怡怡", true);
+		Assert.assertNotNull(results);
+		assertEquals(1, results.size());
 	}
-	
+
 }
