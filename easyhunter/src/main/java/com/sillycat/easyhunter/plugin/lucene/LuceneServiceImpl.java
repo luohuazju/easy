@@ -2,7 +2,7 @@ package com.sillycat.easyhunter.plugin.lucene;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,7 +25,6 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
 
 import com.sillycat.easyhunter.common.StringUtil;
@@ -34,15 +33,12 @@ public class LuceneServiceImpl implements LuceneService {
 
 	protected final Log log = LogFactory.getLog(getClass());
 
-	private Analyzer analyzer = null;
+	private Analyzer analyzer = new CJKAnalyzer(Version.LUCENE_36);
 
+	// default index file path
 	private static final String INDEX_PATH = "D:\\lucene\\index";
 
 	private String indexPath;
-
-	public void init() {
-		analyzer = new CJKAnalyzer(Version.LUCENE_36);
-	}
 
 	/**
 	 * 搜索
@@ -54,52 +50,63 @@ public class LuceneServiceImpl implements LuceneService {
 	 * @param memory
 	 *            true 内存的索引，false 配置的路径的索引
 	 */
-	public List<ScoreDoc> search(String key, String search) {
+	public List<Document> search(String key, String search, boolean isMore) {
 		IndexSearcher searcher = null;
+		IndexReader reader = null;
 		ScoreDoc[] hits = null;
 		Directory dir = null;
-		try {
-			dir = FSDirectory.open(new File(this.getIndexPath()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		IndexReader reader = null;
-		try {
-			reader = IndexReader.open(dir);
-		} catch (CorruptIndexException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		searcher = new IndexSearcher(reader);
-
-		QueryParser parser = new QueryParser(Version.LUCENE_36, key, analyzer);
+		List<Document> documents = null;
 		Query query = null;
 		try {
+			dir = FSDirectory.open(new File(this.getIndexPath()));
+			reader = IndexReader.open(dir);
+			searcher = new IndexSearcher(reader);
+			QueryParser parser = new QueryParser(Version.LUCENE_36, key,
+					analyzer);
 			query = parser.parse(search);
+		} catch (IOException e) {
+			e.printStackTrace();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
-		// 5 pages
 		TopDocs results = null;
+		int numTotalHits = 0;
+
+		// 5 pages first
 		try {
 			results = searcher.search(query, 5 * 10);
 			hits = results.scoreDocs;
+			numTotalHits = results.totalHits;
+			if (isMore) {
+				// total pages
+				hits = searcher.search(query, numTotalHits).scoreDocs;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		// total pages
-		int numTotalHits = results.totalHits;
+		if (hits != null && hits.length > 0) {
+			documents = new ArrayList<Document>(hits.length);
+		}
+		for (int i = 0; i < hits.length; i++) {
+			try {
+				Document doc = searcher.doc(hits[i].doc);
+				documents.add(doc);
+			} catch (CorruptIndexException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		try {
-			hits = searcher.search(query, numTotalHits).scoreDocs;
+			searcher.close();
+			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return documents;
 
-		return Arrays.asList(hits);
-		// Document doc = searcher.doc(hits[i].doc);
 	}
 
 	/**
@@ -110,31 +117,22 @@ public class LuceneServiceImpl implements LuceneService {
 	 * @param memory
 	 *            true 内存中建立索引，false 配置的路径上存放索引
 	 */
-	public void buildIndex(List<LuceneObject> list, boolean isCreat){
+	public void buildIndex(List<LuceneObject> list, boolean isCreat) {
 		Directory dir = null;
-		try {
-			dir = FSDirectory.open(new File(this.getIndexPath()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_36,
-				analyzer);
-		if (isCreat) {
-			// Create a new index in the directory, removing any
-			// previously indexed documents:
-			iwc.setOpenMode(OpenMode.CREATE);
-		} else {
-			// Add new documents to an existing index:
-			iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
-		}
-
 		IndexWriter writer = null;
 		try {
+			dir = FSDirectory.open(new File(this.getIndexPath()));
+			IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_36,
+					analyzer);
+			if (isCreat) {
+				// Create a new index in the directory, removing any
+				// previously indexed documents:
+				iwc.setOpenMode(OpenMode.CREATE);
+			} else {
+				// Add new documents to an existing index:
+				iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
+			}
 			writer = new IndexWriter(dir, iwc);
-		} catch (CorruptIndexException e) {
-			e.printStackTrace();
-		} catch (LockObtainFailedException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -142,34 +140,29 @@ public class LuceneServiceImpl implements LuceneService {
 		Iterator<LuceneObject> iterator = list.iterator();
 		Document doc = null;
 		LuceneObject bo = null;
-		while (iterator.hasNext()) {
-			bo = (LuceneObject) iterator.next();
-			doc = bo.buildindex();
-			if (writer.getConfig().getOpenMode() == OpenMode.CREATE) {
-				try {
+		try {
+			while (iterator.hasNext()) {
+				bo = (LuceneObject) iterator.next();
+				doc = bo.buildindex();
+				if (writer.getConfig().getOpenMode() == OpenMode.CREATE) {
 					writer.addDocument(doc);
-				} catch (CorruptIndexException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else {
-				Term term = new Term("id", doc.get("id"));
-				try {
+				} else {
+					Term term = new Term("id", doc.get("id"));
 					writer.updateDocument(term, doc);
-				} catch (CorruptIndexException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
-		}
-		try {
-			writer.close();
 		} catch (CorruptIndexException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				writer.close();
+			} catch (CorruptIndexException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

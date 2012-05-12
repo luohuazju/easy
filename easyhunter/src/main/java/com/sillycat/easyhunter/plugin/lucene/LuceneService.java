@@ -2,11 +2,11 @@ package com.sillycat.easyhunter.plugin.lucene;
 
 import java.util.List;
 
-import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.document.Document;
 
 public interface LuceneService {
 	
-	public List<ScoreDoc> search(String key, String search);
+	public List<Document> search(String key, String search,boolean isMore);
 	
 	public void buildIndex(List<LuceneObject> list, boolean isCreat);
 
