@@ -54,7 +54,7 @@ public class Article implements LuceneObject, Serializable {
 			doc.add(gmtCreate_Field);
 		}
 		if (StringUtil.isNotBlank(this.getContent())) {
-			doc.add(new Field("contents", new StringReader(this.getContent())));
+			doc.add(new Field("content", new StringReader(this.getContent())));
 		}
 		return doc;
 	}

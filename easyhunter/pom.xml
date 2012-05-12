@@ -44,6 +44,11 @@
     	<artifactId>spring-context</artifactId>
     	<version>3.1.1.RELEASE</version>
     </dependency>
+    <dependency>
+    	<groupId>log4j</groupId>
+    	<artifactId>log4j</artifactId>
+    	<version>1.2.16</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>easyhunter</finalName>
