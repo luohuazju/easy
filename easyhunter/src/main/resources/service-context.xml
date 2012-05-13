@@ -5,4 +5,12 @@
 		<!-- 在硬盘上存放建立的索引 -->
 		<property name="indexPath" value="${lucene.indexPath}" />
 	</bean>
+	
+	<bean id="httpSolrServer" class="com.sillycat.easyhunter.plugin.solr.SolrServerFactory">
+		<property name="solrServerClassName" value=""/>
+	</bean>
+	
+	<bean id="embeddedSolrServer" class="com.sillycat.easyhunter.plugin.solr.SolrServerFactory">
+		
+	</bean>
 </beans>
