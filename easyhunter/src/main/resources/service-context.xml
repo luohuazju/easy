@@ -7,10 +7,12 @@
 	</bean>
 	
 	<bean id="httpSolrServer" class="com.sillycat.easyhunter.plugin.solr.SolrServerFactory">
-		<property name="solrServerClassName" value=""/>
+		<property name="solrServerClassName" value="org.apache.solr.client.solrj.impl.HttpSolrServer"/>
+		<property name="serverURL" value="http://localhost:8983/solr/" />
 	</bean>
 	
 	<bean id="embeddedSolrServer" class="com.sillycat.easyhunter.plugin.solr.SolrServerFactory">
-		
+		<property name="solrServerClassName" value="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer"/>
+		<property name="solrHome" value="D:\\book\\solr\\apache-solr-3.6.0\\example\\solr" />
 	</bean>
 </beans>
