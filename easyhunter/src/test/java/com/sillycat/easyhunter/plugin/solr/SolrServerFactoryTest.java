@@ -49,7 +49,7 @@ public class SolrServerFactoryTest {
 		}
 	}
 
-	@Test
+	//@Test
 	public void httpSolrServerQuery() {
 		String query = "name:DDR";
 		SolrParams params = new SolrQuery(query);
