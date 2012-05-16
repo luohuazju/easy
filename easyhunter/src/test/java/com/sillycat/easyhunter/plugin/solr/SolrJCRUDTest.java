@@ -32,12 +32,12 @@ public class SolrJCRUDTest {
 
 	@Autowired
 	@Qualifier("embeddedSolrServer")
-	private SolrServer embeddedSolrServer;
+	private SolrServer solrServer;
 
 	@Test
 	public void dumy() {
 		Assert.assertTrue(true);
-		Assert.assertNotNull(embeddedSolrServer);
+		Assert.assertNotNull(solrServer);
 	}
 
 	@Test
@@ -49,8 +49,8 @@ public class SolrJCRUDTest {
 		doc.addField("manu", "this is SolrInputDocument content");
 		try {
 			// 添加一个doc文档
-			UpdateResponse response = embeddedSolrServer.add(doc);
-			System.out.println(embeddedSolrServer.commit());// commit后才保存到索引库
+			UpdateResponse response = solrServer.add(doc);
+			System.out.println(solrServer.commit());// commit后才保存到索引库
 			System.out.println(response);
 			System.out.println("querying time:" + response.getQTime());
 			System.out.println("Elapsed Time:" + response.getElapsedTime());
@@ -78,9 +78,9 @@ public class SolrJCRUDTest {
 		docs.add(doc);
 		try {
 			// add documents
-			UpdateResponse response = embeddedSolrServer.add(docs);
+			UpdateResponse response = solrServer.add(docs);
 			// commit后才保存到索引库
-			System.out.println(embeddedSolrServer.commit());
+			System.out.println(solrServer.commit());
 			System.out.println(response);
 		} catch (SolrServerException e) {
 			e.printStackTrace();
@@ -101,8 +101,8 @@ public class SolrJCRUDTest {
 	    
 	    try {
 	        //添加Index Bean到索引库
-	        UpdateResponse response = this.embeddedSolrServer.addBean(p4);
-	        System.out.println(this.embeddedSolrServer.commit());//commit后才保存到索引库
+	        UpdateResponse response = this.solrServer.addBean(p4);
+	        System.out.println(this.solrServer.commit());//commit后才保存到索引库
 	        System.out.println(response);
 	    } catch (SolrServerException e) {
 	        e.printStackTrace();
@@ -131,8 +131,8 @@ public class SolrJCRUDTest {
 	    products.add(p5);
 	    try {
 	        //添加索引库
-	        UpdateResponse response = this.embeddedSolrServer.addBeans(products);
-	        System.out.println(this.embeddedSolrServer.commit());//commit后才保存到索引库
+	        UpdateResponse response = this.solrServer.addBeans(products);
+	        System.out.println(this.solrServer.commit());//commit后才保存到索引库
 	        System.out.println(response);
 	    } catch (SolrServerException e) {
 	        e.printStackTrace();
@@ -140,6 +140,35 @@ public class SolrJCRUDTest {
 	        e.printStackTrace();
 	    }
 	    query("name:add beans index");
+	}
+	
+	@Test
+	public void remove() {
+	    try {
+	    	query("id:1");
+	        //删除id为1的索引
+	        this.solrServer.deleteById("1");
+	        this.solrServer.commit();
+	        query("id:1");
+	        
+	        query("id:3 id:2");
+	        //根据id集合，删除多个索引
+	        List<String> ids = new ArrayList<String>();
+	        ids.add("2");
+	        ids.add("3");
+	        this.solrServer.deleteById(ids);
+	        this.solrServer.commit(true, true);
+	        query("id:3 id:2");
+	        
+	        //删除查询到的索引信息
+	        this.solrServer.deleteByQuery("id:4 id:6");
+	        this.solrServer.commit(true, true);
+	        queryAll();
+	    } catch (SolrServerException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@Test
@@ -152,13 +181,14 @@ public class SolrJCRUDTest {
 		params.set("rows", Integer.MAX_VALUE);
 
 		// 排序，，如果按照id 排序，，那么将score desc 改成 id desc(or asc)
-		params.set("sort", "score desc");
-
+		//params.set("sort", "score desc");
+		params.set("sort", "id asc");
+		
 		// 返回信息 * 为全部 这里是全部加上score，如果不加下面就不能使用score
 		params.set("fl", "*,score");
 
 		try {
-			QueryResponse response = embeddedSolrServer.query(params);
+			QueryResponse response = solrServer.query(params);
 			SolrDocumentList list = response.getResults();
 			for (int i = 0; i < list.size(); i++) {
 				SolrDocument docTmp = list.get(i);
@@ -173,7 +203,7 @@ public class SolrJCRUDTest {
 	private void query(String query) {
 		SolrParams params = new SolrQuery(query);
 		try {
-			QueryResponse response = embeddedSolrServer.query(params);
+			QueryResponse response = solrServer.query(params);
 			SolrDocumentList list = response.getResults();
 			for (int i = 0; i < list.size(); i++) {
 				System.out.println(list.get(i));
