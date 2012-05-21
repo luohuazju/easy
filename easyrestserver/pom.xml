@@ -92,6 +92,12 @@
 	</build>
 	
 	<repositories>
+		<!-- http://www.mvnsearch.org/maven2 -->
+		<repository>
+            <id>mvnsearch_snapshot_repo</id>
+            <name>mvn search snapshot repo</name>
+            <url>http://www.mvnsearch.org/maven2</url>
+        </repository>
 		<!-- http://maven.springframework.org/snapshot -->
 		<repository>
             <id>springframe_snapshot_repo</id>
