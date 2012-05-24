@@ -18,6 +18,37 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>fixationSessionServlet</servlet-name>
+		<servlet-class>com.sillycat.easywebflow.servlet.FixationSessionServlet</servlet-class>
+		<load-on-startup>6</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>fixationSessionServlet</servlet-name>
+		<url-pattern>/servlet</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+		<filter-name>sessionFixationProtoctionFilter</filter-name>
+		<filter-class>com.sillycat.easywebflow.filter.SessionFixationProtectionFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>sessionFixationProtoctionFilter</filter-name>
+		<url-pattern>/order/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>sessionFixationProtoctionFilter</filter-name>
+		<url-pattern>/account.do</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>sessionFixationProtoctionFilter</filter-name>
+		<url-pattern>/product/detail.do</url-pattern>
+	</filter-mapping>
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
