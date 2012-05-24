@@ -26,9 +26,11 @@ public class ShoppingFlowExecutionTest extends AbstractXmlFlowExecutionTests {
 	private CartService cartService;
 
 	private ProductService productService;
-	
+
+	@SuppressWarnings("unused")
 	private Product product;
-	
+
+	@SuppressWarnings("unused")
 	private Cart cart;
 
 	protected void setUp() {
@@ -62,26 +64,28 @@ public class ShoppingFlowExecutionTest extends AbstractXmlFlowExecutionTests {
 		assertNotNull(this.getViewScope().get("products"));
 		EasyMock.verify(productService);
 	}
-	
+
+	@SuppressWarnings("unused")
 	private Flow createMockAddToCartSubflow() {
-	    Flow mockAddToCartSubflow = new Flow("addToCart");
-	    mockAddToCartSubflow.setInputMapper(new Mapper() {
-	        public MappingResults map(Object source, Object target) {
-	            // assert that 1L was passed in as input
-	            //assertEquals(1, ((AttributeMap) source).get("productId"));
-	            return null;
-	        }
-	    });
-	    // immediately return the bookingConfirmed outcome so the caller can respond
-	    new EndState(mockAddToCartSubflow, "productAdded");
-	    return mockAddToCartSubflow;
+		Flow mockAddToCartSubflow = new Flow("addToCart");
+		mockAddToCartSubflow.setInputMapper(new Mapper() {
+			public MappingResults map(Object source, Object target) {
+				// assert that 1L was passed in as input
+				// assertEquals(1, ((AttributeMap) source).get("productId"));
+				return null;
+			}
+		});
+		// immediately return the bookingConfirmed outcome so the caller can
+		// respond
+		new EndState(mockAddToCartSubflow, "productAdded");
+		return mockAddToCartSubflow;
 	}
 
 	private List<Product> mockProducts() {
 		List<Product> items = new ArrayList<Product>();
-		items.add(new Product(1,"mockProduct1",100));
-		items.add(new Product(2,"mockProduct2",200));
-		items.add(new Product(3,"mockProduct3",300));
+		items.add(new Product(1, "mockProduct1", 100));
+		items.add(new Product(2, "mockProduct2", 200));
+		items.add(new Product(3, "mockProduct3", 300));
 		return items;
 	}
 
