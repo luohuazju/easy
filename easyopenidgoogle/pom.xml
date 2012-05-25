@@ -30,7 +30,7 @@
 			<artifactId>openid4java-nodeps</artifactId>
 			<version>0.9.6</version>
 		</dependency>
-<dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>3.1.1.RELEASE</version>
@@ -65,7 +65,7 @@
 			<artifactId>velocity-tools</artifactId>
 			<version>2.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -91,7 +91,16 @@
 			<artifactId>spring-security-acl</artifactId>
 			<version>3.0.7.RELEASE</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-openid</artifactId>
+			<version>3.0.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2-beta1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>easyopenidgoogle</finalName>

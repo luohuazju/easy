@@ -6,19 +6,27 @@
            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-	<security:http auto-config="true">
-		<security:form-login login-page="/login.do" login-processing-url="/loginProcess.do" 
-			default-target-url="/shopping.do" authentication-failure-url="/login.do?login_error=1" />
-		<security:logout logout-url="/logout.do" logout-success-url="/logoutSuccess.do" />
-	</security:http>
-	
-	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="karl" password="111111" authorities="ROLE_USER, ROLE_SUPERVISOR" />
-				<security:user name="kiko" password="111111" authorities="ROLE_USER" />
-			</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager>
+	<security:http>
+        <security:intercept-url pattern="/**" access="ROLE_USER"/>
+        <security:intercept-url pattern="/user/**" access="ROLE_USER"/>
+        <security:intercept-url pattern="/super/**" access="ROLE_SUPERVISOR"/>
+        <security:intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+        <security:intercept-url pattern="/openidlogin.jsp*" filters="none"/>
+        <security:logout/>
+        <security:openid-login login-page="/openidlogin.jsp" authentication-failure-url="/openidlogin.jsp?login_error=true">
+            <security:attribute-exchange>
+                <security:openid-attribute name="email" type="http://schema.openid.net/contact/email" required="true" count="2"/>
+                <security:openid-attribute name="name" type="http://schema.openid.net/namePerson/friendly" />
+            </security:attribute-exchange>
+        </security:openid-login>
+    </security:http>
+
+    <security:authentication-manager alias="authenticationManager" />
+
+    <security:user-service id="userService">
+        <security:user name="4myhappylife@gmail.com" authorities="ROLE_ADMIN,ROLE_USER" />
+        <security:user name="171167496@qq.com" authorities="ROLE_SUPERVISOR,ROLE_USER" />
+        <security:user name="luohuazju@hotmail.com" authorities="ROLE_USER" />
+    </security:user-service>
 	
 </beans>
