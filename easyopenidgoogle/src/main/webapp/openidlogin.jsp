@@ -5,7 +5,7 @@
 
   <body onload="document.f.j_username.focus();">
     <h3>Please Enter Your OpenID Identity</h3>
-
+	<p>Your principal object is....: <%= request.getUserPrincipal() %></p><br />
     <form name="f" action="j_spring_openid_security_check" method="POST">
       <table>
         <tr>
