@@ -20,9 +20,6 @@ public class OpenIdUserDetailsService implements UserDetailsService,
 
 	private final Map<String, GoogleUser> registeredUsers = new HashMap<String, GoogleUser>();
 
-	//private static final List<GrantedAuthority> DEFAULT_AUTHORITIES = AuthorityUtils
-	//		.createAuthorityList("ROLE_USER");
-
 	public UserDetails loadUserDetails(OpenIDAuthenticationToken openIDToken)
 			throws UsernameNotFoundException {
 		String id = openIDToken.getIdentityUrl();
@@ -66,10 +63,23 @@ public class OpenIdUserDetailsService implements UserDetailsService,
 
 	public UserDetails loadUserByUsername(String id)
 			throws UsernameNotFoundException {
-		UserDetails user = registeredUsers.get(id);
+		GoogleUser user = registeredUsers.get(id);
 
-		if (user == null) {
+		if (id == null) {
 			throw new UsernameNotFoundException(id);
+		}
+		
+		if (user == null) {
+			user = new GoogleUser();
+			user.setUsername(id);
+			user.setPassword("111111");
+
+			UserRole userRole = new UserRole();
+			UserAuthority userAuthority = new UserAuthority();
+			userAuthority.setAuthorityAlias("Access the main page!");
+			userAuthority.setAuthorityName("ROLE_USER");
+			userRole.getRoleAuthorities().add(userAuthority);
+			user.getUserRoles().add(userRole);
 		}
 
 		return user;

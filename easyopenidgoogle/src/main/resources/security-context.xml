@@ -5,7 +5,19 @@
        xsi:schemaLocation="
            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
-	<security:authentication-manager alias="openIDAuthenticationManager" />
+           
+	<security:authentication-manager>
+		<security:authentication-provider ref="openidAuthenticationProvider" />
+		<security:authentication-provider ref="authenticationProvider" /> 
+    </security:authentication-manager>
+    
+    <bean id="openidAuthenticationProvider" class="org.springframework.security.openid.OpenIDAuthenticationProvider">
+        <property name="userDetailsService" ref="registeringUserService" />
+    </bean>
+    
+    <bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="registeringUserService" />
+    </bean>
     
     <security:http pattern="/openidlogin.jsp*" security="none"/>
    	<security:http pattern="/images/*" security="none" />
@@ -15,6 +27,7 @@
     <security:debug />
     
     <security:http access-denied-page="/denied.jsp" use-expressions="true">
+    	<security:form-login login-processing-url="/j_spring_security_check" login-page="/openidlogin.jsp" authentication-failure-url="/openidlogin.jsp?login_error=true"/>
     	<security:intercept-url pattern="/index.jsp" access="permitAll" />
         <security:intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
         <security:intercept-url pattern="/super/**" access="hasRole('ROLE_SUPERVISOR')" />
@@ -26,7 +39,6 @@
             logout-url="/j_spring_security_logout"/>
         <security:openid-login 
             user-service-ref="registeringUserService"
-            login-page="/openidlogin.jsp" 
             authentication-failure-url="/openidlogin.jsp?login_error=true" 
             default-target-url="/index.jsp">
             <security:attribute-exchange identifier-match="https://www.google.com/.*">
@@ -44,25 +56,9 @@
             </security:attribute-exchange>
         </security:openid-login>
     </security:http>
+    
    <bean id="registeringUserService" class="com.sillycat.easyopenidgoogle.service.OpenIdUserDetailsService" />
 	
-	<!--  
-	<security:http >
-        <security:intercept-url pattern="/**" access="ROLE_USER" />
-        <security:intercept-url pattern="/user/**" access="ROLE_USER" />
-        <security:intercept-url pattern="/super/**" access="ROLE_SUPERVISOR" />
-        <security:intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
-        <security:intercept-url pattern="/openidlogin.jsp*" security="none" />
-        <security:logout/>
-        <security:openid-login login-page="/openidlogin.jsp" authentication-failure-url="/openidlogin.jsp?login_error=true" user-service-ref="openIdUserService">
-        	<security:attribute-exchange>
-                <security:openid-attribute name="email" type="http://schema.openid.net/contact/email" required="true" count="2"/>
-                <security:openid-attribute name="name" type="http://schema.openid.net/namePerson/friendly" />
-            </security:attribute-exchange>
-        </security:openid-login>
-    </security:http>
-	-->
-   
 	<!--  
     <security:user-service id="userService">
         <security:user name="4myhappylife@gmail.com" authorities="ROLE_ADMIN,ROLE_USER" />
