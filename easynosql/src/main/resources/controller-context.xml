@@ -42,6 +42,7 @@
 		<property name="suffix" value=".vm" />
 		<property name="exposeSpringMacroHelpers" value="true" />
 		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="toolboxConfigLocation" value="/WEB-INF/toolbox.xml"/>
 	</bean>
 
 	<context:component-scan base-package="com.sillycat.easynosql.web" />
@@ -54,6 +55,8 @@
 	
 	<!--  file://D:/work/easy/easywebflow/groovy/*.groovy -->
 	<groovy:scan source-pattern="/groovy/*.groovy" />
+	
+	<mvc:view-controller path="/" view-name="users"/>
 	
 	<mvc:resources mapping="/resources/**" location="/resources/" /> 
 
