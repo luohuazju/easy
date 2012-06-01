@@ -17,8 +17,7 @@
 		p:exitMessage="Leaving $[targetClassShortName].$[methodName](): $[returnValue]"/>
 
 	<aop:config>
-	  <aop:advisor advice-ref="customizableTraceInterceptor" pointcut="execution(public * com.sillycat.easynosql.service..*(..))"/>
-	  <aop:advisor advice-ref="customizableTraceInterceptor" pointcut="execution(public * com.sillycat.easynosql.web..*(..))"/>
+	  	<aop:advisor advice-ref="customizableTraceInterceptor" pointcut="execution(public * com.sillycat.easynosql.service..*(..))"/>
 	</aop:config>
 
 </beans>
