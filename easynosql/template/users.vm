@@ -1,1 +1,116 @@
-test for users
+<script type='text/javascript'>
+	jQuery(function() {
+		
+		// init
+		urlHolder.records = "${link.getContextPath()}/users/records";
+		urlHolder.add = "${link.getContextPath()}/users/create";
+		urlHolder.edit = "${link.getContextPath()}/users/update";
+		urlHolder.del = "${link.getContextPath()}/users/delete";
+		
+		loadTable();
+		
+		jQuery('#newBtn').click(function() { 
+			toggleForms('new');
+			toggleCrudButtons('hide');
+		});
+		
+		jQuery('#editBtn').click(function() { 
+			if (hasSelected()) {
+				toggleForms('edit');
+				toggleCrudButtons('hide');
+				fillEditForm();
+			}
+		});
+		
+		jQuery('#reloadBtn').click(function() { 
+			loadTable();
+		});
+
+		jQuery('#deleteBtn').click(function() {
+			if (hasSelected()) { 
+				submitDeleteRecord();
+			}
+		});
+		
+		jQuery('#newForm').submit(function() {
+			event.preventDefault();
+			submitNewRecord();
+		});
+		
+		jQuery('#editForm').submit(function() {
+			event.preventDefault();
+			submitUpdateRecord();
+		});
+
+		jQuery('#closeNewForm').click(function() { 
+			toggleForms('hide'); 
+			toggleCrudButtons('show');
+		});
+		
+		jQuery('#closeEditForm').click(function() { 
+			toggleForms('hide'); 
+			toggleCrudButtons('show');
+		});
+	});
+</script>
+
+	
+	<h1 id='banner'>Record System</h1>
+	<hr/>
+	
+	<table id='tableUsers'>
+		<caption></caption>
+		<thead>
+			<tr>
+				<th></th>
+				<th>Username</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Role</th>
+			</tr>
+		</thead>
+	</table>
+	
+	<div id='controlBar'>
+		<input type='button' value='New' id='newBtn' />
+		<input type='button' value='Delete' id='deleteBtn' />
+		<input type='button' value='Edit' id='editBtn' />
+		<input type='button' value='Reload' id='reloadBtn' />
+	</div>
+	
+	<div id='newForm'>
+		<form>
+  			<fieldset>
+				<legend>Create New Record</legend>
+				<label for='newUsername'>Username</label><input type='text' id='newUsername'/><br/>
+				<label for='newPassword'>Password</label><input type='password' id='newPassword'/><br/>
+				<label for='newFirstName'>First Name</label><input type='text' id='newFirstName'/><br/>
+				<label for='newLastName'>Last Name</label><input type='text' id='newLastName'/><br/>
+				<label for='newRole'>Role</label>
+					<select id='newRole'>
+						<option value='1'>Admin</option>
+						<option value='2' selected='selected'>Regular</option>
+					</select>
+  			</fieldset>
+			<input type='button' value='Close' id='closeNewForm' />
+			<input type='submit' value='Submit'/>
+		</form>
+	</div>
+	
+	<div id='editForm'>
+		<form>
+  			<fieldset>
+				<legend>Edit Record</legend>
+				<input type='hidden' id='editUsername'/>
+				<label for='editFirstName'>First Name</label><input type='text' id='editFirstName'/><br/>
+				<label for='editLastName'>Last Name</label><input type='text' id='editLastName'/><br/>
+				<label for='editRole'>Role</label>
+					<select id='editRole'>
+						<option value='1'>Admin</option>
+						<option value='2' selected='selected'>Regular</option>
+					</select>
+			</fieldset>
+			<input type='button' value='Close' id='closeEditForm' />
+			<input type='submit' value='Submit'/>
+		</form>
+	</div>

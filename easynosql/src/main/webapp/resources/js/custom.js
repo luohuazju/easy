@@ -1,13 +1,8 @@
-/**
- * Contains custom JavaScript code
- */
 var urlHolder = new Object();
 
 function loadTable() {
-	$.get(urlHolder.records, function(response) {
-		
- 		$('#tableUsers').find('tbody').remove();
- 		
+	jQuery.get(urlHolder.records, function(response) {
+		jQuery('#tableUsers').find('tbody').remove();
  		for (var i=0; i<response.users.length; i++) {
 			var row = '<tr>';
 			row += '<td><input type="radio" name="index" id="index" value="'+i+'"></td>';
@@ -16,21 +11,21 @@ function loadTable() {
 			row += '<td>' + response.users[i].lastName + '</td>';
 			row += '<td>' + getRole(response.users[i].role.role) + '</td>';
 			row += '</tr>';
-	 		$('#tableUsers').append(row);
+	 		jQuery('#tableUsers').append(row);
  		}
  		
- 		$('#tableUsers').data('model', response.users);
+ 		jQuery('#tableUsers').data('model', response.users);
 		toggleForms('hide'); ;
  	});
 }
 
 function submitNewRecord() {
-	$.post(urlHolder.add, {
-			username: $('#newUsername').val(),
-			password: $('#newPassword').val(),
-			firstName: $('#newFirstName').val(),
-			lastName: $('#newLastName').val(),
-			role: $('#newRole').val()
+	jQuery.post(urlHolder.add, {
+			username: jQuery('#newUsername').val(),
+			password: jQuery('#newPassword').val(),
+			firstName: jQuery('#newFirstName').val(),
+			lastName: jQuery('#newLastName').val(),
+			role: jQuery('#newRole').val()
 		}, 
 		function(response) {
 			if (response != null) {
@@ -46,10 +41,10 @@ function submitNewRecord() {
 }
 
 function submitDeleteRecord() {
-	var selected = $('input:radio[name=index]:checked').val();
+	var selected = jQuery('input:radio[name=index]:checked').val();
 	
-	$.post(urlHolder.del, {
-			username: $('#tableUsers').data('model')[selected].username
+	jQuery.post(urlHolder.del, {
+			username: jQuery('#tableUsers').data('model')[selected].username
 		}, 
 		function(response) {
 			if (response == true) {
@@ -63,11 +58,11 @@ function submitDeleteRecord() {
 }
 
 function submitUpdateRecord() {
-	$.post(urlHolder.edit, {
-			username: $('#editUsername').val(),
-			firstName: $('#editFirstName').val(),
-			lastName: $('#editLastName').val(),
-			role: $('#editRole').val()
+	jQuery.post(urlHolder.edit, {
+			userName: jQuery('#editUsername').val(),
+			firstName: jQuery('#editFirstName').val(),
+			lastName: jQuery('#editLastName').val(),
+			role: jQuery('#editRole').val()
 		}, 
 		function(response) {
 			if (response != null) {
@@ -89,11 +84,11 @@ function getRole(role) {
 		return 'Regular';
 	} else {
 		return 'Unknown';
-	} 
+	}
 }
 
 function hasSelected() {
-	var selected = $('input:radio[name=index]:checked').val();
+	var selected = jQuery('input:radio[name=index]:checked').val();
 	if (selected == undefined) { 
 		alert('Select a record first!');
 		return false;
@@ -103,55 +98,55 @@ function hasSelected() {
 }
 
 function fillEditForm() {
-	var selected = $('input:radio[name=index]:checked').val();
-	$('#editUsername').val( $('#tableUsers').data('model')[selected].username );
-	$('#editFirstName').val( $('#tableUsers').data('model')[selected].firstName );
-	$('#editLastName').val( $('#tableUsers').data('model')[selected].lastName );
-	$('#editRole').val( $('#tableUsers').data('model')[selected].role.role );
+	var selected = jQuery('input:radio[name=index]:checked').val();
+	jQuery('#editUsername').val( jQuery('#tableUsers').data('model')[selected].username );
+	jQuery('#editFirstName').val( jQuery('#tableUsers').data('model')[selected].firstName );
+	jQuery('#editLastName').val( jQuery('#tableUsers').data('model')[selected].lastName );
+	jQuery('#editRole').val( jQuery('#tableUsers').data('model')[selected].role.role );
 }
 
 function resetNewForm() {
-	$('#newUsername').val('');
-	$('#newPassword').val('');
-	$('#newFirstName').val('');
-	$('#newLastName').val('');
-	$('#newRole').val('2');
+	jQuery('#newUsername').val('');
+	jQuery('#newPassword').val('');
+	jQuery('#newFirstName').val('');
+	jQuery('#newLastName').val('');
+	jQuery('#newRole').val('2');
 }
 
 function resetEditForm() {
-	$('#editFirstName').val('');
-	$('#editLastName').val('');
-	$('#editRole').val('2');
+	jQuery('#editFirstName').val('');
+	jQuery('#editLastName').val('');
+	jQuery('#editRole').val('2');
 }
 
 function toggleForms(id) {
 	if (id == 'hide') {
-		$('#newForm').hide();
-		$('#editForm').hide();
+		jQuery('#newForm').hide();
+		jQuery('#editForm').hide();
 		
 	} else if (id == 'new') {
  		resetNewForm();
- 		$('#newForm').show();
- 		$('#editForm').hide();
+ 		jQuery('#newForm').show();
+ 		jQuery('#editForm').hide();
  		
 	} else if (id == 'edit') {
  		resetEditForm();
- 		$('#newForm').hide();
- 		$('#editForm').show();
+ 		jQuery('#newForm').hide();
+ 		jQuery('#editForm').show();
 	}
 }
 
 function toggleCrudButtons(id) {
 	if (id == 'show') {
-		$('#newBtn').removeAttr('disabled');
-		$('#editBtn').removeAttr('disabled');
-		$('#deleteBtn').removeAttr('disabled');
-		$('#reloadBtn').removeAttr('disabled');
+		jQuery('#newBtn').removeAttr('disabled');
+		jQuery('#editBtn').removeAttr('disabled');
+		jQuery('#deleteBtn').removeAttr('disabled');
+		jQuery('#reloadBtn').removeAttr('disabled');
 		
 	} else if (id == 'hide'){
-		$('#newBtn').attr('disabled', 'disabled');
-		$('#editBtn').attr('disabled', 'disabled');
-		$('#deleteBtn').attr('disabled', 'disabled');
-		$('#reloadBtn').attr('disabled', 'disabled');
+		jQuery('#newBtn').attr('disabled', 'disabled');
+		jQuery('#editBtn').attr('disabled', 'disabled');
+		jQuery('#deleteBtn').attr('disabled', 'disabled');
+		jQuery('#reloadBtn').attr('disabled', 'disabled');
 	}
 }

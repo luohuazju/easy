@@ -49,7 +49,18 @@
         
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
 
-	<bean id="handlerAdapter" class="com.sillycat.easygroovyplugin.servlet.proxy.ProxyAwareAnnotationMethodHandlerAdapter" />	
+	<bean id="handlerAdapter" class="com.sillycat.easygroovyplugin.servlet.proxy.ProxyAwareAnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonConverter" />
+			</list>
+		</property>
+	</bean>	
+	
+	<bean id="jsonConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes" value="application/json" />
+	</bean>
 
 	<lang:defaults refresh-check-delay="5" />
 	
