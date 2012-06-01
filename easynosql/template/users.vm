@@ -1,5 +1,5 @@
 <script type='text/javascript'>
-	jQuery(function() {
+	$(function() {
 		
 		// init
 		urlHolder.records = "${link.getContextPath()}/users/records";
@@ -9,12 +9,12 @@
 		
 		loadTable();
 		
-		jQuery('#newBtn').click(function() { 
+		$('#newBtn').click(function() { 
 			toggleForms('new');
 			toggleCrudButtons('hide');
 		});
 		
-		jQuery('#editBtn').click(function() { 
+		$('#editBtn').click(function() { 
 			if (hasSelected()) {
 				toggleForms('edit');
 				toggleCrudButtons('hide');
@@ -22,32 +22,32 @@
 			}
 		});
 		
-		jQuery('#reloadBtn').click(function() { 
+		$('#reloadBtn').click(function() { 
 			loadTable();
 		});
 
-		jQuery('#deleteBtn').click(function() {
+		$('#deleteBtn').click(function() {
 			if (hasSelected()) { 
 				submitDeleteRecord();
 			}
 		});
 		
-		jQuery('#newForm').submit(function() {
+		$('#newForm').submit(function() {
 			event.preventDefault();
 			submitNewRecord();
 		});
 		
-		jQuery('#editForm').submit(function() {
+		$('#editForm').submit(function() {
 			event.preventDefault();
 			submitUpdateRecord();
 		});
 
-		jQuery('#closeNewForm').click(function() { 
+		$('#closeNewForm').click(function() { 
 			toggleForms('hide'); 
 			toggleCrudButtons('show');
 		});
 		
-		jQuery('#closeEditForm').click(function() { 
+		$('#closeEditForm').click(function() { 
 			toggleForms('hide'); 
 			toggleCrudButtons('show');
 		});
