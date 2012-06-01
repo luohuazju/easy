@@ -22,9 +22,6 @@ public class UserService {
 	public User create(User user) {
 		user.setId(UUID.randomUUID().toString());
 		user.getRole().setId(UUID.randomUUID().toString());
-
-		// We must save both separately since there is no cascading feature
-		// in Spring Data MongoDB (for now)
 		roleRepository.save(user.getRole());
 		return userRepository.save(user);
 	}
@@ -48,8 +45,6 @@ public class UserService {
 		existingUser.setLastName(user.getLastName());
 		existingUser.getRole().setRole(user.getRole().getRole());
 
-		// We must save both separately since there is no cascading feature
-		// in Spring Data MongoDB (for now)
 		roleRepository.save(existingUser.getRole());
 		return userRepository.save(existingUser);
 	}
@@ -61,8 +56,6 @@ public class UserService {
 			return false;
 		}
 
-		// We must delete both separately since there is no cascading feature
-		// in Spring Data MongoDB (for now)
 		roleRepository.delete(existingUser.getRole());
 		userRepository.delete(existingUser);
 		return true;
