@@ -58,7 +58,7 @@ public class UserControllerTest extends ControllerTestBase {
 		Assert.assertNotNull(result.getUsername());
 		Assert.assertEquals("john", result.getUsername());
 	}
-	
+
 	@Test
 	public void create() throws Exception {
 		MockHttpServletRequest mockRequest = new MockHttpServletRequest();

@@ -27,7 +27,7 @@ public class UserService {
 	}
 
 	public User read(User user) {
-		return user;
+		return userRepository.findByUsername(user.getUsername());
 	}
 
 	public List<User> readAll() {
