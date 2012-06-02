@@ -31,7 +31,7 @@ public class InitMongoService {
 		john.setId(UUID.randomUUID().toString());
 		john.setFirstName("John");
 		john.setLastName("Smith");
-		john.setPassword("21232f297a57a5a743894a0e4a801fc3");
+		john.setPassword("111111");
 		john.setRole(adminRole);
 		john.setUsername("john");
 
@@ -39,7 +39,7 @@ public class InitMongoService {
 		jane.setId(UUID.randomUUID().toString());
 		jane.setFirstName("Jane");
 		jane.setLastName("Adams");
-		jane.setPassword("ee11cbb19052e40b07aac0ca060c23ee");
+		jane.setPassword("111111");
 		jane.setRole(userRole);
 		jane.setUsername("jane");
 
@@ -48,6 +48,7 @@ public class InitMongoService {
 		mongoTemplate.insert(jane, "user");
 		mongoTemplate.insert(adminRole, "role");
 		mongoTemplate.insert(userRole, "role");
+		
 	}
 
 }
