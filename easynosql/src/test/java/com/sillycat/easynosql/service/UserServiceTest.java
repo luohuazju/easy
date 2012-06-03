@@ -59,7 +59,7 @@ public class UserServiceTest {
 		item.setFirstName("item1");
 		item.setLastName("item1");
 		item.setPassword("111111");
-		item.setUsername("testcase1");
+		item.setUsername("testcase2");
 
 		Role role = new Role();
 		role.setRole(1);

@@ -11,6 +11,9 @@
 	<properties>
 		<spring.data.mongodb.version>1.1.0.BUILD-SNAPSHOT</spring.data.mongodb.version>
 		<spring.core.version>3.1.1.RELEASE</spring.core.version>
+		<neo4j.kernel.version>1.7</neo4j.kernel.version>
+		<neo4j.cypher.version>1.7</neo4j.cypher.version>
+		<neo4j.cypher.dsl.version>1.7</neo4j.cypher.dsl.version>
 	</properties>
 
 	<dependencies>
@@ -144,6 +147,21 @@
 			<artifactId>spring-data-neo4j</artifactId>
 			<version>2.1.0.BUILD-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-kernel</artifactId>
+			<version>${neo4j.kernel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-cypher</artifactId>
+			<version>${neo4j.cypher.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-cypher-dsl</artifactId>
+			<version>${neo4j.cypher.dsl.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -162,7 +180,12 @@
 			<name>Spring Maven SNAPSHOT Repository</name>
 			<url>http://repo.springsource.org/libs-snapshot</url>
 		</repository>
-
+		
+		<repository>
+			<id>spring-milestone</id>
+			<name>Spring Maven milestone Repository</name>
+			<url>http://maven.springframework.org/milestone</url>
+		</repository>
 		<repository>
 			<id>jboss</id>
 			<name>JBoss repository</name>

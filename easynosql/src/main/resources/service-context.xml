@@ -21,8 +21,13 @@
 			http://www.springframework.org/schema/mvc 
 			http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
 			">
-
+	
+	<!--  
 	<bean id="userService" class="com.sillycat.easynosql.service.impl.UserServiceMongoImpl">
 	</bean>
-
+	-->
+	<bean id="userService" class="com.sillycat.easynosql.service.impl.UserServiceNeo4jImpl">
+	</bean>
+	
+	
 </beans>

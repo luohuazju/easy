@@ -33,7 +33,10 @@
     
 	<import resource="classpath:controller-context.xml" />
 	<import resource="classpath:aop-context.xml" />
+	<!--  
 	<import resource="classpath:mongodb-context.xml" />
+	-->
+	<import resource="classpath:neo4j-context.xml" />
 	<import resource="classpath:service-context.xml" />
 
 </beans>
