@@ -14,6 +14,7 @@
 		<neo4j.kernel.version>1.7</neo4j.kernel.version>
 		<neo4j.cypher.version>1.7</neo4j.cypher.version>
 		<neo4j.cypher.dsl.version>1.7</neo4j.cypher.dsl.version>
+		<spring.data.redis.version>1.0.0.RC1</spring.data.redis.version>
 	</properties>
 
 	<dependencies>
@@ -162,6 +163,11 @@
 			<artifactId>neo4j-cypher-dsl</artifactId>
 			<version>${neo4j.cypher.dsl.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>${spring.data.redis.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -180,7 +186,7 @@
 			<name>Spring Maven SNAPSHOT Repository</name>
 			<url>http://repo.springsource.org/libs-snapshot</url>
 		</repository>
-		
+
 		<repository>
 			<id>spring-milestone</id>
 			<name>Spring Maven milestone Repository</name>
