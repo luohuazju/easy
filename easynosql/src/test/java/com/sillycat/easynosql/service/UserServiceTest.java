@@ -43,8 +43,9 @@ public class UserServiceTest {
 
 	@Test
 	public void create() {
-		User user = userService.create(item);
-		Assert.assertNotNull(user);
+		item = userService.create(item);
+		Assert.assertNotNull(item);
+		Assert.assertNotNull(item.getId());
 	}
 
 	@Test

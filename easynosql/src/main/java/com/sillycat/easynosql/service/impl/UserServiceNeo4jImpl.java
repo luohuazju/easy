@@ -31,7 +31,7 @@ public class UserServiceNeo4jImpl implements UserService{
 		Userneo4j saveUser = UserConvert.convertUser2Userneo4j(user);
 		saveUser.getRoleneo4j().setUserneo4j(saveUser);
 		userneo4jRepository.save(saveUser);
-		return user;
+		return UserConvert.convertUserneo4j2User(saveUser);
 	}
 
 	public User read(User user) {
@@ -66,7 +66,7 @@ public class UserServiceNeo4jImpl implements UserService{
 
 		roleneo4jRepository.save(existingUser.getRoleneo4j());
 		userneo4jRepository.save(existingUser);
-		return user;
+		return UserConvert.convertUserneo4j2User(existingUser);
 	}
 
 	public Boolean delete(User user) {
