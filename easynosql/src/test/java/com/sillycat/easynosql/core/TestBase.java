@@ -24,23 +24,29 @@ public class TestBase {
 
 	@Before
 	public void setUp() {
-		String[] configs = { "file:src/test/resources/test-context.xml" };
-		context = new XmlWebApplicationContext();
-		context.setConfigLocations(configs);
-		MockServletContext msc = new MockServletContext();
-		context.setServletContext(msc);
-		context.refresh();
-		msc.setAttribute(
-				WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,
-				context);
-		handlerMapping = (HandlerMapping) context
-				.getBean(DefaultAnnotationHandlerMapping.class);
-		handlerAdapter = (HandlerAdapter) context
-				.getBean(context
-						.getBeanNamesForType(ProxyAwareAnnotationMethodHandlerAdapter.class)[0]);
+		if (context == null) {
+			String[] configs = { "file:src/test/resources/test-context.xml" };
+			context = new XmlWebApplicationContext();
+			context.setConfigLocations(configs);
+			MockServletContext msc = new MockServletContext();
+			context.setServletContext(msc);
+			context.refresh();
+			msc.setAttribute(
+					WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,
+					context);
+		}
+		if (handlerMapping == null) {
+			handlerMapping = (HandlerMapping) context
+					.getBean(DefaultAnnotationHandlerMapping.class);
+		}
+		if (handlerAdapter == null) {
+			handlerAdapter = (HandlerAdapter) context
+					.getBean(context
+							.getBeanNamesForType(ProxyAwareAnnotationMethodHandlerAdapter.class)[0]);
+		}
 	}
-	
-	public XmlWebApplicationContext getContext(){
+
+	public XmlWebApplicationContext getContext() {
 		return context;
 	}
 
