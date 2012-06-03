@@ -6,36 +6,45 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sillycat.easynosql.dao.mongodb.repository.RoleRepository;
-import com.sillycat.easynosql.dao.mongodb.repository.UserRepository;
+import com.sillycat.easynosql.dao.mongodb.model.Usermongo;
+import com.sillycat.easynosql.dao.mongodb.repository.RolemongoRepository;
+import com.sillycat.easynosql.dao.mongodb.repository.UsermongoRepository;
 import com.sillycat.easynosql.model.User;
+import com.sillycat.easynosql.model.convert.RoleConvert;
+import com.sillycat.easynosql.model.convert.UserConvert;
 
 @Service
 public class UserService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UsermongoRepository usermongoRepository;
 
 	@Autowired
-	private RoleRepository roleRepository;
+	private RolemongoRepository rolemongoRepository;
 
 	public User create(User user) {
 		user.setId(UUID.randomUUID().toString());
 		user.getRole().setId(UUID.randomUUID().toString());
-		roleRepository.save(user.getRole());
-		return userRepository.save(user);
+		rolemongoRepository.save(RoleConvert.convertRole2Rolemongo(user
+				.getRole()));
+		usermongoRepository.save(UserConvert.convertUser2Usermongo(user));
+		return user;
 	}
 
 	public User read(User user) {
-		return userRepository.findByUsername(user.getUsername());
+		Usermongo usermongo = usermongoRepository.findByUsername(user.getUsername());
+		user = UserConvert.convertUsermongo2User(usermongo);
+		return user;
 	}
 
 	public List<User> readAll() {
-		return userRepository.findAll();
+		List<Usermongo> list = usermongoRepository.findAll();
+		List<User> users = UserConvert.convertListUsermongo2User(list);
+		return users;
 	}
 
 	public User update(User user) {
-		User existingUser = userRepository.findByUsername(user.getUsername());
+		Usermongo existingUser = usermongoRepository.findByUsername(user.getUsername());
 
 		if (existingUser == null) {
 			return null;
@@ -43,21 +52,22 @@ public class UserService {
 
 		existingUser.setFirstName(user.getFirstName());
 		existingUser.setLastName(user.getLastName());
-		existingUser.getRole().setRole(user.getRole().getRole());
+		existingUser.getRolemongo().setRole(user.getRole().getRole());
 
-		roleRepository.save(existingUser.getRole());
-		return userRepository.save(existingUser);
+		rolemongoRepository.save(existingUser.getRolemongo());
+		usermongoRepository.save(existingUser);
+		return user;
 	}
 
 	public Boolean delete(User user) {
-		User existingUser = userRepository.findByUsername(user.getUsername());
+		Usermongo existingUser = usermongoRepository.findByUsername(user.getUsername());
 
 		if (existingUser == null) {
 			return false;
 		}
 
-		roleRepository.delete(existingUser.getRole());
-		userRepository.delete(existingUser);
+		rolemongoRepository.delete(existingUser.getRolemongo());
+		usermongoRepository.delete(existingUser);
 		return true;
 	}
 

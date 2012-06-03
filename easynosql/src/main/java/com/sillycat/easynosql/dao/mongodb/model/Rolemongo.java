@@ -1,8 +1,12 @@
-package com.sillycat.easynosql.model;
+package com.sillycat.easynosql.dao.mongodb.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-public class Role {
+@Document
+public class Rolemongo {
 
+	@Id
 	private String id;
 
 	private Integer role;

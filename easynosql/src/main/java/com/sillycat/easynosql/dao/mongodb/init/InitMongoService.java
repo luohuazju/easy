@@ -5,8 +5,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-import com.sillycat.easynosql.model.Role;
-import com.sillycat.easynosql.model.User;
+import com.sillycat.easynosql.dao.mongodb.model.Rolemongo;
+import com.sillycat.easynosql.dao.mongodb.model.Usermongo;
 
 public class InitMongoService {
 
@@ -15,39 +15,39 @@ public class InitMongoService {
 
 	public void init() {
 		// Drop existing collections
-		mongoTemplate.dropCollection("role");
-		mongoTemplate.dropCollection("user");
+		mongoTemplate.dropCollection("rolemongo");
+		mongoTemplate.dropCollection("usermongo");
 
 		// Create new records
-		Role adminRole = new Role();
-		adminRole.setId(UUID.randomUUID().toString());
-		adminRole.setRole(1);
+		Rolemongo adminRolemongo = new Rolemongo();
+		adminRolemongo.setId(UUID.randomUUID().toString());
+		adminRolemongo.setRole(1);
 
-		Role userRole = new Role();
-		userRole.setId(UUID.randomUUID().toString());
-		userRole.setRole(2);
+		Rolemongo userRolemongo = new Rolemongo();
+		userRolemongo.setId(UUID.randomUUID().toString());
+		userRolemongo.setRole(2);
 
-		User john = new User();
+		Usermongo john = new Usermongo();
 		john.setId(UUID.randomUUID().toString());
 		john.setFirstName("John");
 		john.setLastName("Smith");
 		john.setPassword("111111");
-		john.setRole(adminRole);
+		john.setRolemongo(adminRolemongo);
 		john.setUsername("john");
 
-		User jane = new User();
+		Usermongo jane = new Usermongo();
 		jane.setId(UUID.randomUUID().toString());
 		jane.setFirstName("Jane");
 		jane.setLastName("Adams");
 		jane.setPassword("111111");
-		jane.setRole(userRole);
+		jane.setRolemongo(userRolemongo);
 		jane.setUsername("jane");
 
 		// Insert to db
-		mongoTemplate.insert(john, "user");
-		mongoTemplate.insert(jane, "user");
-		mongoTemplate.insert(adminRole, "role");
-		mongoTemplate.insert(userRole, "role");
+		mongoTemplate.insert(john, "usermongo");
+		mongoTemplate.insert(jane, "usermongo");
+		mongoTemplate.insert(adminRolemongo, "rolemongo");
+		mongoTemplate.insert(userRolemongo, "rolemongo");
 		
 	}
 

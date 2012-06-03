@@ -1,8 +1,13 @@
-package com.sillycat.easynosql.model;
+package com.sillycat.easynosql.dao.mongodb.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-public class User {
+@Document
+public class Usermongo {
 
+	@Id
 	private String id;
 
 	private String firstName;
@@ -13,7 +18,8 @@ public class User {
 	
 	private String password;
 	
-	private Role role;
+	@DBRef
+	private Rolemongo rolemongo;
 
 	public String getId() {
 		return id;
@@ -55,12 +61,13 @@ public class User {
 		this.password = password;
 	}
 
-	public Role getRole() {
-		return role;
+	public Rolemongo getRolemongo() {
+		return rolemongo;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRolemongo(Rolemongo rolemongo) {
+		this.rolemongo = rolemongo;
 	}
+	
 	
 }

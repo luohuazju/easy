@@ -46,7 +46,7 @@ public class UserControllerTest extends ControllerTestBase {
 		mockRequest.setRequestURI("/users/get");
 
 		User user = new User();
-		user.setUsername("john");
+		user.setUsername("john");  
 		String jsonUser = jsonMapper.writeValueAsString(user);
 		mockRequest.setContent(jsonUser.getBytes());
 

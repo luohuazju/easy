@@ -49,11 +49,11 @@ public class UserServiceTest {
 	
 	@Test
 	public void read(){
-		userService.create(item);
+		item.setUsername("john");
 		User user = userService.read(item);
 		Assert.assertNotNull(user);
 	}
-
+  
 	private User getItem() {
 		User item = new User();
 		item.setFirstName("item1");
