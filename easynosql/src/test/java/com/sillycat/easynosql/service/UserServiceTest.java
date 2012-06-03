@@ -31,7 +31,7 @@ public class UserServiceTest {
 
 	@After
 	public void after() {
-		if (item != null && item.getId() != null ) {
+		if (item != null && item.getId() != null) {
 			userService.delete(item);
 		}
 	}
@@ -46,14 +46,14 @@ public class UserServiceTest {
 		User user = userService.create(item);
 		Assert.assertNotNull(user);
 	}
-	
+
 	@Test
-	public void read(){
+	public void read() {
 		item.setUsername("john");
 		User user = userService.read(item);
 		Assert.assertNotNull(user);
 	}
-  
+
 	private User getItem() {
 		User item = new User();
 		item.setFirstName("item1");

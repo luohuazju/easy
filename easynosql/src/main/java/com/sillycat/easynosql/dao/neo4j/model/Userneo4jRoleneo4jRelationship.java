@@ -1,5 +1,5 @@
 package com.sillycat.easynosql.dao.neo4j.model;
 
-public class UserRoleRelationship {
+public class Userneo4jRoleneo4jRelationship {
 
 }

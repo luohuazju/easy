@@ -9,11 +9,11 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import com.sillycat.easynosql.core.ControllerTestBase;
+import com.sillycat.easynosql.core.TestBase;
 import com.sillycat.easynosql.model.User;
 import com.sillycat.easynosql.model.dto.UserListDTO;
 
-public class UserControllerTest extends ControllerTestBase {
+public class UserControllerTest extends TestBase {
 
 	public ObjectMapper jsonMapper;
 

@@ -15,15 +15,17 @@ import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMa
 
 import com.sillycat.easygroovyplugin.servlet.proxy.ProxyAwareAnnotationMethodHandlerAdapter;
 
-public class ControllerTestBase {
+public class TestBase {
 
 	private HandlerMapping handlerMapping;
 	private HandlerAdapter handlerAdapter;
 
+	private XmlWebApplicationContext context;
+
 	@Before
 	public void setUp() {
 		String[] configs = { "file:src/test/resources/test-context.xml" };
-		XmlWebApplicationContext context = new XmlWebApplicationContext();
+		context = new XmlWebApplicationContext();
 		context.setConfigLocations(configs);
 		MockServletContext msc = new MockServletContext();
 		context.setServletContext(msc);
@@ -36,7 +38,10 @@ public class ControllerTestBase {
 		handlerAdapter = (HandlerAdapter) context
 				.getBean(context
 						.getBeanNamesForType(ProxyAwareAnnotationMethodHandlerAdapter.class)[0]);
-
+	}
+	
+	public XmlWebApplicationContext getContext(){
+		return context;
 	}
 
 	public ModelAndView excuteAction(HttpServletRequest request,
