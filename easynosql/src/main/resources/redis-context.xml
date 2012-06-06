@@ -22,6 +22,5 @@
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
     	p:connection-factory-ref="jedisConnectionFactory"/>
     	
-    	<!-- Service for initializing Redis with sample data using RedisTemplate -->
 	<bean id="initRedisService" class="com.sillycat.easynosql.dao.redis.init.InitRedisService" init-method="init"/>	    
 </beans>
