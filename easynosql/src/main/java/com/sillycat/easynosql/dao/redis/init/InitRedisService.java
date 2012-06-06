@@ -12,7 +12,6 @@ public class InitRedisService {
 	
 	public void init() {
 		// Delete existing ones
-
 		String key = "user"+"john";
 		template.opsForHash().delete(key, "id");
 		template.opsForHash().delete(key, "firstName");
@@ -38,6 +37,7 @@ public class InitRedisService {
 		template.opsForHash().put(key, "password", "21232f297a57a5a743894a0e4a801fc3");
 		template.opsForHash().put(key, "role", "1");
 		template.opsForSet().add("user", key);
+		//overwrite set value here
 		
 		key = "user"+"jane";
 		template.opsForHash().put(key, "id", UUID.randomUUID().toString());

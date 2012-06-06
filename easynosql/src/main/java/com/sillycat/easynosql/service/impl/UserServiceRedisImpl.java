@@ -21,19 +21,36 @@ public class UserServiceRedisImpl implements UserService{
 	public User create(User user) {
 		String key = "user"+user.getUsername();
 		String id = UUID.randomUUID().toString();
+		//use hash structure to store the columns
 		template.opsForHash().put(key, "id", id);
 		template.opsForHash().put(key, "firstName", user.getFirstName());
 		template.opsForHash().put(key, "lastName", user.getLastName());
 		template.opsForHash().put(key, "username", user.getUsername());
 		template.opsForHash().put(key, "password", user.getPassword());
 		template.opsForHash().put(key, "role", user.getRole().getRole().toString());
-		
+		//use set structure to store the users
 		template.opsForSet().add("user", key);
 		user.setId(id);
 		return user;
 	}
 
 	public User read(User user) {
+		String key = "user"+user.getUsername();
+		String existingRecord = (String) template.opsForHash().get(key, "id");
+
+		if (existingRecord == null) {
+			return null;
+		}
+		User returnUser = new User();
+		returnUser.setId((String) template.opsForHash().get(key, "id"));
+		returnUser.setFirstName((String) template.opsForHash().get(key, "firstName"));
+		returnUser.setLastName((String) template.opsForHash().get(key, "lastName"));
+		returnUser.setPassword((String) template.opsForHash().get(key, "password"));
+		returnUser.setUsername((String) template.opsForHash().get(key, "username"));
+		
+		Role role = new Role();
+		role.setRole(Integer.valueOf((String) template.opsForHash().get(key, "role")));
+		returnUser.setRole(role);
 		return user;
 	}
 
@@ -48,9 +65,11 @@ public class UserServiceRedisImpl implements UserService{
 		fieldKeys.add("password");
 		fieldKeys.add("role");
 
+		//fetch all the key from set
 		Collection<String> keys = template.opsForSet().members("user");
 		for (String key: keys) {
 			User user = new User();
+			//find the value with key/column name
 			user.setId((String) template.opsForHash().get(key, "id"));
 			user.setFirstName((String) template.opsForHash().get(key, "firstName"));
 			user.setLastName((String) template.opsForHash().get(key, "lastName"));
@@ -63,7 +82,6 @@ public class UserServiceRedisImpl implements UserService{
 			
 			users.add(user);
 		}
-		
 		
 		return users;
 	}
