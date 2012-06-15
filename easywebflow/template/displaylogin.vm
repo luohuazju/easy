@@ -1,3 +1,4 @@
+    <h1>Session Value: ${session.getAttribute("title")} </h1>
 	<form name="f" action="user.do?method=login" method="post">
 		<fieldset>
 			<legend>Login Information</legend>

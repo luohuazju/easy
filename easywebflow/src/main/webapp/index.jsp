@@ -5,10 +5,8 @@
 <a href="echo.do?method=echo">Echo</a><br />
 <a href="echo.do?method=displaylogin">Login</a><br />
 <a href="servlet">Servlet</a><br />
-
-<a href="order/1">Filter1</a><br />
-<a href="account.do">Filter2</a><br />
-<a href="product/detail.do">Filter3</a><br />
+<a href="user.do?method=login">Filter</a><br />
+<a href="echo.do?method=preparesession">Session Check</a><br />
  
 </body>
 </html>

@@ -37,19 +37,9 @@
 	
 	<filter-mapping>
 		<filter-name>sessionFixationProtoctionFilter</filter-name>
-		<url-pattern>/order/*</url-pattern>
+		<url-pattern>/user.do</url-pattern>
 	</filter-mapping>
 	
-	<filter-mapping>
-		<filter-name>sessionFixationProtoctionFilter</filter-name>
-		<url-pattern>/account.do</url-pattern>
-	</filter-mapping>
-	
-	<filter-mapping>
-		<filter-name>sessionFixationProtoctionFilter</filter-name>
-		<url-pattern>/product/detail.do</url-pattern>
-	</filter-mapping>
-
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

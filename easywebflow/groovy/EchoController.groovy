@@ -14,7 +14,7 @@ class EchoController {
 
 	@RequestMapping(params = "method=echo" ,method = RequestMethod.GET)
     public ModelAndView echo() throws IOException {
-		System.out.println("echo in controller");
+		System.out.println("echo in controller with sessionId = " + request.getSession().getId());
 		return new ModelAndView("echo","user","sillycat");
     }
 	
@@ -22,7 +22,21 @@ class EchoController {
 	public ModelAndView displayLogin(HttpServletRequest request,
 			HttpServletResponse response) throws IOException{
 		System.out.println("displaylogin in controller with sessionId = " + request.getSession().getId());
+		response.setHeader("Pragma", "no-cache")
+		response.addHeader("Cache-Control", "no-cache")
+		response.addHeader("Cache-Control", "no-store" )
+		response.addHeader("Cache-Control", "must-revalidate" )
+		response.setDateHeader("Expires", 0)
+		response.flushBuffer()
 	    return new ModelAndView("displaylogin");
 	}
 			
+			
+	@RequestMapping(params = "method=preparesession", method = RequestMethod.GET)
+	public ModelAndView preparesession(HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+		System.out.println("preparesession in controller with sessionId = " + request.getSession().getId());
+		request.getSession().setAttribute("title", "session and HTTPS/HTTP testing");
+		return new ModelAndView("next");
+	}
 }

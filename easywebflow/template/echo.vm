@@ -1,3 +1,4 @@
+  <h1>Session Value: ${session.getAttribute("title")} </h1>
 test for fun
 username = ${username}<br />
 password = ${password}<br />

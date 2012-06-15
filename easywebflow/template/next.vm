@@ -1,0 +1,8 @@
+
+	
+
+<br />
+    <h1>Session Value: ${session.getAttribute("title")} </h1>
+<br />
+
+<a href="echo.do?method=displaylogin">Login</a><br />
