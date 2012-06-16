@@ -35,10 +35,26 @@
 		<filter-class>com.sillycat.easywebflow.filter.SessionFixationProtectionFilter</filter-class>
 	</filter>
 	
+	<!--  
+	
+	<filter>
+		<filter-name>httpsCookieWriterFilter</filter-name>
+		<filter-class>com.sillycat.easywebflow.filter.HttpsCookieWriterFilter</filter-class>
+	</filter>
+	
+	-->
+	
 	<filter-mapping>
 		<filter-name>sessionFixationProtoctionFilter</filter-name>
 		<url-pattern>/user.do</url-pattern>
 	</filter-mapping>
+	
+	<!--  
+	<filter-mapping>
+		<filter-name>httpsCookieWriterFilter</filter-name>
+		<url-pattern>/user.do</url-pattern>
+	</filter-mapping>
+	-->
 	
 	<filter>
 		<filter-name>encodingFilter</filter-name>

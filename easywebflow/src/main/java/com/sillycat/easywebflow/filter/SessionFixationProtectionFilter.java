@@ -23,6 +23,7 @@ public class SessionFixationProtectionFilter implements Filter {
 	public void doFilter(ServletRequest servletRequest,
 			ServletResponse serlvetResponse, FilterChain chain)
 			throws IOException, ServletException {
+		System.out.println("SessionFixationProtectionFilter class entered here!!!!!!!!!!!!!!");
 		if (!(servletRequest instanceof HttpServletRequest)) {
 			throw new ServletException("Can only process HttpServletRequest");
 		}
@@ -36,7 +37,11 @@ public class SessionFixationProtectionFilter implements Filter {
 
 		startNewSessionIfRequired(request, response);
 
-		chain.doFilter(request, response);
+		CookieRequestWrapper wrapperRequest = new CookieRequestWrapper(
+				request);
+		wrapperRequest.setResponse(response);
+		chain.doFilter(wrapperRequest, response);
+		//chain.doFilter(request, response);
 	}
 
 	public void destroy() {
