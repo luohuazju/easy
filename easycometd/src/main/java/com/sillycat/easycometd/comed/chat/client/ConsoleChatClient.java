@@ -81,11 +81,11 @@ public class ConsoleChatClient {
 	}
 
 	private void connectionClosed() {
-		System.err.printf("system: Connection to Server Closed%n");
+		System.out.printf("system: Connection to Server Closed%n");
 	}
 
 	private void connectionBroken() {
-		System.err.printf("system: Connection to Server Broken%n");
+		System.out.printf("system: Connection to Server Broken%n");
 	}
 
 	private class InitializerListener implements
@@ -124,7 +124,7 @@ public class ConsoleChatClient {
 			Map<String, Object> data = message.getDataAsMap();
 			String fromUser = (String) data.get("user");
 			String text = (String) data.get("chat");
-			System.out.printf("%s: %s%n", fromUser, text);
+			System.out.printf("Message ----- %s: %s%n", fromUser, text);
 		}
 	}
 
