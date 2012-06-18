@@ -5,7 +5,8 @@
 <body>
 
     <div id="body">
-    	<a href="chat/index.html">Chat</a>
+    	<a href="chat/index.html">Chat</a><br />
+    	<a href="sound.jsp">Sound</a>
     </div>
 
 </body>
