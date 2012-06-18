@@ -38,7 +38,7 @@
         </init-param>
         <init-param>
             <param-name>services</param-name>
-            <param-value>com.sillycat.easycometd.comed.chat.ChatService</param-value>
+            <param-value>com.sillycat.easycometd.comed.chat.service.ChatService</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

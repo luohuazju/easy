@@ -1,23 +1,4 @@
-/*
- * Copyright (c) 2010 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- *
- */
-package com.sillycat.easycometd.comed.chat;
+package com.sillycat.easycometd.comed.chat.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,9 +26,12 @@ import org.cometd.server.filter.NoMarkupFilter;
 
 @Service("chat")
 public class ChatService {
+	
 	private final ConcurrentMap<String, Map<String, String>> _members = new ConcurrentHashMap<String, Map<String, String>>();
+	
 	@Inject
 	private BayeuxServer _bayeux;
+	
 	@Session
 	private ServerSession _session;
 
@@ -142,12 +126,15 @@ public class ChatService {
 			forward.setData(chat);
 
 			// test for lazy messages
-			if (text.lastIndexOf("lazy") > 0)
+			if (text.lastIndexOf("lazy") > 0){
 				forward.setLazy(true);
+			}
 
-			for (ServerSession peer : peers)
-				if (peer != client)
+			for (ServerSession peer : peers){
+				if (peer != client){
 					peer.deliver(_session, forward);
+				}
+			}
 			client.deliver(_session, forward);
 		}
 	}
