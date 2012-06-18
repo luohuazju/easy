@@ -17,7 +17,7 @@
 /**
  *
  */
-package com.sillycat.easycometd.chat;
+package com.sillycat.easycometd.comed.chat;
 
 import java.util.ArrayList;
 import java.util.HashMap;

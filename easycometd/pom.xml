@@ -96,6 +96,11 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.6.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>7.6.4.v20120524</version>
+        </dependency>
     </dependencies>
 
 </project>
