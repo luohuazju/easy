@@ -19,26 +19,40 @@ public class CookieRequestWrapper extends HttpServletRequestWrapper {
 	}
 
 	public HttpSession getSession() {
+		Thread currentThread = Thread.currentThread();  // 获得当前的线程          
+		String threadName = currentThread.getName();  
+		
 		HttpSession session = super.getSession();
+		
+		System.out.println(threadName + " getSession CookieRequestWrapper class entered here!!!!!!!!!!!!!! and sessionId=" + session.getId());
+		
 		processSessionCookie(session);
 		return session;
 	}
 
 	public HttpSession getSession(boolean create) {
+		Thread currentThread = Thread.currentThread();  // 获得当前的线程          
+		String threadName = currentThread.getName();  
+		
 		HttpSession session = super.getSession(create);
+		System.out.println(threadName + " getSession boolean  CookieRequestWrapper class entered here!!!!!!!!!!!!!! and sessionId=" + session.getId());
 		processSessionCookie(session);
 		return session;
 	}
 
 	private void processSessionCookie(HttpSession session) {
+		Thread currentThread = Thread.currentThread();  // 获得当前的线程          
+		String threadName = currentThread.getName();  
+		
 		if (null == response || null == session) {
 			return;
 		}
 		// cookieOverWritten
 		Object cookieOverWritten = getAttribute("COOKIE_OVERWRITTEN_FLAG");
 		if (null == cookieOverWritten && isSecure()
+		//if (isSecure()
 				&& isRequestedSessionIdFromCookie() && session.isNew()) {
-			System.out.println("CookieRequestWrapper class entered here!!!!!!!!!!!!!! and sessionId=" + session.getId());
+			System.out.println(threadName + " CookieRequestWrapper class entered here!!!!!!!!!!!!!! and sessionId=" + session.getId());
 			Cookie cookie = new Cookie("JSESSIONID", session.getId());
 			cookie.setMaxAge(-1); 
 			String contextPath = getContextPath();

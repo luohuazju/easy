@@ -16,26 +16,22 @@ public class SessionUtil {
 
 	private final static Log log = LogFactory.getLog(SessionUtil.class);
 
-	static public void startNewSessionIfRequired(HttpServletRequest request,
+	static public boolean startNewSessionIfRequired(HttpServletRequest request,
 			boolean migrateSessionAttributes) {
-		//map to hold all the parameters
+		// map to hold all the parameters
 		HashMap<String, Object> attributesToMigrate = null;
-		
-		//get session
+
+		// get session
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-			//if no session, there is nothing to deal
-			return;
+			log.debug("how did this happen, there is no session!!!!!!!!!!!!");
+			// if no session, there is nothing to deal
+			return false;
 		}
 
 		String originalSessionId = session.getId();
 
-		if (log.isDebugEnabled()) {
-			log.debug("Invalidating session with Id '" + originalSessionId
-					+ "' " + (migrateSessionAttributes ? "and" : "without")
-					+ " migrating attributes.");
-		}
-		//save the attributes in map
+		// save the attributes in map
 		if (migrateSessionAttributes) {
 			attributesToMigrate = new HashMap<String, Object>();
 			Enumeration<?> enumer = session.getAttributeNames();
@@ -46,15 +42,28 @@ public class SessionUtil {
 			}
 		}
 
-		//kill the old session
+		// kill the old session
+		if (log.isDebugEnabled()) {
+			log.debug("Invalidating session with Id " + originalSessionId + " start!");
+		}
 		session.invalidate();
+		
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			log.error(e);
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("Invalidating session with Id " + originalSessionId + " end!");
+		}
 		session = request.getSession(true); // we now have a new session
-
+		
 		if (log.isDebugEnabled()) {
 			log.debug("Started new session: " + session.getId());
 		}
 
-		//migrate the attribute to new session
+		// migrate the attribute to new session
 		if (attributesToMigrate != null) {
 			Iterator<?> iter = attributesToMigrate.entrySet().iterator();
 
@@ -63,6 +72,7 @@ public class SessionUtil {
 				session.setAttribute((String) entry.getKey(), entry.getValue());
 			}
 		}
+		return true;
 	}
 
 }
