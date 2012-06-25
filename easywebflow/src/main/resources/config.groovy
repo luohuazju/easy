@@ -1,4 +1,4 @@
 //################################################
 //# velocity path
 //################################################
-velocity.file.path="file://d:/work/easy/easywebflow2"
+velocity.file.path="file://d:/work/easy/easywebflow1"

@@ -22,6 +22,8 @@
 			http://www.sillycat.com/schema/groovy 
 			http://www.sillycat.com/schema/groovy/groovy.xsd
 			">
+			
+	<!--  		
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
@@ -34,6 +36,18 @@
 			</list>
 		</property>
 	</bean>
+	-->
+	
+	<bean class="com.sillycat.easywebflow.core.GroovyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="true" />  
+  		<property name="locations">  
+    		<list>  
+      			<value>classpath:config.groovy</value>  
+      			<value>classpath:config.properties</value>  
+      			<value>classpath:config2.groovy</value>  
+    		</list>  
+  		</property>  
+	</bean>  
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.sillycat">

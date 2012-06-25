@@ -14,7 +14,6 @@ class EchoController {
 
 	@RequestMapping(params = "method=echo" ,method = RequestMethod.GET)
     public ModelAndView echo() throws IOException {
-		System.out.println("echo in controller with sessionId = " + request.getSession().getId());
 		return new ModelAndView("echo","user","sillycat");
     }
 	
