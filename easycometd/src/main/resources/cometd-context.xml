@@ -18,7 +18,8 @@
 			http://www.springframework.org/schema/lang/spring-lang-3.0.xsd
 			http://www.sillycat.com/schema/groovy 
 			http://www.sillycat.com/schema/groovy/groovy.xsd
-			">	
+			">
+			
      <bean id="bayeux" class="org.cometd.server.BayeuxServerImpl" init-method="start" destroy-method="stop">
         <property name="options">
             <map>

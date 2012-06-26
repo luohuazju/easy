@@ -19,19 +19,28 @@ import org.cometd.bayeux.server.ConfigurableServerChannel;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
 import org.cometd.server.authorizer.GrantAuthorizer;
-import org.cometd.server.filter.DataFilter;
 import org.cometd.server.filter.DataFilterMessageListener;
-import org.cometd.server.filter.JSONDataFilter;
 import org.cometd.server.filter.NoMarkupFilter;
 
+import com.sillycat.easycometd.comed.chat.filter.BadWordFilter;
+
+/**
+ * 
+ * Chat Service
+ * @author SILLYCAT
+ *
+ */
 @Service("chat")
 public class ChatService {
-	
+
+	/**
+	 * the key is the room name, the value is the members map
+	 */
 	private final ConcurrentMap<String, Map<String, String>> _members = new ConcurrentHashMap<String, Map<String, String>>();
-	
+
 	@Inject
 	private BayeuxServer _bayeux;
-	
+
 	@Session
 	private ServerSession _session;
 
@@ -52,17 +61,24 @@ public class ChatService {
 	@Listener("/service/members")
 	public void handleMembership(ServerSession client, ServerMessage message) {
 		Map<String, Object> data = message.getDataAsMap();
+		//here get the name of the room from client data
 		final String room = ((String) data.get("room")).substring("/chat/"
 				.length());
+		
+		//check the members of one room from map
 		Map<String, String> roomMembers = _members.get(room);
 		if (roomMembers == null) {
 			Map<String, String> new_room = new ConcurrentHashMap<String, String>();
 			roomMembers = _members.putIfAbsent(room, new_room);
-			if (roomMembers == null)
+			if (roomMembers == null){
 				roomMembers = new_room;
+			}
 		}
 		final Map<String, String> members = roomMembers;
+		//here get the name of the user from client data
 		String userName = (String) data.get("user");
+		
+		//remember the user name as key, the client id as value
 		members.put(userName, client.getId());
 		client.addListener(new ServerSession.RemoveListener() {
 			public void removed(ServerSession session, boolean timeout) {
@@ -93,45 +109,56 @@ public class ChatService {
 	@Listener("/service/privatechat")
 	protected void privateChat(ServerSession client, ServerMessage message) {
 		Map<String, Object> data = message.getDataAsMap();
+		
 		String room = ((String) data.get("room")).substring("/chat/".length());
+		
 		Map<String, String> membersMap = _members.get(room);
 		if (membersMap == null) {
 			Map<String, String> new_room = new ConcurrentHashMap<String, String>();
 			membersMap = _members.putIfAbsent(room, new_room);
-			if (membersMap == null)
+			if (membersMap == null){
 				membersMap = new_room;
+			}
 		}
+		
+		//get private name
 		String[] peerNames = ((String) data.get("peer")).split(",");
 		ArrayList<ServerSession> peers = new ArrayList<ServerSession>(
 				peerNames.length);
 
 		for (String peerName : peerNames) {
+			//get clientId then
 			String peerId = membersMap.get(peerName);
 			if (peerId != null) {
+				//get the client session
 				ServerSession peer = _bayeux.getSession(peerId);
-				if (peer != null)
+				if (peer != null){
 					peers.add(peer);
+				}
 			}
 		}
 
 		if (peers.size() > 0) {
+			
 			Map<String, Object> chat = new HashMap<String, Object>();
 			String text = (String) data.get("chat");
 			chat.put("chat", text);
 			chat.put("user", data.get("user"));
 			chat.put("scope", "private");
+			
 			ServerMessage.Mutable forward = _bayeux.newMessage();
 			forward.setChannel("/chat/" + room);
 			forward.setId(message.getId());
 			forward.setData(chat);
 
 			// test for lazy messages
-			if (text.lastIndexOf("lazy") > 0){
+			if (text.lastIndexOf("lazy") > 0) {
 				forward.setLazy(true);
 			}
 
-			for (ServerSession peer : peers){
-				if (peer != client){
+			for (ServerSession peer : peers) {
+				if (peer != client) {
+					//deliver to others first
 					peer.deliver(_session, forward);
 				}
 			}
@@ -139,12 +166,4 @@ public class ChatService {
 		}
 	}
 
-	class BadWordFilter extends JSONDataFilter {
-		@Override
-		protected Object filterString(String string) {
-			if (string.indexOf("dang") >= 0)
-				throw new DataFilter.Abort();
-			return string;
-		}
-	}
 }
