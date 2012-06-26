@@ -2,12 +2,12 @@
     var submit=0;
     function CheckIsRepeat()
     {
-        if (++submit>1)
-        {
-            return false;
-        }
-        var form = document.getElementById("loadingForm");
-        form.submit();
+        //if (++submit>1)
+        //{
+        //    return false;
+        //}
+        //var form = document.getElementById("loadingForm");
+        //form.submit();
         return true;
     }
 </script>    
