@@ -1,5 +1,19 @@
-    <h1>Session Value: ${session.getAttribute("title")} </h1>
-	<form name="f" action="user.do?method=login" method="post">
+<script language="javascript">
+    var submit=0;
+    function CheckIsRepeat()
+    {
+        if (++submit>1)
+        {
+            return false;
+        }
+        var form = document.getElementById("loadingForm");
+        form.submit();
+        return true;
+    }
+</script>    
+	
+	<h1>Session Value: ${session.getAttribute("title")} </h1>
+	<form name="f" action="user.do?method=login" method="POST">
 		<fieldset>
 			<legend>Login Information</legend>
 			<p>
@@ -38,7 +52,7 @@
 					widgetType : "dijit.form.CheckBox"}));
 			</script>
 			<p>
-				<button id="submit" type="submit">Login</button>
+				<button id="submit" type="submit" onclick="return CheckIsRepeat();">Login</button>
 				<script type="text/javascript">
 					Spring.addDecoration(new Spring.ValidateAllDecoration({event : 'onclick', elementId : 'submit'}));
 				</script>

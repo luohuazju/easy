@@ -18,24 +18,26 @@ public class CookieRequestWrapper extends HttpServletRequestWrapper {
 		this.response = response;
 	}
 
+	@SuppressWarnings("unused")
 	public HttpSession getSession() {
 		Thread currentThread = Thread.currentThread();  // 获得当前的线程          
 		String threadName = currentThread.getName();  
 		
 		HttpSession session = super.getSession();
 		
-		System.out.println(threadName + " getSession CookieRequestWrapper class entered here!!!!!!!!!!!!!! and sessionId=" + session.getId());
+		//System.out.println(threadName + " getSession CookieRequestWrapper class entered here!!!!!!!!!!!!!! and sessionId=" + session.getId());
 		
 		processSessionCookie(session);
 		return session;
 	}
 
+	@SuppressWarnings("unused")
 	public HttpSession getSession(boolean create) {
 		Thread currentThread = Thread.currentThread();  // 获得当前的线程          
 		String threadName = currentThread.getName();  
 		
 		HttpSession session = super.getSession(create);
-		System.out.println(threadName + " getSession boolean  CookieRequestWrapper class entered here!!!!!!!!!!!!!! and sessionId=" + session.getId());
+		///System.out.println(threadName + " getSession boolean  CookieRequestWrapper class entered here!!!!!!!!!!!!!! and sessionId=" + session.getId());
 		processSessionCookie(session);
 		return session;
 	}

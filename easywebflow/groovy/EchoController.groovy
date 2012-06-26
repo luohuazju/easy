@@ -1,5 +1,7 @@
 package com.sillycat.easywebflow.web;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,5 +39,22 @@ class EchoController {
 		System.out.println("preparesession in controller with sessionId = " + request.getSession().getId());
 		request.getSession().setAttribute("title", "session and HTTPS/HTTP testing");
 		return new ModelAndView("next");
+	}
+			
+	@RequestMapping(params = "method=success" ,method = RequestMethod.GET)
+	public ModelAndView success(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String username = request.getParameter("j_username");
+		String password = request.getParameter("j_password");
+		ModelAndView view = new ModelAndView("echo");
+		System.out.println("GET username = " + username + " password = " + password + " sessionId = " + request.getSession().getId());
+		try {
+			Thread.sleep(2000);
+		}catch(Exception e){
+			System.out.println("GET username = " + username + " password = " + password + " sessionId = " + request.getSession().getId());
+		}
+		view.addObject("username", username);
+		view.addObject("password", password);
+		return view;
 	}
 }
