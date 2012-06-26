@@ -21,6 +21,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.sillycat.easywebflow.core.localcache.LocalCache;
+
 public class SessionFixationProtectionFilter implements Filter {
 
 	private final static Log log = LogFactory
@@ -30,8 +32,9 @@ public class SessionFixationProtectionFilter implements Filter {
 
 	private boolean migrateSessionAttributes = true;
 
-	private Map<String, Map<String, Object>> sessionMap = new HashMap<String, Map<String, Object>>();
-
+	//private Map<String, Map<String, Object>> sessionMap = new HashMap<String, Map<String, Object>>();
+	private LocalCache<String, Map<String,Object>> sessionLocalCache = new LocalCache<String,Map<String,Object>>("localSession", 200, 5000);
+	
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}
 
@@ -111,7 +114,7 @@ public class SessionFixationProtectionFilter implements Filter {
 								+ " sessionId=" + originalSessionId);
 					}
 				}
-				sessionMap.put(originalSessionId, attributesToMigrate);
+				sessionLocalCache.put(originalSessionId, attributesToMigrate);
 			}
 		} else {
 			originalSessionId = sessionId_fromCookie;
@@ -136,10 +139,10 @@ public class SessionFixationProtectionFilter implements Filter {
 			log.debug(threadName + "Started new session: " + session.getId());
 		}
 
-		if (sessionMap.containsKey(originalSessionId)) {
+		if (sessionLocalCache.containsKey(originalSessionId)) {
 			log.debug(threadName + "getting session value from map: "
 					+ originalSessionId);
-			attributesToMigrate = (HashMap<String, Object>) sessionMap
+			attributesToMigrate = (HashMap<String, Object>) sessionLocalCache
 					.get(originalSessionId);
 		}
 		// migrate the attribute to new session
