@@ -1,11 +1,6 @@
 package com.sillycat.easywebflow.filter;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,7 +8,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,20 +15,15 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.sillycat.easywebflow.core.localcache.LocalCache;
-
 public class SessionFixationProtectionFilter implements Filter {
 
 	private final static Log log = LogFactory
 			.getLog(SessionFixationProtectionFilter.class);
 
-	private int num = 1;
+	private static final String SESSION_IP_FILTER_CONSTANT = "session_ip_filter_constant";
 
-	private boolean migrateSessionAttributes = true;
+	private static final String SESSION_USER_AGENT_FILTER_CONSTANT = "session_user_agent_filter_constant";
 
-	//private Map<String, Map<String, Object>> sessionMap = new HashMap<String, Map<String, Object>>();
-	private LocalCache<String, Map<String,Object>> sessionLocalCache = new LocalCache<String,Map<String,Object>>("localSession", 200, 5000);
-	
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}
 
@@ -42,143 +31,71 @@ public class SessionFixationProtectionFilter implements Filter {
 			ServletResponse serlvetResponse, FilterChain chain)
 			throws IOException, ServletException {
 
-		Thread currentThread = Thread.currentThread();
-		String threadName = currentThread.getName();
-
-		if (!(servletRequest instanceof HttpServletRequest)) {
-			log.error("Can only process HttpServletRequest");
-			throw new ServletException("Can only process HttpServletRequest");
-		}
-
-		if (!(serlvetResponse instanceof HttpServletResponse)) {
-			log.error("Can only process HttpServletResponse");
-			throw new ServletException("Can only process HttpServletResponse");
-		}
-
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) serlvetResponse;
 
-		// read cookie
-		Cookie[] cookies_array = request.getCookies();
-		String sessionId_fromCookie = "";
-		if (cookies_array != null && cookies_array.length > 0) {
-			for (int i = 0; i < cookies_array.length; i++) {
-				Cookie cookie = cookies_array[i];
-				if (cookie.getName().equalsIgnoreCase("JSESSIONID")) {
-					sessionId_fromCookie = cookie.getValue();
-					break;
-				}
-			}
+		String current_clientip = "127.0.0.1";
+		String current_clientagent = "useragent";
+
+		String session_clientip = "";
+		String session_clientagent = "";
+
+		if (request.getRemoteAddr() != null
+				&& !"".equals(request.getRemoteAddr())) {
+			current_clientip = request.getRemoteAddr();
+		}
+		if (request.getHeader("User-Agent") != null
+				&& !"".equals(request.getHeader("User-Agent"))) {
+			current_clientagent = request.getHeader("User-Agent");
 		}
 
-		log.debug(threadName + " filter count = " + num++
-				+ " sessionId_fromCookie=" + sessionId_fromCookie);
-
-		// map to hold all the parameters
-		HashMap<String, Object> attributesToMigrate = null;
-
-		// get session
 		HttpSession session = request.getSession(false);
-
 		if (session == null && request.isRequestedSessionIdValid() == false) {
-			log.debug(threadName
-					+ " how did this happen, there is no session!!!!!!!!!!!! + sessionId_fromCookie="
-					+ sessionId_fromCookie);
-			// if no session, there is nothing to deal
-			// chain.doFilter(request, response);
-			// return;
+			// session is empty, nothing need to do
+			log.debug(" There is no session here !");
+			chain.doFilter(request, response);
+			return;
+		}
+		if (session.getAttribute(SESSION_IP_FILTER_CONSTANT) != null) {
+			session_clientip = (String) session
+					.getAttribute(SESSION_IP_FILTER_CONSTANT);
+		}
+		if (session.getAttribute(SESSION_USER_AGENT_FILTER_CONSTANT) != null) {
+			session_clientagent = (String) session
+					.getAttribute(SESSION_USER_AGENT_FILTER_CONSTANT);
 		}
 
-		String originalSessionId = "";
+		log.debug(" current ip = " + current_clientip + " session ip = "
+				+ session_clientip);
+		log.debug(" current useragent = " + current_clientagent
+				+ " session useragent = " + session_clientagent);
 
-		if (session != null && request.isRequestedSessionIdValid() != false) {
-			originalSessionId = session.getId();
-			// save the attributes in map
-			if (migrateSessionAttributes) {
-				attributesToMigrate = new HashMap<String, Object>();
-				Enumeration<?> enumer = session.getAttributeNames();
-				while (enumer.hasMoreElements()) {
-					try {
-						// Thread.sleep(2000);
-						String key = (String) enumer.nextElement();
-						if (session != null
-								&& request.isRequestedSessionIdValid() != false) {
-							attributesToMigrate.put(key,
-									session.getAttribute(key));
-						}
-						// } catch (InterruptedException e) {
-						// log.error( threadName + "error message: " + e +
-						// " sessionId=" + originalSessionId);
-					} catch (Exception e) {
-						log.error(threadName + " error message " + e
-								+ " sessionId=" + originalSessionId);
-					}
-				}
-				sessionLocalCache.put(originalSessionId, attributesToMigrate);
-			}
-		} else {
-			originalSessionId = sessionId_fromCookie;
-		}
-
-		// kill the old session
-		if (session != null && request.isRequestedSessionIdValid() != false) {
-			if (log.isDebugEnabled()) {
-				log.debug(threadName + " Invalidating session with Id "
-						+ originalSessionId + " start!");
-			}
-			session.invalidate();
-			if (log.isDebugEnabled()) {
-				log.debug(threadName + "Invalidating session with Id "
-						+ originalSessionId + " end!");
-			}
-			// session.setMaxInactiveInterval(10);
-		}
-
-		session = request.getSession(true); // we now have a new session
-		if (log.isDebugEnabled()) {
-			log.debug(threadName + "Started new session: " + session.getId());
-		}
-
-		if (sessionLocalCache.containsKey(originalSessionId)) {
-			log.debug(threadName + "getting session value from map: "
-					+ originalSessionId);
-			attributesToMigrate = (HashMap<String, Object>) sessionLocalCache
-					.get(originalSessionId);
-		}
-		// migrate the attribute to new session
-		if (attributesToMigrate != null) {
-			Iterator<?> iter = attributesToMigrate.entrySet().iterator();
-			while (iter.hasNext()) {
-				Map.Entry<?, ?> entry = (Entry<?, ?>) iter.next();
-				try {
-					session.setAttribute((String) entry.getKey(),
-							entry.getValue());
-					// Thread.sleep(2000);
-					// } catch (InterruptedException e) {
-					// log.error(threadName + " error message " + e +
-					// " new SessionId=" + session.getId());
-				} catch (Exception e) {
-					log.error(threadName + " error message " + e
-							+ " new SessionId=" + session.getId());
-				}
+		if (session_clientip != null && !session_clientip.equals("")) {
+			// session value is not null, so this is not the first request
+			if (!session_clientip.equalsIgnoreCase(current_clientip)
+					|| !session_clientagent
+							.equalsIgnoreCase(current_clientagent)) {
+				// the current user is not the previous one, kill the current
+				// session
+				String original_session_id = session.getId();
+				log.debug(" invalidate the old sessionid = "
+						+ original_session_id);
+				session.invalidate();
+				// generate new session
+				session = request.getSession(true);
+				log.debug(" newly create sessionid = " + session.getId());
 			}
 		}
 
-		CookieRequestWrapper wrapperRequest = new CookieRequestWrapper(request);
-		wrapperRequest.setResponse(response);
-		chain.doFilter(wrapperRequest, response);
+		session.setAttribute(SESSION_IP_FILTER_CONSTANT, current_clientip);
+		session.setAttribute(SESSION_USER_AGENT_FILTER_CONSTANT,
+				current_clientagent);
+		
+		chain.doFilter(request, response);
 	}
 
 	public void destroy() {
 
-	}
-
-	public boolean isMigrateSessionAttributes() {
-		return migrateSessionAttributes;
-	}
-
-	public void setMigrateSessionAttributes(boolean migrateSessionAttributes) {
-		this.migrateSessionAttributes = migrateSessionAttributes;
 	}
 
 }
