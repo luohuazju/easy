@@ -43,7 +43,7 @@ public class ChatService {
 
 	@Session
 	private ServerSession _session;
-
+	
 	@Configure({ "/chat/**", "/members/**" })
 	protected void configureChatStarStar(ConfigurableServerChannel channel) {
 		DataFilterMessageListener noMarkup = new DataFilterMessageListener(
@@ -105,6 +105,7 @@ public class ChatService {
 		channel.addListener(noMarkup);
 		channel.addAuthorizer(GrantAuthorizer.GRANT_PUBLISH);
 	}
+	
 
 	@Listener("/service/privatechat")
 	protected void privateChat(ServerSession client, ServerMessage message) {

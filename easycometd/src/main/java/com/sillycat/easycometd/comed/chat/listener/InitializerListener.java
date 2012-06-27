@@ -37,6 +37,7 @@ public class InitializerListener implements
 			public void run() {
 				ClientSessionChannel chatChannel = client
 						.getChannel("/chat/demo");
+				
 				chatChannel.unsubscribe(chatListener);
 				chatChannel.subscribe(chatListener);
 

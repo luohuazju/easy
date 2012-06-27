@@ -40,6 +40,7 @@ public class ConsoleChatClient {
 				new ConnectionListener(nickname, client));
 
 		client.handshake();
+
 		boolean success = client.waitFor(1000, BayeuxClient.State.CONNECTED);
 		if (!success) {
 			System.err.printf("Could not handshake with server at %s%n", url);
@@ -53,7 +54,13 @@ public class ConsoleChatClient {
 		data.put("chat", text);
 		client.getChannel("/chat/demo").publish(data);
 
-		client.disconnect(1000);
+        data = new HashMap<String, Object>();
+        data.put("user", nickname);
+        data.put("membership", "leave");
+        data.put("chat", nickname + " has left");
+        client.getChannel("/chat/demo").publish(data);
+        
+        client.disconnect(1000);
 	}
 
 }
