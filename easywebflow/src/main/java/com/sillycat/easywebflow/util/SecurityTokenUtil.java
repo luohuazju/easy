@@ -6,8 +6,7 @@ import org.apache.log4j.Logger;
 
 public class SecurityTokenUtil {
 
-	private static final Logger log = Logger
-			.getLogger(SecurityTokenUtil.class);
+	private static final Logger log = Logger.getLogger(SecurityTokenUtil.class);
 
 	private static final SecureRandom sr = new SecureRandom();
 
@@ -24,6 +23,23 @@ public class SecurityTokenUtil {
 			sb.append(Math.abs(sr.nextInt(10)));
 		}
 		log.debug("gen randomIntNum=" + sb.toString());
+		return sb.toString();
+	}
+
+	public static String getRandomIntNumCharacter(int length) {
+		sr.setSeed(sr.nextLong());
+		StringBuffer sb = new StringBuffer();
+
+		for (int i = 0; i < length; i++) {
+			if (sr.nextBoolean()) {
+				sb.append(Math.abs(sr.nextInt(10)));
+			} else {
+				char c = (char) (((Math.abs(sr.nextInt())) % 26) + (sr
+						.nextBoolean() ? 65 : 97));
+			    sb.append(c);
+			}
+		}
+		log.debug("gen getRandomIntNumCharacter=" + sb.toString());
 		return sb.toString();
 	}
 
@@ -50,8 +66,8 @@ public class SecurityTokenUtil {
 	 * @return
 	 */
 	public static String getRandomString(int length) {
-		String returnstr =  new String(getRandomCharArray(length));
-		log.debug("gen randomIntNum=" + returnstr);
+		String returnstr = new String(getRandomCharArray(length));
+		log.debug("gen getRandomString=" + returnstr);
 		return returnstr;
 	}
 

@@ -46,7 +46,7 @@
 	
 	<filter-mapping>
 		<filter-name>sessionFixationProtoctionFilter</filter-name>
-		<url-pattern>/user.do</url-pattern>
+		<url-pattern>/echo.do</url-pattern>
 	</filter-mapping>
 	
 	<!--  

@@ -19,5 +19,13 @@ public class SecurityTokenUtilTest {
 		String str2 = SecurityTokenUtil.getRandomString(30);
 		Assert.assertNotSame(str1,str2);
 	}
+	
+	@Test
+	public void getRandomIntNumCharacter(){
+		String str1 = SecurityTokenUtil.getRandomIntNumCharacter(30);
+		String str2 = SecurityTokenUtil.getRandomIntNumCharacter(30);
+		
+		Assert.assertNotSame(str1, str2);
+	}
 
 }
