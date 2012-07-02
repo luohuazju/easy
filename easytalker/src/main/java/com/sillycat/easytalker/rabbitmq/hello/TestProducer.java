@@ -10,7 +10,7 @@ public class TestProducer {
 
 	private final static String QUEUE_NAME = "hello";
 	
-	private final static String SERVER_HOST = "localhost";
+	private final static String SERVER_HOST = "rd.digby.com";
 
 	public static void main(String[] args) throws IOException {
 		ConnectionFactory factory = new ConnectionFactory();
@@ -19,7 +19,7 @@ public class TestProducer {
 		Channel channel = connection.createChannel();
 
 		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-		String message = "Hello World!";
+		String message = "Hello World! Woo!2";
 		channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
 		System.out.println(" [x] Sent '" + message + "'");
 
