@@ -17,7 +17,8 @@ public class NewTask {
 		
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
-		channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
+		boolean durable = true;
+		channel.queueDeclare(TASK_QUEUE_NAME, durable, false, false, null);
 		
 		String message = "job";
 		for(int i = 0;i<10;i++){

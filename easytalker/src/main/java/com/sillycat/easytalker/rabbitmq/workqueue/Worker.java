@@ -21,10 +21,13 @@ public class Worker {
 		
 		System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 		
-		channel.basicQos(1);
+		int prefetchCount = 1;
+		channel.basicQos(prefetchCount);
 		
 		QueueingConsumer consumer = new QueueingConsumer(channel);
-		channel.basicConsume(TASK_QUEUE_NAME, false, consumer);
+		boolean autoAck = false;
+
+		channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
 		while (true) {
 			QueueingConsumer.Delivery delivery = consumer.nextDelivery();
 			String message = new String(delivery.getBody());
