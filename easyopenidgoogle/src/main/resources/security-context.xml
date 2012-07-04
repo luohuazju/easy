@@ -23,7 +23,7 @@
    	<security:http pattern="/images/*" security="none" />
    	<security:http pattern="/css/*" security="none" />
    	<security:http pattern="/js/*" security="none" />
-    
+   	<security:http pattern="/resources/**" security="none" />
     <security:debug />
     
     <security:http access-denied-page="/denied.jsp" use-expressions="true">
