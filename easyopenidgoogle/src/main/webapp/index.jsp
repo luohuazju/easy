@@ -14,22 +14,36 @@
 	<br />
 	<br />
 	<a href="./j_spring_security_logout" id="application_logout">Logout Application</a> <br />
-	<a href="###" id="google_logout" onclick="logout()">Logout Google</a> <br />
+	<form action="./j_spring_security_logout" name="logoutForm" id="logoutFormId" method="post">
+	</form>
+	<a href="#" id="google_logout" onclick="logout()">Logout Google</a> <br />
 	<iframe id="logout_iframe" style="display:none;"> </iframe>
 	
 	<script type="text/javascript">
 		function logout() {
+			//setTimeout("logoutApplication()",2000);
 			iframe = document.getElementById('logout_iframe');
 			iframe.src = 'https://www.google.com/accounts/Logout';
 			if (iframe.attachEvent) {
 				iframe.attachEvent("onload", function() {
-					document.getElementById('application_logout').click();
+					logoutApplication();
 				});
 			} else {
 				iframe.onload = function() {
-					document.getElementById('application_logout').click();
+					logoutApplication();
 				};
 			}
+		}
+		
+		function logoutApplication(){
+			//alert("1");
+			//var app_logout_button = document.getElementById('application_logout');
+			//alert(app_logout_button);
+			//if(app_logout_button != null){
+			//	app_logout_button.click();
+			//}
+			//alert("asdfasdf");
+			document.getElementById("logoutFormId").submit();
 		}
 	</script>
 
