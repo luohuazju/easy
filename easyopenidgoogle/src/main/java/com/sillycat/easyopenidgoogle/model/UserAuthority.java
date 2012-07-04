@@ -1,6 +1,11 @@
 package com.sillycat.easyopenidgoogle.model;
 
-public class UserAuthority {
+import java.io.Serializable;
+
+public class UserAuthority implements Serializable {
+	
+	
+	private static final long serialVersionUID = 992770454626010614L;
 
 	private String authorityName;
 

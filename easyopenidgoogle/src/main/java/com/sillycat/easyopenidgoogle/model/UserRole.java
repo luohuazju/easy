@@ -1,9 +1,12 @@
 package com.sillycat.easyopenidgoogle.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRole {
+public class UserRole implements Serializable {
+
+	private static final long serialVersionUID = 265504597521730343L;
 
 	private String roleName;
 

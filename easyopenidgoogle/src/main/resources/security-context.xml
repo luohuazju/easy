@@ -30,6 +30,7 @@
     	<security:form-login login-processing-url="/j_spring_security_check" login-page="/openidlogin.jsp" authentication-failure-url="/openidlogin.jsp?login_error=true"/>
     	<security:intercept-url pattern="/index.jsp" access="permitAll" />
         <security:intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
+        <security:intercept-url pattern="/service/person/**" access="hasRole('ROLE_USER')" />
         <security:intercept-url pattern="/super/**" access="hasRole('ROLE_SUPERVISOR')" />
         <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
         <security:intercept-url pattern="/**" access="denyAll" />
