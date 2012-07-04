@@ -14,7 +14,7 @@
 	<br />
 	<br />
 	<a href="./j_spring_security_logout" id="application_logout">Logout Application</a> <br />
-	<form action="./j_spring_security_logout" name="logoutForm" id="logoutFormId" method="post">
+	<form action="./j_spring_security_logout" name="logoutForm" id="logoutFormId" method="post" style="display:none;">
 	</form>
 	<a href="#" id="google_logout" onclick="logout()">Logout Google</a> <br />
 	<iframe id="logout_iframe" style="display:none;"> </iframe>
