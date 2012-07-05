@@ -13,17 +13,26 @@ $(function() {
 	    $.ajax({
 	          type: "GET",
 	          url: "../service/person/" + theId,
+	          'beforeSend': function(data) {
+	                data.setRequestHeader("X-AjaxRequest", "1");
+	          },
 	          contentType: "application/json",
 	          cache: false,
-	          success: onSuccess
+	          success: onSuccess,
+	          complete: function(data) {
+	              //alert(data + " " + data.status);
+	        	  if (data.status == 403) {
+	                    window.location.reload();
+	              }
+	          }
 	    });
 	});
 	
 	function onSuccess(data,status)
 	{
-		if (HasErrors(data)){ 
-			return; 
-		}
+		//if (HasErrors(data)){ 
+		//	return; 
+		//}
 	    $("#resultLog").html("Result: " + data.personName + " status:" + status);
 	}
 	
