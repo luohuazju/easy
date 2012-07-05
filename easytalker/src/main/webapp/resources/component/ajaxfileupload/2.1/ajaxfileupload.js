@@ -55,7 +55,7 @@ jQuery.extend({
     ajaxFileUpload: function(s) {
         // TODO introduce global settings, allowing the client to modify them for all requests, not only timeout		
         s = jQuery.extend({}, jQuery.ajaxSettings, s);
-        var id = new Date().getTime()        
+        var id = new Date().getTime();       
 		var form = jQuery.createUploadForm(id, s.fileElementId, (typeof(s.data)=='undefined'?false:s.data));
 		var io = jQuery.createUploadIframe(id, s.secureuri);
 		var frameId = 'jUploadFrame' + id;
@@ -67,7 +67,7 @@ jQuery.extend({
 		}            
         var requestDone = false;
         // Create the request object
-        var xml = {}   
+        var xml = {};  
         if ( s.global )
             jQuery.event.trigger("ajaxSend", [xml, s]);
         // Wait for a response to come back
@@ -128,7 +128,7 @@ jQuery.extend({
                 if ( s.complete )
                     s.complete(xml, status);
 
-                jQuery(io).unbind()
+                jQuery(io).unbind();
 
                 setTimeout(function()
 									{	try 
@@ -141,12 +141,12 @@ jQuery.extend({
 											jQuery.handleError(s, xml, null, e);
 										}									
 
-									}, 100)
+									}, 100);
 
-                xml = null
+                xml = null;
 
             }
-        }
+        };
         // Timeout checker
         if ( s.timeout > 0 ) 
 		{
@@ -197,5 +197,5 @@ jQuery.extend({
 
         return data;
     }
-})
+});
 
