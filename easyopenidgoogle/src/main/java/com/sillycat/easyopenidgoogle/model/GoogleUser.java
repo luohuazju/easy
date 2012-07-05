@@ -24,8 +24,14 @@ public class GoogleUser implements UserDetails{
 	private boolean credentialsNonExpired = true;
 
 	private boolean enabled = true;
+	
+	private String title = "SUPERMAN";
 
 	private List<UserRole> userRoles = new ArrayList<UserRole>();
+	
+	public String getTitle(){
+		return this.title;
+	}
 
 	public Collection<GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();

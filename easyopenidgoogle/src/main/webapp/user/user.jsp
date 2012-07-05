@@ -1,3 +1,4 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %> 
 <html>
 	<head>
 		<title>User Demo</title>
@@ -73,7 +74,10 @@ $(function() {
 <br />
 <a href="../index.jsp">Home</a>
 <br />
-
+<security:authentication property="principal.username"/><br />
+<security:authentication property="principal.password"/><br />
+<security:authentication property="principal.title"/><br />
+<br />
 
 
 </body>
