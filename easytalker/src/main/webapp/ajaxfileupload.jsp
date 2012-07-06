@@ -85,13 +85,10 @@ function ajaxFileUpload(){
                 dataType: 'json',                           
                 success: function (data, status)           
                 {   
-                    alert("1" + data);
                 	$('#result').html('Success to Add');
                 },
                 error: function (data, status, e)          
                 {
-                	alert("2" + data);
-                	alert(data.responseText);
                     $('#result').html('Fail to Add');
                 }
             }                   
