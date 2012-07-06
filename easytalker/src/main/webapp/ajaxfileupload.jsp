@@ -9,8 +9,10 @@ $(document).ready(function(){
 	$("#filemaps").change(function(){
 		var file_upl = document.getElementById('filemaps'); 
 		var realpath = getPath(file_upl);
+		
 		$("#fileurl").val(realpath);
 	});
+	
 });
 
 function userBrowser(){
@@ -31,8 +33,9 @@ function userBrowser(){
 }
 
 function getPathIE(obj){
-	obj.select();
-	return document.selection.createRange().text;
+	//obj.select();
+	//return document.selection.createRange().text;
+	return obj.value;
 }
 
 function getPathFFSecurity(obj){
@@ -79,7 +82,7 @@ function getPath(obj){
 function ajaxFileUpload(){
 			$.ajaxFileUpload(
             {
-                url:'fileupload.do',           
+                url:'fileupload.do?type=1&test=123',           
                 secureuri:false,
                 fileElementId:'filemaps',                 
                 dataType: 'json',                           
@@ -94,17 +97,32 @@ function ajaxFileUpload(){
             }                   
 		  );
 }
+
+function openfile(){
+	if(userBrowser() == 'Chrome'){
+		$('#filemaps').show();
+	}
+	$('#filemaps').focus();
+	//$('#filemaps').click();
+	$('input[type=file]:first').trigger('click');
+	if(userBrowser() == 'Chrome'){
+		$('#filemaps').hide();
+	}
+}
+//style="position:absolute;left:-999px;"
+
 </script>
 
 	</head>
 <body>
 
 <h2>AjaxFileUpload Demo</h2>
-
+<form method="POST" enctype="multipart/form-data">
 	<input id="fileurl" type="text" class="langtext" readonly="readonly"/>
-	<input type="file" id="filemaps" name="filemaps" value="upload"/> 
+	<input type="file" id="filemaps" name="filemaps" value="upload" /> 
+	<input type="button" value="Browse" name="Browse" onclick="openfile();" />
     <input type="button" value="Submit" onclick="ajaxFileUpload()"/>
-
+</form>
 <div id="result"></div>
 
 </body>
