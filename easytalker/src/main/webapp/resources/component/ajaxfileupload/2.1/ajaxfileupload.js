@@ -55,7 +55,7 @@ jQuery.extend({
     ajaxFileUpload: function(s) {
         // TODO introduce global settings, allowing the client to modify them for all requests, not only timeout		
         s = jQuery.extend({}, jQuery.ajaxSettings, s);
-        var id = new Date().getTime();       
+        var id = new Date().getTime();  
 		var form = jQuery.createUploadForm(id, s.fileElementId, (typeof(s.data)=='undefined'?false:s.data));
 		var io = jQuery.createUploadIframe(id, s.secureuri);
 		var frameId = 'jUploadFrame' + id;
@@ -67,7 +67,7 @@ jQuery.extend({
 		}            
         var requestDone = false;
         // Create the request object
-        var xml = {};  
+        var xml = {};
         if ( s.global )
             jQuery.event.trigger("ajaxSend", [xml, s]);
         // Wait for a response to come back
@@ -170,6 +170,7 @@ jQuery.extend({
 			{	
 				jQuery(form).attr('enctype', 'multipart/form-data');			
             }			
+         
             jQuery(form).submit();
 
         } catch(e) 
@@ -189,13 +190,33 @@ jQuery.extend({
         if ( type == "script" )
             jQuery.globalEval( data );
         // Get the JavaScript object, if JSON is used.
-        if ( type == "json" )
+        if ( type == "json" ){
+        	
+        	data = r.responseText;
+        	
+        	end = data.indexOf("<div");
+        	if(end != -1){
+        		data = data.substring(0,end);
+        	}
             eval( "data = " + data );
+        }
         // evaluate scripts within html
         if ( type == "html" )
             jQuery("<div>").html(data).evalScripts();
 
         return data;
-    }
+    },
+    //add by duke which handleError is not available in jQuery 1.7
+    handleError: function( s, xhr, status, e ) 		{
+    	// If a local callback was specified, fire it
+    			if ( s.error ) {
+    				s.error.call( s.context || s, xhr, status, e );
+    			}
+
+    			// Fire the global callback
+    			if ( s.global ) {
+    				(s.context ? jQuery(s.context) : jQuery.event).trigger( "ajaxError", [xhr, s, e] );
+    			}
+    		}
 });
 
