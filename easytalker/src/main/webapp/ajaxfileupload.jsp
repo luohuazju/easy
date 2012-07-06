@@ -5,6 +5,8 @@
 		<script type="text/javascript" src="./resources/component/ajaxfileupload/2.1/ajaxfileupload.js"></script>
 <script type="text/javascript">
 
+//document.domain='my.digby.com';
+
 $(document).ready(function(){
 	$("#filemaps").change(function(){
 		var file_upl = document.getElementById('filemaps'); 
@@ -92,7 +94,9 @@ function ajaxFileUpload(){
                 },
                 error: function (data, status, e)          
                 {
-                    $('#result').html('Fail to Add');
+					//alert(data);                	
+					//alert(data.responseText);
+                	$('#result').html('Fail to Add');
                 }
             }                   
 		  );
