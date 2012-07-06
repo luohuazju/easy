@@ -84,12 +84,14 @@ function ajaxFileUpload(){
                 fileElementId:'filemaps',                 
                 dataType: 'json',                           
                 success: function (data, status)           
-                {      
-                	console.info(data);
-                    $('#result').html('Success to Add');
+                {   
+                    alert("1" + data);
+                	$('#result').html('Success to Add');
                 },
                 error: function (data, status, e)          
                 {
+                	alert("2" + data);
+                	alert(data.responseText);
                     $('#result').html('Fail to Add');
                 }
             }                   

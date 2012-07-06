@@ -11,11 +11,9 @@ jQuery.extend({
 			{
                 if(typeof uri== 'boolean'){
 					iframeHtml += ' src="' + 'javascript:false' + '"';
-
                 }
                 else if(typeof uri== 'string'){
 					iframeHtml += ' src="' + uri + '"';
-
                 }	
 			}
 			iframeHtml += ' />';
@@ -195,6 +193,18 @@ jQuery.extend({
         	data = r.responseText;
         	
         	end = data.indexOf("<div");
+        	if(end != -1){
+        		data = data.substring(0,end);
+        	}
+        	begin = data.indexOf("pre-wrap;");
+        	if(begin != -1){
+        		data = data.substring(begin + 11);
+        	}
+        	begin = data.indexOf("<pre>");
+        	if(begin != -1){
+        		data = data.substring(begin + 5);
+        	}
+        	end = data.indexOf("</pre>");
         	if(end != -1){
         		data = data.substring(0,end);
         	}
