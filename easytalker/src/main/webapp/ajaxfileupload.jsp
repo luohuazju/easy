@@ -101,11 +101,9 @@ function ajaxFileUpload(){
 
 <h2>AjaxFileUpload Demo</h2>
 
-<form method="post" action="fileupload.do" enctype="multipart/form-data">  
 	<input id="fileurl" type="text" class="langtext" readonly="readonly"/>
 	<input type="file" id="filemaps" name="filemaps" value="upload"/> 
     <input type="button" value="Submit" onclick="ajaxFileUpload()"/>
-</form> 
 
 <div id="result"></div>
 

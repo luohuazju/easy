@@ -56,8 +56,8 @@ public class FileController {
 			// }
 		}
 		PrintWriter out = response.getWriter();
-		response.setContentType("application/json");  
-        response.setCharacterEncoding("utf-8"); 
+		response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8"); 
         out.write("{success:true}");
         out.close();
 	}
