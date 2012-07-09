@@ -41,7 +41,7 @@ public class ConsoleChatClient {
 
 		client.handshake();
 
-		boolean success = client.waitFor(1000, BayeuxClient.State.CONNECTED);
+		boolean success = client.waitFor(2000, BayeuxClient.State.CONNECTED);
 		if (!success) {
 			System.err.printf("Could not handshake with server at %s%n", url);
 			return;
@@ -53,14 +53,25 @@ public class ConsoleChatClient {
 		data.put("user", nickname);
 		data.put("chat", text);
 		client.getChannel("/chat/demo").publish(data);
-
+		
+		Map<String, Object> pdata = new HashMap<String, Object>();
+		text = "hello,where is the money";
+		pdata.put("chat", text);
+		pdata.put("room", "/chat/demo");
+		pdata.put("user", "karl");
+		pdata.put("peer", "sillycat");
+		client.getChannel("/service/privatechat").publish(pdata);
+		
         data = new HashMap<String, Object>();
         data.put("user", nickname);
         data.put("membership", "leave");
         data.put("chat", nickname + " has left");
         client.getChannel("/chat/demo").publish(data);
         
-        client.disconnect(1000);
+        
+		client.getChannel("/service/privatechat").release();
+		client.getChannel("/chat/demo").release();
+		client.disconnect(3000);
 	}
 
 }
