@@ -3,6 +3,7 @@ package com.sillycat.easytalker.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -17,10 +18,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class FileController {
 
 	private final Logger logger = Logger.getLogger(FileController.class);
-
+	
 	@RequestMapping("/ajaxfileupload.do")
 	public void ajaxfileupload(MultipartHttpServletRequest request,
 			HttpServletResponse response) throws IOException {
+		logger.info("useragent = " + request.getHeader("USER-AGENT").toLowerCase());
 		MultipartFile multipartFile = request.getFile("filemaps");
 		if (null != multipartFile
 				&& null != multipartFile.getOriginalFilename()) {
