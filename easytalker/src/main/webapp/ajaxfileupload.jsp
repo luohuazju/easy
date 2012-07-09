@@ -84,7 +84,7 @@ function getPath(obj){
 function ajaxFileUpload(){
 			$.ajaxFileUpload(
             {
-                url:'fileupload.do?type=1&test=123',           
+                url:'ajaxfileupload.do?type=1&test=123',           
                 secureuri:false,
                 fileElementId:'filemaps',                 
                 dataType: 'json',                           
