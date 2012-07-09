@@ -23,12 +23,13 @@ public class ConsoleChatClient {
 
 	private final MembersListener membersListener = new MembersListener();
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException,
+			InterruptedException {
 		ConsoleChatClient client = new ConsoleChatClient();
 		client.go();
 	}
 
-	public void go() {
+	public void go() throws InterruptedException {
 		String defaultURL = "http://localhost:8080/easycometd/cometd";
 		String url = defaultURL;
 
@@ -53,7 +54,7 @@ public class ConsoleChatClient {
 		data.put("user", nickname);
 		data.put("chat", text);
 		client.getChannel("/chat/demo").publish(data);
-		
+
 		Map<String, Object> pdata = new HashMap<String, Object>();
 		text = "hello,where is the money";
 		pdata.put("chat", text);
@@ -61,14 +62,17 @@ public class ConsoleChatClient {
 		pdata.put("user", "karl");
 		pdata.put("peer", "sillycat");
 		client.getChannel("/service/privatechat").publish(pdata);
-		
-        data = new HashMap<String, Object>();
-        data.put("user", nickname);
-        data.put("membership", "leave");
-        data.put("chat", nickname + " has left");
-        client.getChannel("/chat/demo").publish(data);
-        
-        
+
+		for (int i = 0; i < 10; i++) {
+			Thread.sleep(5000);
+		}
+
+		data = new HashMap<String, Object>();
+		data.put("user", nickname);
+		data.put("membership", "leave");
+		data.put("chat", nickname + " has left");
+		client.getChannel("/chat/demo").publish(data);
+
 		client.getChannel("/service/privatechat").release();
 		client.getChannel("/chat/demo").release();
 		client.disconnect(3000);
