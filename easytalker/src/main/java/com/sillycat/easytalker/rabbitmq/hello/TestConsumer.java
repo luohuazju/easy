@@ -13,7 +13,7 @@ public class TestConsumer {
 
 	private final static String QUEUE_NAME = "hello";
 
-	private final static String SERVER_HOST = "rd.digby.com";
+	private final static String SERVER_HOST = "www.neptune.com";
 
 	public static void main(String[] args) throws IOException,
 			ShutdownSignalException, ConsumerCancelledException,

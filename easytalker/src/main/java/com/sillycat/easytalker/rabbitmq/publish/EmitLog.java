@@ -8,7 +8,7 @@ public class EmitLog {
 	
 	private static final String EXCHANGE_NAME = "logs";
 	
-	private final static String SERVER_HOST = "rd.digby.com";
+	private final static String SERVER_HOST = "www.neptune.com";
 
 	public static void main(String[] argv) throws Exception {
 		

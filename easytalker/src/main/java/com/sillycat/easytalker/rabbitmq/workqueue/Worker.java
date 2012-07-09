@@ -8,7 +8,7 @@ import com.rabbitmq.client.QueueingConsumer;
 public class Worker {
 	private static final String TASK_QUEUE_NAME = "task_queue";
 
-	private final static String SERVER_HOST = "rd.digby.com";
+	private final static String SERVER_HOST = "www.neptune.com";
 	
 	public static void main(String[] argv) throws Exception {
 		

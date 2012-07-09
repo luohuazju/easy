@@ -8,7 +8,7 @@ public class EmitLogDirect {
 	
 	private static final String EXCHANGE_NAME = "direct_logs";
 	
-	private final static String SERVER_HOST = "rd.digby.com";
+	private final static String SERVER_HOST = "www.neptune.com";
 
 	public static void main(String[] argv) throws Exception {
 		ConnectionFactory factory = new ConnectionFactory();
