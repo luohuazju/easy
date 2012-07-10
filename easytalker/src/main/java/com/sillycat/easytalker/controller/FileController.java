@@ -3,7 +3,6 @@ package com.sillycat.easytalker.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
