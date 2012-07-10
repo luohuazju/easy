@@ -1,4 +1,4 @@
-package com.sillycat.easytalker.rabbitmq.workqueue;
+package com.sillycat.easytalker.plugins.rabbitmq.workqueue;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

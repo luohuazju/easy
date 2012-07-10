@@ -1,4 +1,4 @@
-package com.sillycat.easytalker.rabbitmq.rpc;
+package com.sillycat.easytalker.plugins.rabbitmq.rpc;
 
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;

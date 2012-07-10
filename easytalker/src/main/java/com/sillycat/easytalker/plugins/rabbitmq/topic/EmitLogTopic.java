@@ -1,4 +1,4 @@
-package com.sillycat.easytalker.rabbitmq.topic;
+package com.sillycat.easytalker.plugins.rabbitmq.topic;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

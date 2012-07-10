@@ -1,5 +1,5 @@
 
-package com.sillycat.easytalker.kafka;
+package com.sillycat.easytalker.plugins.kafka;
 
 import java.nio.ByteBuffer;
 
