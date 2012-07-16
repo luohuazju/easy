@@ -11,11 +11,66 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.10</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+	  <groupId>org.slf4j</groupId>
+	  <artifactId>slf4j-api</artifactId>
+	  <version>1.6.6</version>
+	</dependency>
+	<dependency>
+	  <groupId>log4j</groupId>
+	  <artifactId>log4j</artifactId>
+	  <version>1.2.17</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.apache.mina</groupId>
+	  <artifactId>mina-core</artifactId>
+	  <version>2.0.4</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.apache.mina</groupId>
+	  <artifactId>mina-integration-spring</artifactId>
+	  <version>1.1.7</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.apache.mina</groupId>
+	  <artifactId>mina-integration-beans</artifactId>
+	  <version>2.0.4</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.slf4j</groupId>
+	  <artifactId>slf4j-simple</artifactId>
+	  <version>1.6.6</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-web</artifactId>
+	  <version>3.1.2.RELEASE</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-beans</artifactId>
+	  <version>3.1.2.RELEASE</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-core</artifactId>
+	  <version>3.1.2.RELEASE</version>
+	</dependency>
   </dependencies>
+  
   <build>
     <finalName>easynio</finalName>
+    <plugins>
+        <plugin>  
+		    <groupId>org.apache.felix</groupId>  
+		    <artifactId>maven-bundle-plugin</artifactId>  
+		    <extensions>true</extensions>  
+		</plugin> 
+    </plugins>
   </build>
+  
+  
 </project>

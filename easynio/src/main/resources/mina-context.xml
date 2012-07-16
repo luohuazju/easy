@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:lang="http://www.springframework.org/schema/lang"
+    xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd  
+           	http://www.springframework.org/schema/tx 
+           	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/lang 
+			http://www.springframework.org/schema/lang/spring-lang-3.0.xsd
+			http://www.springframework.org/schema/webflow-config 
+			http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd 
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+			" >
+
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer" >
+        <property name="customEditors" >
+            <map>
+                <entry key="java.net.SocketAddress" >
+                    <bean class="org.apache.mina.integration.beans.InetSocketAddressEditor" />
+                </entry>
+            </map>
+        </property>
+    </bean>
+    
+    <!-- The IoHandler implementation -->
+    <bean id="minaHandler" class="com.sillycat.easynio.plugins.mina.businesshandlers.CaculateHandler" />
+    
+    <!-- the IoFilters -->
+    <bean id="executorFilter" class="org.apache.mina.filter.executor.ExecutorFilter" />
+    <bean id="mdcInjectionFilter" class="org.apache.mina.filter.logging.MdcInjectionFilter" >
+        <constructor-arg value="remoteAddress" />
+    </bean>
+    <bean id="codecFilter" class="org.apache.mina.filter.codec.ProtocolCodecFilter" >
+        <constructor-arg>
+            <bean class="org.apache.mina.filter.codec.textline.TextLineCodecFactory" />
+        </constructor-arg>
+    </bean>
+    <bean id="loggingFilter" class="org.apache.mina.filter.logging.LoggingFilter" />
+    <!-- The non-SSL filter chain. -->
+    <bean id="filterChainBuilder" class="org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder" >
+        <property name="filters" >
+            <map>
+                <entry key="executor" value-ref="executorFilter" />
+                <entry key="mdcInjectionFilter" value-ref="mdcInjectionFilter" />
+                <entry key="codecFilter" value-ref="codecFilter" />
+                <entry key="loggingFilter" value-ref="loggingFilter" />
+            </map>
+        </property>
+    </bean>
+    
+    <!-- The IoAcceptor which binds to port 1235 server side -->
+    <bean id="minaAcceptor" class="org.apache.mina.transport.socket.nio.NioSocketAcceptor"
+        destroy-method="unbind" init-method="bind" >
+        <property name="defaultLocalAddress" value=":12345" />
+        <property name="handler" ref="minaHandler" />
+        <property name="reuseAddress" value="true" />
+        <property name="filterChainBuilder" ref="filterChainBuilder" />
+    </bean>
+
+</beans>
