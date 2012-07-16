@@ -9,13 +9,13 @@ import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CaculateHandler extends IoHandlerAdapter {
+public class CalculateHandler extends IoHandlerAdapter {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private ScriptEngine jsEngine = null;
 
-	public CaculateHandler() {
+	public CalculateHandler() {
 		ScriptEngineManager sfm = new ScriptEngineManager();
 		jsEngine = sfm.getEngineByName("JavaScript");
 		if (jsEngine == null) {

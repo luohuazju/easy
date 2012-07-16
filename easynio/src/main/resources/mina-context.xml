@@ -34,7 +34,7 @@
     </bean>
     
     <!-- The IoHandler implementation -->
-    <bean id="minaHandler" class="com.sillycat.easynio.plugins.mina.businesshandlers.CaculateHandler" />
+    <bean id="calculateHandler" class="com.sillycat.easynio.plugins.mina.businesshandlers.CalculateHandler" />
     
     <!-- the IoFilters -->
     <bean id="executorFilter" class="org.apache.mina.filter.executor.ExecutorFilter" />
@@ -63,7 +63,7 @@
     <bean id="minaAcceptor" class="org.apache.mina.transport.socket.nio.NioSocketAcceptor"
         destroy-method="unbind" init-method="bind" >
         <property name="defaultLocalAddress" value=":12345" />
-        <property name="handler" ref="minaHandler" />
+        <property name="handler" ref="calculateHandler" />
         <property name="reuseAddress" value="true" />
         <property name="filterChainBuilder" ref="filterChainBuilder" />
     </bean>
