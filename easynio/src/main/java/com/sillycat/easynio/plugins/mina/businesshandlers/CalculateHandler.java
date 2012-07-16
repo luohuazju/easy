@@ -32,6 +32,7 @@ public class CalculateHandler extends IoHandlerAdapter {
 			throws Exception {
 		String expression = message.toString();
 		if ("quit".equalsIgnoreCase(expression.trim())) {
+			session.write("Closing the session!".toString());
 			session.close(true);
 			return;
 		}
