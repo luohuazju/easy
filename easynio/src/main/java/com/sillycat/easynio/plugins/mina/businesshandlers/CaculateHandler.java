@@ -37,7 +37,11 @@ public class CaculateHandler extends IoHandlerAdapter {
 		}
 		try {
 			Object result = jsEngine.eval(expression);
-			session.write(result.toString());
+			if(result != null){
+				session.write(result.toString());
+			}else{
+				session.write("No result!");
+			}
 		} catch (ScriptException e) {
 			logger.warn(e.getMessage(), e);
 			session.write("Wrong expression, try again.");
