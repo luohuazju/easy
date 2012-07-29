@@ -40,6 +40,7 @@
     
 	<import resource="classpath:mina-context.xml" />
 	<import resource="classpath:jmx-context.xml" />
+	<import resource="classpath:mx4j-context.xml" />
 </beans>
 
 

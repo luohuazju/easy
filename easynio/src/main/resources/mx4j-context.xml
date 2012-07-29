@@ -23,41 +23,16 @@
 			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
 			" >
 			
-	<bean id="caculate" class="com.sillycat.easynio.plugins.jmx.CaculateImpl">   
-	</bean> 
-	
-	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">  
-        <property name="beans">  
-            <map>  
-                <entry key="com.sillycat:caculate=CaculateJMX" value-ref="caculate" />    
-            	<entry key="mx4j:name=HttpAdaptor" value-ref="httpAdaptor" />
-            </map>  
-        </property>  
-        <property name="assembler" ref="assembler" />  
-    </bean>  
-    
-    <bean id="assembler"  
-        class="org.springframework.jmx.export.assembler.InterfaceBasedMBeanInfoAssembler">  
-        <property name="managedInterfaces">  
-            <list>  
-                <value>com.sillycat.easynio.plugins.jmx.CaculateJMXInterface</value>  
-            </list>  
-        </property>  
-    </bean>     
-	
-	<bean id="registry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">   
-	   <property name="port">   
-     		<value>9875</value>   
-   		</property>   
+	<bean id="httpAdaptor" class="mx4j.tools.adaptor.http.HttpAdaptor">   
+	    <property name="processor">   
+	         <bean id="xsltProcessor" class="mx4j.tools.adaptor.http.XSLTProcessor"/>   
+	    </property>   
+	    <property name="host">  
+            <value>localhost</value>  
+        </property>
+	    <property name="port">
+	       <value>8000</value>   
+	    </property>   
 	</bean>   
-
-	<bean id="serverConnector" class="org.springframework.jmx.support.ConnectorServerFactoryBean">   
-	   <property name="objectName">   
-	       <value>connector:name=rmi</value>   
-	   </property>   
-	   <property name="serviceUrl">   
-	       <value>service:jmx:rmi://localhost/jndi/rmi://localhost:9875/jmxrmi</value>   
-	   </property>   
-	</bean>
 
 </beans>

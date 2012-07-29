@@ -10,7 +10,7 @@
 	</context-param>
 
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>com.sillycat.easynio.plugins.jmx.JMXContextLoadListener</listener-class>
 	</listener>
 	
 	<listener>
