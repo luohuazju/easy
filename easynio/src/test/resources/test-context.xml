@@ -38,8 +38,7 @@
 	<context:component-scan base-package="com.sillycat">
 	</context:component-scan>
     
-	<import resource="classpath:mina-context.xml" />
-	<import resource="classpath:jmx-context.xml" />
+	<import resource="classpath:jmxclient-context.xml" />
 </beans>
 
 
