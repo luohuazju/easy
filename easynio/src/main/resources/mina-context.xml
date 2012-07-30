@@ -35,6 +35,7 @@
     
     <!-- The IoHandler implementation -->
     <bean id="calculateHandler" class="com.sillycat.easynio.plugins.mina.businesshandlers.CalculateHandler" />
+    <bean id="chatHandler" class="com.sillycat.easynio.plugins.mina.businesshandlers.ChatHandler" />
     
     <!-- the IoFilters -->
     <bean id="executorFilter" class="org.apache.mina.filter.executor.ExecutorFilter" />
@@ -59,11 +60,19 @@
         </property>
     </bean>
     
-    <!-- The IoAcceptor which binds to port 1235 server side -->
-    <bean id="minaAcceptor" class="org.apache.mina.transport.socket.nio.NioSocketAcceptor"
+    <!-- The IoAcceptor which binds to port 12345 server side -->
+    <bean id="caculateAcceptor" class="org.apache.mina.transport.socket.nio.NioSocketAcceptor"
         destroy-method="unbind" init-method="bind" >
         <property name="defaultLocalAddress" value=":12345" />
         <property name="handler" ref="calculateHandler" />
+        <property name="reuseAddress" value="true" />
+        <property name="filterChainBuilder" ref="filterChainBuilder" />
+    </bean>
+    
+    <bean id="chatAcceptor" class="org.apache.mina.transport.socket.nio.NioSocketAcceptor"
+        destroy-method="unbind" init-method="bind" >
+        <property name="defaultLocalAddress" value=":12346" />
+        <property name="handler" ref="chatHandler" />
         <property name="reuseAddress" value="true" />
         <property name="filterChainBuilder" ref="filterChainBuilder" />
     </bean>

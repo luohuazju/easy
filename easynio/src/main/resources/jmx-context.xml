@@ -23,13 +23,13 @@
 			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
 			" >
 			
-	<bean id="caculate" class="com.sillycat.easynio.plugins.jmx.CaculateImpl">   
-	</bean> 
+	<bean id="caculate" class="com.sillycat.easynio.plugins.jmx.CaculateImpl" />   
 	
 	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">  
         <property name="beans">  
             <map>  
                 <entry key="com.sillycat:caculate=CaculateJMX" value-ref="caculate" />    
+                <entry key="com.sillycat:chatHandler=ChatHandlerJMX" value-ref="chatHandler" />   
             	<entry key="mx4j:name=HttpAdaptor" value-ref="httpAdaptor" />
             </map>  
         </property>  
@@ -41,7 +41,8 @@
         <property name="managedInterfaces">  
             <list>  
                 <value>com.sillycat.easynio.plugins.jmx.CaculateJMXInterface</value>  
-            </list>  
+                <value>com.sillycat.easynio.plugins.mina.businesshandlers.ChatHandlerJMXInterface</value>  
+            </list>
         </property>  
     </bean>     
 	
