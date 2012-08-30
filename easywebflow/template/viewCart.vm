@@ -1,4 +1,5 @@
 <h1>View Cart</h1>
+<h2>Flow URL: ${flowExecutionUrl}</h2>
 <h2>Items in Your Cart</h2>
 #if ($null.isNull($cart.items) || $cart.items.size()==0)
  <p> Your Cart is empty.</p>

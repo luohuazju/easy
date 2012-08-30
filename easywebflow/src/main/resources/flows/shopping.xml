@@ -40,6 +40,8 @@
 	<view-state id="viewConfirmed" view="orderConfirmed">
 		<transition to="returnToIndex" on="returnToIndex">
 		</transition>
+		<transition to="viewCart" on="returnViewCart">
+		</transition>
 	</view-state>
 	
 	<end-state id="returnToIndex"
