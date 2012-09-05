@@ -19,10 +19,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerMapping;
 
+import com.sillycat.easyapi.rest.json.Company;
+import com.sillycat.easyapi.rest.json.Person;
 import com.sillycat.easyrestserver.core.MockWebApplication;
 import com.sillycat.easyrestserver.core.MockWebApplicationContextLoader;
-import com.sillycat.easyrestserver.model.Company;
-import com.sillycat.easyrestserver.model.Person;
 
 /**
  * mock the servlet and use servlet to test our controller

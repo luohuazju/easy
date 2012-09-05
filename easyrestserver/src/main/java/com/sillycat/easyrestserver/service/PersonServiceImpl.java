@@ -7,8 +7,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
-import com.sillycat.easyrestserver.model.Company;
-import com.sillycat.easyrestserver.model.Person;
+import com.sillycat.easyapi.rest.json.Company;
+import com.sillycat.easyapi.rest.json.Person;
 
 @Service("personService")
 public class PersonServiceImpl implements PersonService {

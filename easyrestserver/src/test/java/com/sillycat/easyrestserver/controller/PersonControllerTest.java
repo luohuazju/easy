@@ -20,8 +20,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.server.request.MockMvcRequestBuilders;
 import org.springframework.test.web.server.setup.MockMvcBuilders;
 
-import com.sillycat.easyrestserver.model.Company;
-import com.sillycat.easyrestserver.model.Person;
+import com.sillycat.easyapi.rest.json.Company;
+import com.sillycat.easyapi.rest.json.Person;
 import com.sillycat.easyrestserver.service.PersonService;
 
 public class PersonControllerTest {
@@ -31,7 +31,9 @@ public class PersonControllerTest {
 
 	PersonController personController;
 
-	Person person;
+	Person item;
+
+	List<Person> items;
 
 	ObjectMapper jsonMapper;
 
@@ -42,25 +44,42 @@ public class PersonControllerTest {
 		personController = new PersonController();
 		personController.setPersonService(mockPersonService);
 
-		person = new Person(3, "person3");
+		item = new Person(3, "person3");
 		Person person1 = new Person(1, "person1");
 
 		Company company1 = new Company(1, "company1");
 
 		List<Person> personList = new ArrayList<Person>();
-		personList.add(person);
+		personList.add(item);
 		personList.add(person1);
 		company1.setPersons(personList);
 
-		person.setCompany(company1);
+		item.setCompany(company1);
+
+		items = personList;
 
 		jsonMapper = new ObjectMapper();
 	}
 
 	@Test
+	public void getAll() throws Exception {
+		Mockito.when(mockPersonService.getAll()).thenReturn(items);
+
+		MockMvcBuilders
+				.standaloneSetup(personController)
+				.build()
+				.perform(
+						MockMvcRequestBuilders.get("/person/persons").accept(
+								MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().type(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.[0].personName").value("person3"));
+	}
+
+	@Test
 	public void get() throws Exception {
 
-		Mockito.when(mockPersonService.get(3)).thenReturn(person);
+		Mockito.when(mockPersonService.get(3)).thenReturn(item);
 
 		MockMvcBuilders
 				.standaloneSetup(personController)
@@ -75,8 +94,8 @@ public class PersonControllerTest {
 
 	@Test
 	public void throwJSONError() throws Exception {
-		person.setId(13);
-		Mockito.when(mockPersonService.get(13)).thenReturn(person);
+		item.setId(13);
+		Mockito.when(mockPersonService.get(13)).thenReturn(item);
 
 		MockMvcBuilders
 				.standaloneSetup(personController)
@@ -89,9 +108,9 @@ public class PersonControllerTest {
 
 	@Test
 	public void add() throws Exception {
-		person.setId(null);
+		item.setId(null);
 
-		String jsonPerson = jsonMapper.writeValueAsString(person);
+		String jsonPerson = jsonMapper.writeValueAsString(item);
 		MockMvcBuilders
 				.standaloneSetup(personController)
 				.build()

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sillycat.easyapi.rest.json.Person;
 import com.sillycat.easyrestserver.exception.JsonServiceException;
-import com.sillycat.easyrestserver.model.Person;
 import com.sillycat.easyrestserver.service.PersonService;
 
 @Controller

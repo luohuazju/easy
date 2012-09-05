@@ -2,7 +2,7 @@ package com.sillycat.easyrestserver.service;
 
 import java.util.List;
 
-import com.sillycat.easyrestserver.model.Person;
+import com.sillycat.easyapi.rest.json.Person;
 
 public interface PersonService {
 	

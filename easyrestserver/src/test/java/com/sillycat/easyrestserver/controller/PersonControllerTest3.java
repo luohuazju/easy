@@ -21,8 +21,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.sillycat.easyrestserver.model.Company;
-import com.sillycat.easyrestserver.model.Person;
+import com.sillycat.easyapi.rest.json.Company;
+import com.sillycat.easyapi.rest.json.Person;
 import com.sillycat.easyrestserver.service.PersonService;
 
 /**

@@ -1,4 +1,4 @@
-package com.sillycat.easyrestserver.model;
+package com.sillycat.easyapi.rest.json;
 
 import java.util.List;
 
