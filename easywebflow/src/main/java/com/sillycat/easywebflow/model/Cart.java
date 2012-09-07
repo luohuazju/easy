@@ -9,6 +9,8 @@ import java.util.Map;
 public class Cart implements Serializable {
 
 	private static final long serialVersionUID = 180082200907278137L;
+	
+	private String eventAction;
 
 	private Map<Integer, CartItem> map = new HashMap<Integer, CartItem>();
 
@@ -40,4 +42,12 @@ public class Cart implements Serializable {
 		return total;
 	}
 
+	public String getEventAction() {
+		return eventAction;
+	}
+
+	public void setEventAction(String eventAction) {
+		this.eventAction = eventAction;
+	}
+	
 }

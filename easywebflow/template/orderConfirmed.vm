@@ -1,5 +1,8 @@
 <h1>Order Confirmed</h1>
+<br />
+Total: ${cart.totalPrice} <br />
 
 <a href="${flowExecutionUrl}&_eventId=returnToIndex">Return to index</a><br />
 <a href="${flowExecutionUrl}&_eventId=returnViewCart">Shopping</a><br />
-<a href="${flowExecutionUrl}&_eventId=cancelShopping">Cancel Shopping</a>
+<a href="${flowExecutionUrl}&_eventId=cancelShopping">Cancel Shopping</a><br />
+<a href="${flowExecutionUrl}&_eventId=${previousState}">Back</a>

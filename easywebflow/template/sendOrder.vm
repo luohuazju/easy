@@ -1,0 +1,14 @@
+<h1>Send Order</h1>
+Sending Order via Email
+
+<br />
+Total: ${cart.totalPrice} <br />
+
+<a href="${flowExecutionUrl}&_eventId=confirm">Confirm</a><br />
+<a href="${flowExecutionUrl}&_eventId=cancelShopping">Cancel Shopping</a><br />
+
+#if ($null.isNotNull($previousState) || $previousState=='sendOrder')
+	<a href="${flowExecutionUrl}&_eventId=viewOrder">Back</a>
+#else
+	<a href="${flowExecutionUrl}&_eventId=${previousState}">Back</a>
+#end

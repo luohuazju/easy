@@ -13,6 +13,7 @@
 #end
 Total: ${cart.totalPrice} <br />
 
+
 <a href="${flowExecutionUrl}&_eventId=submit">Submit</a>
 
 <h2>Products for Your Choice</h2>

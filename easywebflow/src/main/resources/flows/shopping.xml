@@ -15,6 +15,7 @@
 	
 	<view-state id="viewCart" view="viewCart">
 		<on-render>
+			<set name="flowScope.previousState" value="'viewCart'" />
 			<evaluate expression="productService.getProducts()" result="viewScope.products"/>
 		</on-render>
 		<transition on="submit" to="viewOrderDecistion">
@@ -33,6 +34,19 @@
 	</subflow-state>
 	
 	<view-state id="viewOrder" view="viewOrder">
+		<on-render>
+			<set name="flowScope.previousState" value="'viewOrder'" />
+		</on-render>
+		<transition to="viewConfirmed" on="confirm">
+		</transition>
+		<transition to="sendOrder" on="send">
+		</transition>
+	</view-state>
+	
+	<view-state id="sendOrder" view="sendOrder">
+		<on-render>
+			<set name="flowScope.previousState" value="'sendOrder'" />
+		</on-render>
 		<transition to="viewConfirmed" on="confirm">
 		</transition>
 	</view-state>
@@ -50,5 +64,8 @@
 	
 	<global-transitions>
 		<transition on="cancelShopping" to="returnToIndex"/>
+		<transition on="viewCart" to="viewCart" />
+		<transition on="viewOrder" to="viewOrder" />
+		<transition on="sendOrder" to="sendOrder" />
 	</global-transitions>
 </flow>
