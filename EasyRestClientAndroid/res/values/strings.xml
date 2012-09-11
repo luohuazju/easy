@@ -1,8 +1,11 @@
 <resources>
 
     <string name="app_name">EasyRestClientAndroid</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">EasyRestClientAndroid</string>
 
+    <string-array name="main_options">
+		<item>List All Person</item>
+		<item>Get One Person</item>
+	</string-array>
+    
 </resources>
