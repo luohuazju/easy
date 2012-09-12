@@ -23,6 +23,17 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>easyapi</finalName>
+	<plugins>
+		<plugin>
+	        <groupId>org.codehaus.mojo</groupId>
+	        <artifactId>jboss-maven-plugin</artifactId>
+	        <version>1.5.0</version>
+	        <configuration>
+	          <jbossHome>/opt/jboss-as</jbossHome>
+	          <serverName>default</serverName>
+	          <fileName>target/${project.artifactId}-${project.version}.jar</fileName>
+	        </configuration>
+     		</plugin>
+	</plugins>
   </build>
 </project>
