@@ -72,7 +72,7 @@ public class PersonControllerTest {
 						MockMvcRequestBuilders.get("/person/persons").accept(
 								MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().type(MediaType.APPLICATION_JSON))
+				.andExpect(content().mimeType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.[0].personName").value("person3"));
 	}
 
@@ -88,7 +88,7 @@ public class PersonControllerTest {
 						MockMvcRequestBuilders.get("/person/3").accept(
 								MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().type(MediaType.APPLICATION_JSON))
+				.andExpect(content().mimeType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.personName").value("person3"));
 	}
 
@@ -120,7 +120,7 @@ public class PersonControllerTest {
 								.accept(MediaType.APPLICATION_JSON)
 								.body(jsonPerson.getBytes()))
 				.andExpect(status().isOk())
-				.andExpect(content().type(MediaType.APPLICATION_JSON))
+				.andExpect(content().mimeType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.personName").value("person3"));
 	}
 }
