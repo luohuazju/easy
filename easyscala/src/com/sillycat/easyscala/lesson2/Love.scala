@@ -1,4 +1,4 @@
-package com.sillycat.easyscala.bak
+package com.sillycat.easyscala.lesson2
 
 object Love {
   //args parameter name
