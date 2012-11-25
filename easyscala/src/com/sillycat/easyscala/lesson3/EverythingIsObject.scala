@@ -1,9 +1,9 @@
-package com.sillycat.easyscala.bak
+package com.sillycat.easyscala.lesson3
 
 object EverythingIsObject {
 
   def main(args:Array[String]): Unit ={
-    //create a array
+    //create an array
     var ar = Array("Hello", ",", "World")
     //0 is object, to method for 0, return Range object
     for (i <- 0 to 2){

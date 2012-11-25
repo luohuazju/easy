@@ -1,4 +1,5 @@
-package com.sillycat.easyscala
+package com.sillycat.easyscala.lesson3
+
 import scala.collection.mutable.HashSet
 
 object UseSetMap {
