@@ -1,4 +1,4 @@
-package com.sillycat.easyscala
+package com.sillycat.easyscala.lesson5
 
 object TestMatch {
 
@@ -16,6 +16,7 @@ object TestMatch {
       case "eggs" => 
         friend = "bacon"
         n = 1
+      //this is the default value
       case _ => 
         friend = "huh?"
         n = 0

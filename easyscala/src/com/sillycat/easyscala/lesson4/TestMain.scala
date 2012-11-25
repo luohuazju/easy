@@ -1,4 +1,4 @@
-package com.sillycat.easyscala
+package com.sillycat.easyscala.lesson4
 
 object TestMain extends App {
   //println("""Welcome to Ultamix 3000.

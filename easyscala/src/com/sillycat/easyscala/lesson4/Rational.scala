@@ -1,4 +1,4 @@
-package com.sillycat.easyscala
+package com.sillycat.easyscala.lesson4
 
 class Rational(n: Int, d: Int) {
   // check the parameter

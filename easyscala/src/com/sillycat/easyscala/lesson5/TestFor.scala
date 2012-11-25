@@ -1,4 +1,4 @@
-package com.sillycat.easyscala
+package com.sillycat.easyscala.lesson5
 
 object TestFor {
 
@@ -16,31 +16,33 @@ object TestFor {
     println();
     println("====================================");
     
-    // 1 to 5 实际上返回的是一个Range(1, 6)
-    // 就是对1,2,3,4,5做循环
+    // 1 to 5 will return Range(1, 6)
+    // 1, 2, 3, 4, 5
     println("==========numbers 1 :")
     for (i <- 1 to 5) print(i + " ")
     println();
     println("=======================================");
     
-    // 0 until 5 实际上返回的是一个Range(0, 5)
-    // 就是对0, 1,2,3,4做循环
+    // 0 until 5 will return Range(0, 5)
+    // 0, 1, 2, 3, 4
     println("===========numbers 2: ");
     for (i <- 0 until 5) print(i + " ")
     println();
     println("============================");
 
-    // for 里面还可以添加if来过滤
+    // multiple checkpoint
     for (
       file <- files if (file.getName.endsWith("bin"))
     ) println(file)
 
-    // for里面还可以有多个过滤条件
+    // for
     for (
-      file <- files if (file.isFile) if (file.getName.endsWith("gitignore"))
+      file <- files 
+      if (file.isFile) 
+      if (file.getName.endsWith("gitignore"))
     ) println(file)
 
-    // for循环里找出来的东西还可以放到一个集合里
+    //put all the matched files in array
     val sfiles = for (
       file <- files if (file.isFile)
     ) yield file

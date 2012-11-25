@@ -1,9 +1,10 @@
-package com.sillycat.easyscala
+package com.sillycat.easyscala.lesson5
 
 object TestIf {
 
   def main(args: Array[String]): Unit = {
         var filename = "default.txt"
+        println(args.isEmpty)
         if (!args.isEmpty){
             filename = args(0)
         }

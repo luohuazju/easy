@@ -1,4 +1,4 @@
-package com.sillycat.easyscala
+package com.sillycat.easyscala.lesson5
 import java.io.FileReader
 
 object TestTry {

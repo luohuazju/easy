@@ -1,4 +1,4 @@
-package com.sillycat.easyscala.bak
+package com.sillycat.easyscala.lesson4
 
 class ChecksumAccumulator {
   //private member in class
