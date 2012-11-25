@@ -1,4 +1,4 @@
-package com.sillycat.easyscala
+package com.sillycat.easyscala.bak
 
 object ListIsImmutable {
 	def main(args: Array[String]): Unit = {
