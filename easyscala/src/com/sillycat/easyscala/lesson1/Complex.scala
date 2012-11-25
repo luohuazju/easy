@@ -1,4 +1,4 @@
-package com.sillycat.easyscala.bak
+package com.sillycat.easyscala.lesson1
 
 class Complex(real: Double, imaginary: Double) {
   def re = real

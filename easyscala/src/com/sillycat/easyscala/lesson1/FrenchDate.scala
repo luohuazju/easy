@@ -1,4 +1,4 @@
-package com.sillycat.easyscala.bak
+package com.sillycat.easyscala.lesson1
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale

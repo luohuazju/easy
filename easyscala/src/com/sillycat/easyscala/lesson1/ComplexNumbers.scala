@@ -1,4 +1,4 @@
-package com.sillycat.easyscala.bak
+package com.sillycat.easyscala.lesson1
 
 object ComplexNumbers {
   def main(args:Array[String]) {
