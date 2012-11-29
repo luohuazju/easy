@@ -858,7 +858,6 @@ public class Blog implements org.apache.thrift.TBase<Blog, Blog._Fields>, java.i
 
   private static class BlogTupleScheme extends TupleScheme<Blog> {
 
-    @Override
     public void write(org.apache.thrift.protocol.TProtocol prot, Blog struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       BitSet optionals = new BitSet();
