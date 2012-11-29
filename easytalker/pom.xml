@@ -106,6 +106,17 @@
   </build>
   
   <repositories>
+    	<repository>
+			<id>sillycat</id>
+			<name>sillycat Repository</name>
+			<url>http://sillycat.googlecode.com/svn/repository</url>
+			<releases>
+			    <enabled>true</enabled><updatePolicy>always</updatePolicy>
+			</releases>
+      		<snapshots>
+      		    <enabled>true</enabled><updatePolicy>always</updatePolicy>
+      		</snapshots>
+		</repository>
     
     <repository>
 			<id>scala-release</id>
@@ -125,11 +136,6 @@
 			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
 		</repository>
       
-      	<repository>
-			<id>localhost-release</id>
-			<name>localhost Maven Release Repository</name>
-			<url>http://ud1129.chinaw3.com:8081/nexus/content/groups/public/</url>
-		</repository>
       
 		<repository>
 			<id>spring-release</id>
@@ -153,10 +159,6 @@
 			<name>JBoss repository</name>
 			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
 		</repository>
-		<repository>
-			<id>sillycat</id>
-			<name>sillycat Repository</name>
-			<url>https://sillycat.googlecode.com/svn/repository</url>
-		</repository>
+
 	</repositories>
 </project>
