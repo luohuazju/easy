@@ -126,6 +126,12 @@
 			<id>sillycat-repository</id>
 			<name>Sillycat Repository</name>
 			<url>https://sillycat.googlecode.com/svn/repository</url>
+			<releases>
+			    <enabled>true</enabled><updatePolicy>always</updatePolicy>
+			</releases>
+      		<snapshots>
+      		    <enabled>true</enabled><updatePolicy>always</updatePolicy>
+      		</snapshots>
 		</repository>
 		<!-- For testing against latest Spring snapshots -->
 		<repository>
