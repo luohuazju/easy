@@ -1,14 +1,14 @@
 package com.sillycat.easyrestclientandroid.mainframe;
 
-import com.sillycat.easyrestclientandroid.R;
-import com.sillycat.easyrestclientandroid.R.array;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.sillycat.easyrestclientandroid.R;
+import com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity;
 
 public class MainActivity extends ListActivity {
 
@@ -30,8 +30,8 @@ public class MainActivity extends ListActivity {
 		switch(position) 
 		{
 			case 0:
-				//intent.setClass(this, AllPersonActivity.class);
-				//startActivity(intent);
+				intent.setClass(this, PersonListActivity.class);
+				startActivity(intent);
 				break;
 			case 1:
 				//intent.setClass(this, GetPersonActivity.class);

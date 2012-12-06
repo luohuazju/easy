@@ -6,6 +6,7 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".mainframe.MainApplication" 
@@ -20,6 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity" />
     </application>
 
 </manifest>

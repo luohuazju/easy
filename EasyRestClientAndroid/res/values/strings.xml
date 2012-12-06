@@ -2,7 +2,7 @@
 
     <string name="app_name">EasyRestClientAndroid</string>
     <string name="title_activity_main">EasyRestClientAndroid</string>
-    <string name="base_uri">http://rd.digby.com</string>
+    <string name="base_uri">http://rd.digby.com/easyrestserver</string>
     
 
     <string-array name="main_options">
