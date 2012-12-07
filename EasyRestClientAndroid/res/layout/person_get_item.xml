@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_centerVertical="true"
+    >
+
+	<TextView
+		android:id="@+id/text_view_description"
+		android:text="@string/person_get_description"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:padding="8dip"
+		/>
+		
+	<TextView
+        android:id="@+id/label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="14dip"
+        android:text="@string/enter_person_id"
+        />
+		
+	<EditText
+		android:id="@+id/edit_text_id"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:padding="8dip"
+		android:singleLine="true"
+		android:inputType=""
+		/>
+	
+	<Button
+		android:id="@+id/button_json"
+		android:text="Fetch Person with JSON"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		/>
+		
+</LinearLayout>
