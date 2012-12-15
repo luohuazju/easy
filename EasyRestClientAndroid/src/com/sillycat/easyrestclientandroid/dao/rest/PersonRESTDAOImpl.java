@@ -10,7 +10,6 @@ import org.springframework.http.converter.json.MappingJacksonHttpMessageConverte
 import org.springframework.web.client.RestTemplate;
 
 import com.sillycat.easyapi.rest.json.Person;
-import com.sillycat.easyrestclientandroid.R;
 import com.sillycat.easyrestclientandroid.dao.PersonDAO;
 
 public class PersonRESTDAOImpl implements PersonDAO{

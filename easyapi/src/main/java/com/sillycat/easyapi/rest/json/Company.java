@@ -1,5 +1,5 @@
 package com.sillycat.easyapi.rest.json;
-
+ 
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonManagedReference;
