@@ -23,6 +23,7 @@
         </activity>
         
         <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity" />
+        <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.GetOnePersonActivity" />
     </application>
 
 </manifest>
