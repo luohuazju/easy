@@ -74,11 +74,11 @@ public class PersonControllerTest1 {
 		Assert.assertEquals(actualPerson.getId(), person.getId());
 	}
 	
-	//@Test
+	@Test
 	public void add() throws Exception{
 		mockRequest.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		mockRequest.setMethod("POST");
-	    mockRequest.setRequestURI("/person");
+	    mockRequest.setRequestURI("/person/person");
 	    
 	    String jsonPerson = mapper.writeValueAsString(person);
 	    mockRequest.setContent(jsonPerson.getBytes());

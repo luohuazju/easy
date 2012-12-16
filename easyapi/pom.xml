@@ -4,7 +4,7 @@
   <groupId>com.sillycat.easyapi</groupId>
   <artifactId>easyapi</artifactId>
   <packaging>jar</packaging>
-  <version>1.0</version>
+  <version>1.0.1</version>
   
   <name>easyapi Maven Webapp</name>
   <url>http://maven.apache.org</url>

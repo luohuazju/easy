@@ -15,6 +15,7 @@
 			">
 	
 	<!-- Client -->
+	<!--  
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
 		<property name="messageConverters">
 			<list>
@@ -22,5 +23,6 @@
 			</list>
 		</property>
 	</bean>
+	-->
 	
 </beans>
