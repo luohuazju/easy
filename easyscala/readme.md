@@ -1,0 +1,1 @@
+This is only example to learn the syntax for scala.
