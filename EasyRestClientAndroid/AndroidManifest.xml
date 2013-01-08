@@ -39,7 +39,8 @@
         </activity>
         <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity" />
         <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.GetOnePersonActivity" />
-
+		<activity android:name="com.sillycat.easyrestclientandroid.DemoActivity" />
+        
         <receiver
             android:name="com.google.android.gcm.GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >

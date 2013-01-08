@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.sillycat.easyrestclientandroid.DemoActivity;
 import com.sillycat.easyrestclientandroid.R;
 import com.sillycat.easyrestclientandroid.activity.impl.GetOnePersonActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity;
@@ -39,6 +40,8 @@ public class MainActivity extends ListActivity {
 				startActivity(intent);
 				break;
 			case 2:
+				intent.setClass(this, DemoActivity.class);
+				startActivity(intent);
 				break;
 			case 3:
 				break;
