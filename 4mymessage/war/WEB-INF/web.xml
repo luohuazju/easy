@@ -1,40 +1,89 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+  	<listener>
+    	<listener-class>
+      		com.google.android.gcm.demo.server.ApiKeyInitializer
+    	</listener-class>
+  	</listener>
+    
 	<servlet>
-		<servlet-name>SystemServiceServlet</servlet-name>
-		<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
-		<init-param>
-			<param-name>services</param-name>
-			<param-value/>
-		</init-param>
-	</servlet>
+    	<servlet-name>RegisterServlet</servlet-name>
+    	<servlet-class>
+      		com.google.android.gcm.demo.server.RegisterServlet
+    	</servlet-class>
+    	<load-on-startup>1</load-on-startup>
+  	</servlet>
 
-	<servlet>
-		<servlet-name>guestbook</servlet-name>
-		<servlet-class>com.sillycat.easymymessage.GuestbookServlet</servlet-class>
-	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>RegisterServlet</servlet-name>
+    	<url-pattern>/register</url-pattern>
+  	</servlet-mapping>
 	
-	<servlet>
-        <servlet-name>sign</servlet-name>
-        <servlet-class>com.sillycat.easymymessage.SignGuestbookServlet</servlet-class>
-    </servlet>
+  	<servlet>
+    	<servlet-name>UnregisterServlet</servlet-name>
+    	<servlet-class>
+      		com.google.android.gcm.demo.server.UnregisterServlet
+    	</servlet-class>
+    	<load-on-startup>1</load-on-startup>
+  	</servlet>
+  	
+  	<servlet-mapping>
+    	<servlet-name>UnregisterServlet</servlet-name>
+    	<url-pattern>/unregister</url-pattern>
+  	</servlet-mapping>
+  	
+  	<servlet>
+    	<servlet-name>SendAllMessagesServlet</servlet-name>
+    	<servlet-class>
+      		com.google.android.gcm.demo.server.SendAllMessagesServlet
+    	</servlet-class>
+    	<load-on-startup>1</load-on-startup>
+  	</servlet>
+  	
+  	<servlet-mapping>
+    	<servlet-name>SendAllMessagesServlet</servlet-name>
+    	<url-pattern>/sendAll</url-pattern>
+  	</servlet-mapping>
+  	
+  	<servlet>
+    	<servlet-name>SendMessageServlet</servlet-name>
+    	<servlet-class>
+      		com.google.android.gcm.demo.server.SendMessageServlet
+    	</servlet-class>
+    	<load-on-startup>1</load-on-startup>
+  	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>SystemServiceServlet</servlet-name>
-		<url-pattern>/_ah/spi/*</url-pattern>
-	</servlet-mapping>
+  	<servlet-mapping>
+    	<servlet-name>SendMessageServlet</servlet-name>
+    	<url-pattern>/send</url-pattern>
+  	</servlet-mapping>
+  	
+  	<servlet>
+    	<servlet-name>HomeServlet</servlet-name>
+    	<servlet-class>
+      		com.google.android.gcm.demo.server.HomeServlet
+    	</servlet-class>
+    	<load-on-startup>1</load-on-startup>
+  	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>guestbook</servlet-name>
-		<url-pattern>/guestbook</url-pattern>
-	</servlet-mapping>
+  	<servlet-mapping>
+    	<servlet-name>HomeServlet</servlet-name>
+    	<url-pattern>/home</url-pattern>
+  	</servlet-mapping>
 	
-	<servlet-mapping>
-        <servlet-name>sign</servlet-name>
-        <url-pattern>/sign</url-pattern>
-    </servlet-mapping>
-
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+ <servlet>
+  <servlet-name>SystemServiceServlet</servlet-name>
+  <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+  <init-param>
+   <param-name>services</param-name>
+   <param-value/>
+  </init-param>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>SystemServiceServlet</servlet-name>
+  <url-pattern>/_ah/spi/*</url-pattern>
+ </servlet-mapping>
 </web-app>
