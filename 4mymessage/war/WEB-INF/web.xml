@@ -1,15 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<servlet>
 		<servlet-name>SystemServiceServlet</servlet-name>
 		<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
 		<init-param>
 			<param-name>services</param-name>
-			<param-value />
+			<param-value/>
 		</init-param>
 	</servlet>
 
@@ -17,6 +13,11 @@
 		<servlet-name>guestbook</servlet-name>
 		<servlet-class>com.sillycat.easymymessage.GuestbookServlet</servlet-class>
 	</servlet>
+	
+	<servlet>
+        <servlet-name>sign</servlet-name>
+        <servlet-class>com.sillycat.easymymessage.SignGuestbookServlet</servlet-class>
+    </servlet>
 
 	<servlet-mapping>
 		<servlet-name>SystemServiceServlet</servlet-name>
@@ -27,6 +28,11 @@
 		<servlet-name>guestbook</servlet-name>
 		<url-pattern>/guestbook</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+        <servlet-name>sign</servlet-name>
+        <url-pattern>/sign</url-pattern>
+    </servlet-mapping>
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
