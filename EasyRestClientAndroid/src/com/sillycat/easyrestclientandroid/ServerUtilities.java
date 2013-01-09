@@ -1,18 +1,4 @@
-/*
- * Copyright 2012 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.sillycat.easyrestclientandroid;
 
 import static com.sillycat.easyrestclientandroid.CommonUtilities.SERVER_URL;
@@ -45,20 +31,12 @@ import android.util.Log;
 
 import com.google.android.gcm.GCMRegistrar;
 
-/**
- * Helper class used to communicate with the demo server.
- */
 public final class ServerUtilities {
 
 	private static final int MAX_ATTEMPTS = 5;
 	private static final int BACKOFF_MILLI_SECONDS = 2000;
 	private static final Random random = new Random();
 
-	/**
-	 * Register this account/device pair within the server.
-	 * 
-	 * @return whether the registration succeeded or not.
-	 */
 	static boolean register(final Context context, final String regId) {
 		Log.i(TAG, "registering device (regId = " + regId + ")");
 		String serverUrl = SERVER_URL + "/register";
@@ -105,9 +83,6 @@ public final class ServerUtilities {
 		return false;
 	}
 
-	/**
-	 * Unregister this account/device pair within the server.
-	 */
 	static void unregister(final Context context, final String regId) {
 		Log.i(TAG, "unregistering device (regId = " + regId + ")");
 		String serverUrl = SERVER_URL + "/unregister";
@@ -130,17 +105,6 @@ public final class ServerUtilities {
 		}
 	}
 
-	/**
-	 * Issue a POST request to the server.
-	 * 
-	 * @param endpoint
-	 *            POST address.
-	 * @param params
-	 *            request parameters.
-	 * 
-	 * @throws IOException
-	 *             propagated from POST.
-	 */
 	private static void post(String endpoint, Map<String, String> params)
 			throws IOException {
 		disableHTTPS();
@@ -203,7 +167,6 @@ public final class ServerUtilities {
 				client.getParams(), registry);
 		DefaultHttpClient httpClient = new DefaultHttpClient(mgr,
 				client.getParams());
-
 		// Set verifier
 		HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);
 	}
