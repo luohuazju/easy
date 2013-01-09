@@ -32,8 +32,9 @@ public final class CommonUtilities {
 	/**
 	 * Google API project id registered to use GCM.
 	 */
-	static final String SENDER_ID = "AIzaSyCbGlXgg6SDKUJBmVQ7BTuzFAgsxI5dpNg";
-
+	//static final String SENDER_ID = "AIzaSyCbGlXgg6SDKUJBmVQ7BTuzFAgsxI5dpNg";
+	static final String SENDER_ID = "1044806436104";
+	
 	/**
 	 * Tag used on log messages.
 	 */

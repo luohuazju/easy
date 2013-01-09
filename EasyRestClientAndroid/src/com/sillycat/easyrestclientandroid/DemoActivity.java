@@ -1,18 +1,4 @@
-/*
- * Copyright 2012 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.sillycat.easyrestclientandroid;
 
 import static com.sillycat.easyrestclientandroid.CommonUtilities.DISPLAY_MESSAGE_ACTION;
@@ -34,15 +20,11 @@ import android.widget.TextView;
 import com.google.android.gcm.GCMRegistrar;
 import com.sillycat.easyrestclientandroid.R;
 
-/**
- * Main UI for the demo app.
- */
 public class DemoActivity extends Activity {
 
 	TextView mDisplay;
 	AsyncTask<Void, Void, Void> mRegisterTask;
 
-	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		checkNotNull(SERVER_URL, "SERVER_URL");
@@ -71,7 +53,6 @@ public class DemoActivity extends Activity {
 				// hence the use of AsyncTask instead of a raw thread.
 				final Context context = this;
 				mRegisterTask = new AsyncTask<Void, Void, Void>() {
-
 					@Override
 					protected Void doInBackground(Void... params) {
 						boolean registered = ServerUtilities.register(context,
@@ -87,7 +68,6 @@ public class DemoActivity extends Activity {
 						}
 						return null;
 					}
-
 					@Override
 					protected void onPostExecute(Void result) {
 						mRegisterTask = null;

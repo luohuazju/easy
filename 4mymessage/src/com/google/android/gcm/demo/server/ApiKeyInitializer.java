@@ -15,7 +15,7 @@ import javax.servlet.ServletContextListener;
 
 public class ApiKeyInitializer implements ServletContextListener {
 
-  static final String ATTRIBUTE_ACCESS_KEY = "AIzaSyD3bB3-EMz6mZ3_5JTlzZ0XT6uVymo1iCQ";
+  static final String ATTRIBUTE_ACCESS_KEY = "apiKey";
 
   private static final String ENTITY_KIND = "Settings";
   private static final String ENTITY_KEY = "MyKey";
@@ -36,7 +36,8 @@ public class ApiKeyInitializer implements ServletContextListener {
       // it will be necessary to hardcode the API key below if you are running
       // it locally.
       entity.setProperty(ACCESS_KEY_FIELD,
-          "replace_this_text_by_your_Simple_API_Access_key");
+          "AIzaSyAa8bp128TKq4chMIzYjd-SGzPm2anmzzo");
+      //entity.setProperty(ACCESS_KEY_FIELD, "AIzaSyB_ZQ0qWQZ9kxT7s7nhaVkth0s49F0-iFY");
       datastore.put(entity);
       logger.severe("Created fake key. Please go to App Engine admin "
           + "console, change its value to your API Key (the entity "

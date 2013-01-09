@@ -7,22 +7,27 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
 
+    <!-- GCM connects to Google Services. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <permission
         android:name="com.sillycat.easyrestclientandroid.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.sillycat.easyrestclientandroid.permission.C2D_MESSAGE" />
-
-    <!-- App receives GCM messages. -->
+    <!-- This app has permission to register and receive data message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <!-- GCM connects to Google Services. -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- GCM requires a Google account. -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <!-- Keeps the processor from sleeping when a message is received. -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
+    <!-- Keeps the device on vibrating mode when a message is received. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
     <application
         android:name=".mainframe.MainApplication"
         android:icon="@drawable/ic_launcher"
@@ -39,21 +44,20 @@
         </activity>
         <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity" />
         <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.GetOnePersonActivity" />
-		<activity android:name="com.sillycat.easyrestclientandroid.DemoActivity" />
-        
+        <activity android:name="com.sillycat.easyrestclientandroid.DemoActivity" />
+
         <receiver
             android:name="com.google.android.gcm.GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="com.sillycat.easyrestclientandroid" />
             </intent-filter>
         </receiver>
-        
+
         <service android:name=".GCMIntentService" />
-        
     </application>
 
-    
 </manifest>

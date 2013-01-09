@@ -33,7 +33,6 @@ import com.sillycat.easyrestclientandroid.R;
  */
 public class GCMIntentService extends GCMBaseIntentService {
 
-	@SuppressWarnings("hiding")
 	private static final String TAG = "GCMIntentService";
 
 	public GCMIntentService() {
