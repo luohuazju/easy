@@ -36,7 +36,7 @@ public class SendMessageServlet extends BaseServlet {
 	protected Sender newSender(ServletConfig config) {
 		String key = (String) config.getServletContext().getAttribute(
 				ApiKeyInitializer.ATTRIBUTE_ACCESS_KEY);
-		//construct the Sender
+		// construct the Sender
 		return new Sender(key);
 	}
 
@@ -80,11 +80,12 @@ public class SendMessageServlet extends BaseServlet {
 
 	private void sendSingleMessage(String regId, HttpServletResponse resp) {
 		logger.info("Sending message to device " + regId);
-		//build the send message
-		Message message = new Message.Builder().build();
+		// build the send message
+		Message message = new Message.Builder().addData("message",
+				"Message I want you to know.").build();
 		Result result;
 		try {
-			//send the message object to a registId
+			// send the message object to a registId
 			result = sender.sendNoRetry(message, regId);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "Exception posting " + message, e);
@@ -122,7 +123,7 @@ public class SendMessageServlet extends BaseServlet {
 		Message message = new Message.Builder().build();
 		MulticastResult multicastResult;
 		try {
-			//send one message to multiple devices
+			// send one message to multiple devices
 			multicastResult = sender.sendNoRetry(message, regIds);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "Exception posting " + message, e);
@@ -165,9 +166,9 @@ public class SendMessageServlet extends BaseServlet {
 			if (!retriableRegIds.isEmpty()) {
 				// update task
 				Datastore.updateMulticast(multicastKey, retriableRegIds);
-				//retry the error tasks, update the multicast data
+				// retry the error tasks, update the multicast data
 				allDone = false;
-				//retryTask(resp);
+				// retryTask(resp);
 			}
 		}
 		if (allDone) {
