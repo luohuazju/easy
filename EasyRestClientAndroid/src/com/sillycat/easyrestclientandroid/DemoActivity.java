@@ -1,10 +1,5 @@
-
 package com.sillycat.easyrestclientandroid;
 
-import static com.sillycat.easyrestclientandroid.CommonUtilities.DISPLAY_MESSAGE_ACTION;
-import static com.sillycat.easyrestclientandroid.CommonUtilities.EXTRA_MESSAGE;
-import static com.sillycat.easyrestclientandroid.CommonUtilities.SENDER_ID;
-import static com.sillycat.easyrestclientandroid.CommonUtilities.SERVER_URL;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,30 +13,42 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.android.gcm.GCMRegistrar;
-import com.sillycat.easyrestclientandroid.R;
+import com.sillycat.easyrestclientandroid.constants.AllConstants;
 
 public class DemoActivity extends Activity {
 
 	TextView mDisplay;
-	AsyncTask<Void, Void, Void> mRegisterTask;
+
+	AsyncTask<Void, Void, Void> mRegisterTask; // Download Task
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		checkNotNull(SERVER_URL, "SERVER_URL");
-		checkNotNull(SENDER_ID, "SENDER_ID");
+		// check the configuration
+		String senderId = getString(R.string.gcm_sender);
+		String gcmServerBaseUri = getString(R.string.gcm_server_base_uri);
+		checkNotNull(gcmServerBaseUri, "SERVER_URL");
+		checkNotNull(senderId, "SENDER_ID");
+
 		// Make sure the device has the proper dependencies.
 		GCMRegistrar.checkDevice(this);
-		// Make sure the manifest was properly set - comment out this line
-		// while developing the app, then uncomment it when it's ready.
+
+		// Make sure the manifest was properly set
+		// comment out this line
+		// while developing the app,
+		// uncomment it when it's ready.
 		GCMRegistrar.checkManifest(this);
+
 		setContentView(R.layout.gcm_client);
 		mDisplay = (TextView) findViewById(R.id.display);
+
+		// define the message receiver
 		registerReceiver(mHandleMessageReceiver, new IntentFilter(
-				DISPLAY_MESSAGE_ACTION));
+				AllConstants.DISPLAY_MESSAGE_ACTION));
+
 		final String regId = GCMRegistrar.getRegistrationId(this);
 		if (regId.equals("")) {
 			// Automatically registers application on startup.
-			GCMRegistrar.register(this, SENDER_ID);
+			GCMRegistrar.register(this, senderId);
 		} else {
 			// Device is already registered on GCM, check server.
 			if (GCMRegistrar.isRegisteredOnServer(this)) {
@@ -52,8 +59,8 @@ public class DemoActivity extends Activity {
 				// It's also necessary to cancel the thread onDestroy(),
 				// hence the use of AsyncTask instead of a raw thread.
 				final Context context = this;
+
 				mRegisterTask = new AsyncTask<Void, Void, Void>() {
-					@Override
 					protected Void doInBackground(Void... params) {
 						boolean registered = ServerUtilities.register(context,
 								regId);
@@ -68,7 +75,7 @@ public class DemoActivity extends Activity {
 						}
 						return null;
 					}
-					@Override
+
 					protected void onPostExecute(Void result) {
 						mRegisterTask = null;
 					}
@@ -131,7 +138,8 @@ public class DemoActivity extends Activity {
 	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			String newMessage = intent.getExtras().getString(EXTRA_MESSAGE);
+			String newMessage = intent.getExtras().getString(
+					AllConstants.EXTRA_MESSAGE);
 			mDisplay.append(newMessage + "\n");
 		}
 	};

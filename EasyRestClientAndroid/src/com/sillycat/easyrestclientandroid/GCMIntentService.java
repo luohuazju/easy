@@ -1,8 +1,7 @@
 
 package com.sillycat.easyrestclientandroid;
 
-import static com.sillycat.easyrestclientandroid.CommonUtilities.SENDER_ID;
-import static com.sillycat.easyrestclientandroid.CommonUtilities.displayMessage;
+import static com.sillycat.easyrestclientandroid.constants.AllConstants.displayMessage;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,40 +11,42 @@ import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMRegistrar;
-import com.sillycat.easyrestclientandroid.R;
+import com.sillycat.easyrestclientandroid.constants.AllConstants;
 
 public class GCMIntentService extends GCMBaseIntentService {
 
 	private static final String TAG = "GCMIntentService";
 
+	//construct the sender id
 	public GCMIntentService() {
-		super(SENDER_ID);
+		super(AllConstants.SENDER_ID);
 	}
 
-	@Override
 	protected void onRegistered(Context context, String registrationId) {
 		Log.i(TAG, "Device registered: regId = " + registrationId);
+		//display the message, get the content from static method
+		//maybe it is from the package name to construct the Intent
 		displayMessage(context, getString(R.string.gcm_registered));
 		ServerUtilities.register(context, registrationId);
 	}
 
-	@Override
 	protected void onUnregistered(Context context, String registrationId) {
 		Log.i(TAG, "Device unregistered");
 		displayMessage(context, getString(R.string.gcm_unregistered));
 		if (GCMRegistrar.isRegisteredOnServer(context)) {
 			ServerUtilities.unregister(context, registrationId);
 		} else {
-			// This callback results from the call to unregister made on
-			// ServerUtilities when the registration to the server failed.
 			Log.i(TAG, "Ignoring unregister callback");
 		}
 	}
 
-	@Override
 	protected void onMessage(Context context, Intent intent) {
 		Log.i(TAG, "Received message");
 		String message = getString(R.string.gcm_message);
+		
+		String extra_message = intent.getStringExtra("message");
+		message = message + extra_message;
+		
 		displayMessage(context, message);
 		// notifies user
 		generateNotification(context, message);

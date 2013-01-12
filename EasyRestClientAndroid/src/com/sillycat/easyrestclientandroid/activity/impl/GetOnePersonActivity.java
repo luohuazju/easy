@@ -62,7 +62,7 @@ public class GetOnePersonActivity extends AbstractAsyncActivity {
 		protected Person doInBackground(MediaType... params) {
 			try {
 				PersonDAO personDAO = new PersonRESTDAOImpl();
-				personDAO.setBaseURL(getString(R.string.base_uri));
+				personDAO.setBaseURL(getString(R.string.rest_server_base_uri));
 				return personDAO.get(Integer.valueOf(_id));
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage(), e);

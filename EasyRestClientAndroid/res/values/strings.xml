@@ -2,9 +2,12 @@
 
     <string name="app_name">EasyRestClientAndroid</string>
     <string name="title_activity_main">EasyRestClientAndroid</string>
-    <string name="base_uri">http://rd.digby.com/easyrestserver</string>
     <string name="person_get_description">Person Description</string>
     <string name="enter_person_id">Enter Person ID</string>
+    
+    <string name="rest_server_base_uri">http://rd.digby.com/easyrestserver</string>
+    <string name="gcm_server_base_uri">http://4mymessage.appspot.com</string>
+    <string name="gcm_sender">1044806436104</string>
 
     <string-array name="main_options">
 		<item>List All Person</item>

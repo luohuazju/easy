@@ -47,7 +47,7 @@ public class PersonListActivity extends AbstractAsyncListActivity {
 		protected List<Person> doInBackground(Void... params) {
 			try {
 				PersonDAO personDAO = new PersonRESTDAOImpl();
-				personDAO.setBaseURL(getString(R.string.base_uri));
+				personDAO.setBaseURL(getString(R.string.rest_server_base_uri));
 				return personDAO.all();
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage(), e);
