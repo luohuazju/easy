@@ -1,4 +1,4 @@
-package com.sillycat.easyrestclientandroid;
+package com.sillycat.easyrestclientandroid.dao;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,6 +25,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gcm.GCMRegistrar;
+import com.sillycat.easyrestclientandroid.R;
+import com.sillycat.easyrestclientandroid.R.string;
 import com.sillycat.easyrestclientandroid.constants.AllConstants;
 
 /**
@@ -37,7 +39,7 @@ public final class ServerUtilities {
 	private static final int BACKOFF_MILLI_SECONDS = 2000;
 	private static final Random random = new Random();
 
-	static boolean register(final Context context, final String regId) {
+	public static boolean register(final Context context, final String regId) {
 		
 		Log.i(AllConstants.TAG, "registering device (regId = " + regId + ")");
 		String serverUrl = context.getString(R.string.gcm_server_base_uri) + "/register";
@@ -80,7 +82,7 @@ public final class ServerUtilities {
 		return false;
 	}
 
-	static void unregister(final Context context, final String regId) {
+	public static void unregister(final Context context, final String regId) {
 		Log.i(AllConstants.TAG, "unregistering device (regId = " + regId + ")");
 		String serverUrl = context.getString(R.string.gcm_server_base_uri) + "/unregister";
 		Map<String, String> params = new HashMap<String, String>();

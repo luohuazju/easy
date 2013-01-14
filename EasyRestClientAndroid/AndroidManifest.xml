@@ -44,7 +44,7 @@
         </activity>
         <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity" />
         <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.GetOnePersonActivity" />
-        <activity android:name="com.sillycat.easyrestclientandroid.DemoActivity" />
+        <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.DemoActivity" />
 
         <receiver
             android:name="com.google.android.gcm.GCMBroadcastReceiver"
@@ -57,7 +57,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".GCMIntentService" />
+        <service android:name="com.sillycat.easyrestclientandroid.GCMIntentService" />
     </application>
 
 </manifest>

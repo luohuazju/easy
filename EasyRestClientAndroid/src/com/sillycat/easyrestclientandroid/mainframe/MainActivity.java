@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.sillycat.easyrestclientandroid.DemoActivity;
 import com.sillycat.easyrestclientandroid.R;
+import com.sillycat.easyrestclientandroid.activity.impl.DemoActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.GetOnePersonActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity;
 

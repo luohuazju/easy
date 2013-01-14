@@ -1,4 +1,4 @@
-package com.sillycat.easyrestclientandroid;
+package com.sillycat.easyrestclientandroid.activity.impl;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -13,7 +13,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.android.gcm.GCMRegistrar;
+import com.sillycat.easyrestclientandroid.R;
+import com.sillycat.easyrestclientandroid.R.id;
+import com.sillycat.easyrestclientandroid.R.layout;
+import com.sillycat.easyrestclientandroid.R.menu;
+import com.sillycat.easyrestclientandroid.R.string;
 import com.sillycat.easyrestclientandroid.constants.AllConstants;
+import com.sillycat.easyrestclientandroid.dao.ServerUtilities;
 
 public class DemoActivity extends Activity {
 
@@ -124,7 +130,11 @@ public class DemoActivity extends Activity {
 			mRegisterTask.cancel(true);
 		}
 		unregisterReceiver(mHandleMessageReceiver);
-		GCMRegistrar.onDestroy(this);
+		try {
+			GCMRegistrar.onDestroy(this);
+		} catch (Exception e) {
+
+		}
 		super.onDestroy();
 	}
 

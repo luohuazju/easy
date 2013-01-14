@@ -11,7 +11,12 @@ import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMRegistrar;
+import com.sillycat.easyrestclientandroid.R;
+import com.sillycat.easyrestclientandroid.R.drawable;
+import com.sillycat.easyrestclientandroid.R.string;
+import com.sillycat.easyrestclientandroid.activity.impl.DemoActivity;
 import com.sillycat.easyrestclientandroid.constants.AllConstants;
+import com.sillycat.easyrestclientandroid.dao.ServerUtilities;
 
 public class GCMIntentService extends GCMBaseIntentService {
 
