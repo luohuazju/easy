@@ -5,3 +5,6 @@
 /project/target/**
 /target/resolution/**
 /target/streams/**
+/target/resolution-cache/**
+/target/scala-2.10/**
+/target/scala-2.9.2/**
