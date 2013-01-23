@@ -2,3 +2,6 @@
 /.cache
 /.classpath
 /.project
+/project/target/**
+/target/resolution/**
+/target/streams/**
