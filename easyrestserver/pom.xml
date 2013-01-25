@@ -7,12 +7,12 @@
 	<version>1.0</version>
 	<name>easyrestserver Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<groovy.plugin.version>1.5</groovy.plugin.version>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -110,39 +110,51 @@
 			<artifactId>velocity-tools</artifactId>
 			<version>2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.10</version>
+		</dependency>
+
+
 	</dependencies>
-	
+
 	<build>
 		<finalName>easyrestserver</finalName>
-		<pluginManagement>  
-            <plugins>  
-                <plugin>  
-                    <groupId>org.eclipse.m2e</groupId>  
-                    <artifactId>lifecycle-mapping</artifactId>  
-                    <version>1.0.0</version>  
-                    <configuration>  
-                        <lifecycleMappingMetadata>  
-                            <pluginExecutions>  
-                                <pluginExecution>  
-                                    <pluginExecutionFilter>  
-                                        <groupId>org.apache.maven.plugins</groupId>  
-                                        <artifactId>maven-dependency-plugin</artifactId>  
-                                        <versionRange>[2.0,)</versionRange>  
-                                        <goals>  
-                                            <goal>copy-dependencies</goal>  
-                                        </goals>  
-                                    </pluginExecutionFilter>  
-                                    <action>  
-                                        <ignore />  
-                                    </action>  
-                                </pluginExecution>  
-                            </pluginExecutions>  
-                        </lifecycleMappingMetadata>  
-                    </configuration>  
-                </plugin>  
-            </plugins>  
-        </pluginManagement>
-        
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -263,100 +275,100 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<repositories>
 		<!-- http://www.mvnsearch.org/maven2 -->
 		<repository>
-            <id>mvnsearch_snapshot_repo</id>
-            <name>mvn search snapshot repo</name>
-            <url>http://www.mvnsearch.org/maven2</url>
-        </repository>
+			<id>mvnsearch_snapshot_repo</id>
+			<name>mvn search snapshot repo</name>
+			<url>http://www.mvnsearch.org/maven2</url>
+		</repository>
 		<!-- http://maven.springframework.org/snapshot -->
 		<repository>
-            <id>springframe_snapshot_repo</id>
-            <name>springframe snapshot repo</name>
-            <url>http://maven.springframework.org/snapshot</url>
-        </repository>
+			<id>springframe_snapshot_repo</id>
+			<name>springframe snapshot repo</name>
+			<url>http://maven.springframework.org/snapshot</url>
+		</repository>
 		<!-- http://repository.sonatype.org/content/groups/public/ -->
 		<repository>
-            <id>sonatype_repo</id>
-            <name>sonatype repo</name>
-            <url>http://repository.sonatype.org/content/groups/public/</url>
-        </repository>
-		<!--  http://developer.k-int.com/maven2/ -->
+			<id>sonatype_repo</id>
+			<name>sonatype repo</name>
+			<url>http://repository.sonatype.org/content/groups/public/</url>
+		</repository>
+		<!-- http://developer.k-int.com/maven2/ -->
 		<repository>
-            <id>k_int_repo</id>
-            <name>k int repo</name>
-            <url>http://developer.k-int.com/maven2/</url>
-        </repository>
+			<id>k_int_repo</id>
+			<name>k int repo</name>
+			<url>http://developer.k-int.com/maven2/</url>
+		</repository>
 		<repository>
-            <id>maven_repo1</id>
-            <name>maven repo1 Repository</name>
-            <url>http://search.maven.org</url>
-        </repository>
-        <repository>
-        	<id>maven_jboss</id>
-        	<name>maven jboss repository</name>
-        	<url>http://repository.jboss.com</url>
-        </repository>
-        <repository>
-        	<id>maven_java</id>
-        	<name>maven java repository</name>
-        	<url>http://download.java.net/maven/2/</url>
-        </repository>
-    	<repository>
-            <id>sillycat</id>
-            <name>sillycat Repository</name>
-            <url>https://sillycat.googlecode.com/svn/repository</url>
-        </repository>
-        <repository>
-            <id>alfresco-maven-release</id>
-            <name>Alfresco Maven Release Repository</name>
-            <url>http://maven.alfresco.com/nexus/content/repositories/releases/</url>
-        </repository>
+			<id>maven_repo1</id>
+			<name>maven repo1 Repository</name>
+			<url>http://search.maven.org</url>
+		</repository>
+		<repository>
+			<id>maven_jboss</id>
+			<name>maven jboss repository</name>
+			<url>http://repository.jboss.com</url>
+		</repository>
+		<repository>
+			<id>maven_java</id>
+			<name>maven java repository</name>
+			<url>http://download.java.net/maven/2/</url>
+		</repository>
+		<repository>
+			<id>sillycat</id>
+			<name>sillycat Repository</name>
+			<url>https://sillycat.googlecode.com/svn/repository</url>
+		</repository>
+		<repository>
+			<id>alfresco-maven-release</id>
+			<name>Alfresco Maven Release Repository</name>
+			<url>http://maven.alfresco.com/nexus/content/repositories/releases/</url>
+		</repository>
 	</repositories>
 
 	<pluginRepositories>
 		<pluginRepository>
-            <id>springframe_snapshot_repo</id>
-            <name>springframe snapshot repo</name>
-            <url>http://maven.springframework.org/snapshot</url>
-        </pluginRepository>
+			<id>springframe_snapshot_repo</id>
+			<name>springframe snapshot repo</name>
+			<url>http://maven.springframework.org/snapshot</url>
+		</pluginRepository>
 		<pluginRepository>
 			<id>sonatype_repo</id>
-            <name>sonatype repo</name>
-            <url>http://repository.sonatype.org/content/groups/public/</url>
-        </pluginRepository>
+			<name>sonatype repo</name>
+			<url>http://repository.sonatype.org/content/groups/public/</url>
+		</pluginRepository>
 		<pluginRepository>
-            <id>k_int_repo</id>
-            <name>k int repo</name>
-            <url>http://developer.k-int.com/maven2/</url>
-        </pluginRepository>
+			<id>k_int_repo</id>
+			<name>k int repo</name>
+			<url>http://developer.k-int.com/maven2/</url>
+		</pluginRepository>
 		<pluginRepository>
-            <id>maven_repo1</id>
-            <name>maven repo1 Repository</name>
-            <url>http://search.maven.org</url>
-        </pluginRepository>
-        <pluginRepository>
-        	<id>maven_jboss</id>
-        	<name>maven jboss repository</name>
-        	<url>http://repository.jboss.com</url>
-        </pluginRepository>
-        <pluginRepository>
-        	<id>maven_java</id>
-        	<name>maven java repository</name>
-        	<url>http://download.java.net/maven/2/</url>
-        </pluginRepository>
-    	<pluginRepository>
-            <id>sillycat</id>
-            <name>sillycat Repository</name>
-            <url>https://sillycat.googlecode.com/svn/repository</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>alfresco-maven-release</id>
-            <name>Alfresco Maven Release Repository</name>
-            <url>http://maven.alfresco.com/nexus/content/repositories/releases/</url>
-        </pluginRepository>
+			<id>maven_repo1</id>
+			<name>maven repo1 Repository</name>
+			<url>http://search.maven.org</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>maven_jboss</id>
+			<name>maven jboss repository</name>
+			<url>http://repository.jboss.com</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>maven_java</id>
+			<name>maven java repository</name>
+			<url>http://download.java.net/maven/2/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>sillycat</id>
+			<name>sillycat Repository</name>
+			<url>https://sillycat.googlecode.com/svn/repository</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>alfresco-maven-release</id>
+			<name>Alfresco Maven Release Repository</name>
+			<url>http://maven.alfresco.com/nexus/content/repositories/releases/</url>
+		</pluginRepository>
 	</pluginRepositories>
-	
+
 </project>
