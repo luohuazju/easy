@@ -31,7 +31,12 @@ class EasyRouter extends Actor with SprayActorLogging {
       (IOExtension(context.system).ioBridge() ? IOBridge.GetStats).onSuccess {
         case IOBridge.StatsMap(map) => client ! statsPresentation(map)
       }
+    case HttpRequest(HttpMethods.GET, "/event", _, _, _) =>
+      sender ! ok
   }
+  
+  lazy val ok = HttpResponse(
+  )
 
   lazy val index = HttpResponse(
     entity = HttpBody(`text/html`,

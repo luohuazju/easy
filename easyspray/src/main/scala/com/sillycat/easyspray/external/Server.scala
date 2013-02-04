@@ -5,5 +5,5 @@ import akka.actor.Props
 
 object Server extends App with SprayCanHttpServerApp {
   val handler = system.actorOf(Props[EasyRouter])
-  newHttpServer(handler) ! Bind(interface = "localhost", port = 8080)
+  newHttpServer(handler) ! Bind(interface = "localhost", port = 9000)
 }
