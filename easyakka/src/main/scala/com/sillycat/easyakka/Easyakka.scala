@@ -25,6 +25,7 @@ object Easyakka extends App {
   counter ! Tick
   counter ! Tick
   counter ! Tick
+  counter ! Tick
 
   implicit val timeout = Timeout(5 seconds)
 
