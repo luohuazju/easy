@@ -26,6 +26,8 @@ object JodaTimeTest {
     var frenchShortName = dt.monthOfYear().getAsShortText(Locale.FRENCH) //String
     var isLeapyear = dt.year().isLeap() //boolean
 
+    println(monthName + " " + frenchShortName + " " + isLeapyear)
+    
     var dt1 = new DateTime(2005, 3, 26, 12, 0, 0 , 0)
     //set the date and time to be 2005-03-26 T12:00:00.000
     println(dt1)
