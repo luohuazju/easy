@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 import java.util.Locale
 import org.joda.time.Period
 import org.joda.time.Duration
+import org.joda.time.DateTimeZone
 
 object JodaTimeTest {
 
@@ -36,6 +37,15 @@ object JodaTimeTest {
     var plusDuration = dt.plus(Duration.millis(24L*60L*60L*1000L))
     // plus Duration based on a date time to get to new date time
     // and the unit of the time is milliseconds
+    
+    var zoneUTC = DateTimeZone.UTC
+    println("DateTimeZone Object = " + zoneUTC)
+    
+    var iDow = dt.getDayOfWeek()
+    println(iDow)  // 1=MONDAY, SUNDAY=7
+    
+    var propertyDow = dt.dayOfWeek() //DateTime.Property
+    println(propertyDow.getAsShortText() + " " + propertyDow.getAsText()) 
   }
 
 }
