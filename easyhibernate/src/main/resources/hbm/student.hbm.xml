@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sillycat.easyhibernate.model.Student" table="students">
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+		<property name="firstName">
+			<column name="first_name" />
+		</property>
+		<property name="lastName">
+			<column name="last_name" />
+		</property>
+	</class>
+</hibernate-mapping>
