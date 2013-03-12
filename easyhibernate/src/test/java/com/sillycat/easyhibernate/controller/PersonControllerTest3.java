@@ -1,3 +1,4 @@
+package com.sillycat.easyhibernate.controller;
 //package com.sillycat.easyrestserver.controller;
 //
 //import java.io.IOException;

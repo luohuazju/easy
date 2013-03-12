@@ -1,4 +1,4 @@
-package com.sillycat.easyrestserver.core;
+package com.sillycat.easyhibernate.core;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

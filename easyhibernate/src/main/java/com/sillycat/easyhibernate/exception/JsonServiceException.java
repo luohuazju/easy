@@ -1,4 +1,4 @@
-package com.sillycat.easyrestserver.exception;
+package com.sillycat.easyhibernate.exception;
 
 public class JsonServiceException extends Exception {
 

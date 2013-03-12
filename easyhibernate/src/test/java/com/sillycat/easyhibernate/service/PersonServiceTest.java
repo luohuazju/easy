@@ -1,4 +1,4 @@
-package com.sillycat.easyrestserver.service;
+package com.sillycat.easyhibernate.service;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sillycat.easyapi.rest.json.Person;
+import com.sillycat.easyhibernate.service.PersonService;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration(locations = {"file:src/test/resources/test-context.xml" }) 

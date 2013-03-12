@@ -1,4 +1,4 @@
-package com.sillycat.easyrestserver.service;
+package com.sillycat.easyhibernate.service;
 
 import java.util.ArrayList;
 import java.util.List;

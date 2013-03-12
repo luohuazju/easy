@@ -1,4 +1,4 @@
-package com.sillycat.easyrestserver;
+package com.sillycat.easyhibernate;
 
 public class User {
 

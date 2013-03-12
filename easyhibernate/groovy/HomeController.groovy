@@ -1,4 +1,4 @@
-package com.sillycat.easyrestserver.web;
+package com.sillycat.easyhibernate.web;
 
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 
-import com.sillycat.easyrestserver.service.PersonService
+import com.sillycat.easyhibernate.service.PersonService
 
 @Controller
 class UserController {

@@ -1,4 +1,4 @@
-package com.sillycat.easyrestserver.core;
+package com.sillycat.easyhibernate.core;
 
 import javax.servlet.ServletException;
 

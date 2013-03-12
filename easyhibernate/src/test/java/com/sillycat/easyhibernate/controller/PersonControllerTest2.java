@@ -1,10 +1,10 @@
-package com.sillycat.easyrestserver.controller;
+package com.sillycat.easyhibernate.controller;
 
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import com.sillycat.easyrestserver.core.ControllerTestBase;
+import com.sillycat.easyhibernate.core.ControllerTestBase;
 
 /**
  * handlerAdapter and handlerMapping to verify our controller

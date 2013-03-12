@@ -1,4 +1,4 @@
-package com.sillycat.easyrestserver.web;
+package com.sillycat.easyhibernate.web;
 
 import javax.servlet.http.HttpServletResponse
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 
 import com.sillycat.easyapi.rest.json.Person
-import com.sillycat.easyrestserver.exception.JsonServiceException
-import com.sillycat.easyrestserver.service.PersonService
+import com.sillycat.easyhibernate.exception.JsonServiceException
+import com.sillycat.easyhibernate.service.PersonService
 
 
 @Controller

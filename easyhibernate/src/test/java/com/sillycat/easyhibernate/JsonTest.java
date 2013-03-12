@@ -1,3 +1,4 @@
+package com.sillycat.easyhibernate;
 //package com.sillycat.easyrestserver;
 //
 //import java.io.StringWriter;
