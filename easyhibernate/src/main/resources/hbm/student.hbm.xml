@@ -4,7 +4,11 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.sillycat.easyhibernate.model.Student" table="students">
+    <!--  
+	<class name="com.sillycat.easyhibernate.model.Student" table="students" optimistic-lock="all" dynamic-update="true">
+	<class name="com.sillycat.easyhibernate.model.Student" table="students" optimistic-lock="none">
+	-->	
+	<class name="com.sillycat.easyhibernate.model.Student" table="students" optimistic-lock="none">
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>

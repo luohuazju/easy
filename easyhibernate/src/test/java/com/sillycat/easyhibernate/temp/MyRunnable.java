@@ -1,5 +1,7 @@
 package com.sillycat.easyhibernate.temp;
 
+import java.util.Date;
+
 import org.hibernate.Session;
 
 import com.sillycat.easyhibernate.model.Student;
@@ -13,10 +15,15 @@ public class MyRunnable implements Runnable {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Student student = (Student) session.load(Student.class, Integer.valueOf(id));
-		student.setFirstName("xxxx");
+		student.setFirstName("xxx" + (new Date()).getTime());
 		session.save(student);
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		session.getTransaction().commit();
-		System.out.println("Done");
+		System.out.println("Done " + student.getFirstName());
 	}
 
 	public MyRunnable(String id) {
