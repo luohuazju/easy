@@ -3,6 +3,7 @@ package com.sillycat.easyrestclientandroid.adapter.impl;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -22,7 +23,7 @@ public class ProductsListAdapter extends AbstractBaseItemListAdapter<Product> {
 	private final LayoutInflater _layoutInflater;
 
 	public ProductsListAdapter(Context context, int textViewResourceId,
-			Product[] objects) {
+			List<Product> objects) {
 		super(context, textViewResourceId, objects);
 		this._layoutInflater = LayoutInflater.from(context);
 	}

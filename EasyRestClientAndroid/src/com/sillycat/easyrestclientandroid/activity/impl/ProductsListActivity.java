@@ -1,5 +1,6 @@
 package com.sillycat.easyrestclientandroid.activity.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -29,35 +30,43 @@ public class ProductsListActivity extends AbstractAsyncListActivity {
 
 	boolean loadingMore = false;
 
+	ProductsListAdapter adapter;
+
+	List<Product> items;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		items = new ArrayList<Product>();
+
+		adapter = new ProductsListAdapter(this,
+				android.R.layout.simple_list_item_1, items);
+
+		setListAdapter(adapter);
+
 	}
 
 	public void onStart() {
 		super.onStart();
-		new DownloadStatesTask().execute();
+		new DownloadStatesTask().execute(currentPage);
 	}
 
 	public void refreshStates(List<Product> items) {
+
 		if (items == null || items.isEmpty()) {
 			return;
 		}
 
-		Product[] items_arr = new Product[5];
 		for (int i = 0; i < items.size(); i++) {
-			items_arr[i] = new Product();
-			items_arr[i] = items.get(i);
+			adapter.add(items.get(i));
 		}
+		// Update the Application title
+		setTitle("Products List with " + String.valueOf(adapter.getCount())
+				+ " items");
 
-		ProductsListAdapter adapter = new ProductsListAdapter(this,
-				android.R.layout.simple_list_item_1, items_arr);
-
-		View footerView = ((LayoutInflater) this
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
-				R.layout.products_list_footer, null, false);
-		this.getListView().addFooterView(footerView);
-
-		this.setListAdapter(adapter);
+		// Tell to the adapter that changes have been made, this will cause the
+		// list to refresh
+		adapter.notifyDataSetChanged();
 
 		this.getListView().setOnScrollListener(new OnScrollListener() {
 
@@ -72,34 +81,38 @@ public class ProductsListActivity extends AbstractAsyncListActivity {
 				// what is the bottom iten that is visible
 				int lastInScreen = firstVisibleItem + visibleItemCount;
 
-				// is the bottom item visible & not loading more already ? Load
-				// more !
+				Log.d(TAG, "firstVisibleItem = " + firstVisibleItem + " visibleItemCount = " + visibleItemCount + " totalItemCount = " + totalItemCount);
 				if ((lastInScreen == totalItemCount) && !(loadingMore)) {
 					// Thread thread = new Thread(null, loadMoreListItems);
 					// thread.start();
 					currentPage = currentPage + 1;
+					new DownloadStatesTask().execute(currentPage);
 				}
 			}
 		});
+		// Done loading more.
+		loadingMore = false;
 	}
 
 	private class DownloadStatesTask extends
-			AsyncTask<Void, Void, List<Product>> {
+			AsyncTask<Integer, Void, List<Product>> {
 		@Override
 		protected void onPreExecute() {
+			loadingMore = true;
 			// before the network request begins, show a progress indicator
 			showLoadingProgressDialog();
 		}
 
 		@Override
-		protected List<Product> doInBackground(Void... params) {
+		protected List<Product> doInBackground(Integer... params) {
 			try {
+				Log.d(TAG, "Hitting the current page params = " + params[0]);
 				ProductDAO dao = new ProductMockDAOImpl();
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 				}
-				return dao.pagination(1, pageSize);
+				return dao.pagination(params[0], pageSize);
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage(), e);
 			}
