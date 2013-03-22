@@ -1,7 +1,15 @@
 package com.sillycat.easyrestclientandroid.adapter;
 
-import android.widget.BaseAdapter;
+import android.content.Context;
+import android.widget.ArrayAdapter;
 
-public abstract class AbstractBaseItemListAdapter extends BaseAdapter {
+public abstract class AbstractBaseItemListAdapter<T> extends ArrayAdapter<T> {
+
+	public AbstractBaseItemListAdapter(Context context, int textViewResourceId,
+			T[] objects) {
+		super(context, textViewResourceId, objects);
+	}
+
+	
 
 }

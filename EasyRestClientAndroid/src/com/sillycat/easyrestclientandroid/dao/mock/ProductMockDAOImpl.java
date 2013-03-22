@@ -99,6 +99,29 @@ public class ProductMockDAOImpl implements ProductDAO{
 		return map.get(id);
 	}
 
+	public List<Product> pagination(int currentPage, int pageSize){
+		List<Product> pages = null;
+		if(map == null){
+			init();
+		}
+		int start = (currentPage-1) * pageSize + 1;
+		int end = currentPage * pageSize;
+		if(end > map.size()){
+			end = map.size();
+		}
+		pages = new ArrayList<Product>();
+		for(int i = start;i <= end; i++){
+			pages.add(map.get(i));
+		}
+		return pages;
+	}
+	
+	public int size(){
+		if(map == null){
+			init();
+		}
+		return map.size();
+	}
 	
 	
 }

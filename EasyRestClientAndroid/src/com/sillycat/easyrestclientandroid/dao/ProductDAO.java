@@ -10,4 +10,8 @@ public interface ProductDAO {
 	
 	public Product get(Integer id);
 	
+	public List<Product> pagination(int currentPage, int pageSize);
+	
+	public int size();
+	
 }

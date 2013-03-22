@@ -3,7 +3,6 @@ package com.sillycat.easyrestclientandroid.adapter.impl;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,26 +17,14 @@ import com.sillycat.easyrestclientandroid.R;
 import com.sillycat.easyrestclientandroid.adapter.AbstractBaseItemListAdapter;
 import com.sillycat.easyrestclientandroid.model.Product;
 
-public class ProductsListAdapter extends AbstractBaseItemListAdapter {
-
-	private List<Product> _items;
+public class ProductsListAdapter extends AbstractBaseItemListAdapter<Product> {
 
 	private final LayoutInflater _layoutInflater;
 
-	public ProductsListAdapter(Context context, List<Product> _items) {
-		this._items = _items;
+	public ProductsListAdapter(Context context, int textViewResourceId,
+			Product[] objects) {
+		super(context, textViewResourceId, objects);
 		this._layoutInflater = LayoutInflater.from(context);
-	}
-
-	public int getCount() {
-		return _items.size();
-	}
-
-	public Product getItem(int position) {
-		if (_items != null && _items.size() > position) {
-			return _items.get(position);
-		}
-		return null;
 	}
 
 	public long getItemId(int position) {
