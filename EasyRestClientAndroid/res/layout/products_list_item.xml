@@ -6,11 +6,15 @@
     <ImageView
         android:id="@+id/product_image"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="29dp"
         android:layout_marginTop="19dp"
+        android:paddingBottom="1dp"
+        android:paddingLeft="1dp"
+        android:paddingRight="1dp"
+        android:paddingTop="1dp"
         android:src="@drawable/ic_launcher" />
 
     <TextView
@@ -20,26 +24,32 @@
         android:layout_alignTop="@+id/product_image"
         android:layout_marginLeft="26dp"
         android:layout_toRightOf="@+id/product_image"
+        android:padding="1dp"
         android:text="Product Name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/product_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/product_image"
-        android:layout_alignLeft="@+id/product_name"
-        android:text="$1.55"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/product_desn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/product_price"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/product_price"
+        android:layout_marginTop="17dp"
+        android:padding="1dp"
         android:text="This product is really great, you need to buy this, good choice."
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/product_name"
+        android:layout_below="@+id/product_name"
+        android:layout_marginTop="16dp"
+        android:padding="1dp"
+        android:text="$1.55"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
         android:id="@+id/button_add"
@@ -48,6 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/product_desn"
         android:layout_below="@+id/product_desn"
+        android:layout_marginTop="32dp"
+        android:padding="1dp"
         android:text="Add" />
 
 </RelativeLayout>
