@@ -3,16 +3,12 @@ package com.sillycat.easyrestclientandroid.activity.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 
-import com.sillycat.easyrestclientandroid.R;
 import com.sillycat.easyrestclientandroid.activity.AbstractAsyncListActivity;
 import com.sillycat.easyrestclientandroid.adapter.impl.ProductsListAdapter;
 import com.sillycat.easyrestclientandroid.dao.ProductDAO;
@@ -60,37 +56,28 @@ public class ProductsListActivity extends AbstractAsyncListActivity {
 		for (int i = 0; i < items.size(); i++) {
 			adapter.add(items.get(i));
 		}
-		// Update the Application title
 		setTitle("Products List with " + String.valueOf(adapter.getCount())
 				+ " items");
 
-		// Tell to the adapter that changes have been made, this will cause the
-		// list to refresh
 		adapter.notifyDataSetChanged();
 
 		this.getListView().setOnScrollListener(new OnScrollListener() {
 
-			// useless here, skip!
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
 			}
 
-			// dumdumdum
 			public void onScroll(AbsListView view, int firstVisibleItem,
 					int visibleItemCount, int totalItemCount) {
 
-				// what is the bottom iten that is visible
 				int lastInScreen = firstVisibleItem + visibleItemCount;
 
 				Log.d(TAG, "firstVisibleItem = " + firstVisibleItem + " visibleItemCount = " + visibleItemCount + " totalItemCount = " + totalItemCount);
 				if ((lastInScreen == totalItemCount) && !(loadingMore)) {
-					// Thread thread = new Thread(null, loadMoreListItems);
-					// thread.start();
 					currentPage = currentPage + 1;
 					new DownloadStatesTask().execute(currentPage);
 				}
 			}
 		});
-		// Done loading more.
 		loadingMore = false;
 	}
 
@@ -99,7 +86,6 @@ public class ProductsListActivity extends AbstractAsyncListActivity {
 		@Override
 		protected void onPreExecute() {
 			loadingMore = true;
-			// before the network request begins, show a progress indicator
 			showLoadingProgressDialog();
 		}
 
@@ -121,10 +107,7 @@ public class ProductsListActivity extends AbstractAsyncListActivity {
 
 		@Override
 		protected void onPostExecute(List<Product> result) {
-			// hide the progress indicator when the network request is complete
 			dismissProgressDialog();
-
-			// return the list of states
 			refreshStates(result);
 		}
 	}

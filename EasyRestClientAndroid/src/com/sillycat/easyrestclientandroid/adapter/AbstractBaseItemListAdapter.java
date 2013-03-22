@@ -12,6 +12,4 @@ public abstract class AbstractBaseItemListAdapter<T> extends ArrayAdapter<T> {
 		super(context, textViewResourceId, objects);
 	}
 
-	
-
 }
