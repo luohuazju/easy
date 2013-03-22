@@ -1,4 +1,4 @@
-package com.sillycat.easyrestclientandroid.adapter;
+package com.sillycat.easyrestclientandroid.adapter.impl;
 
 import java.util.List;
 

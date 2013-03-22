@@ -1,10 +1,10 @@
 package com.sillycat.easyrestclientandroid.activity;
 
-import com.sillycat.easyrestclientandroid.mainframe.MainApplication;
+import android.app.Application;
 
 public interface AsyncActivityInterface {
 	
-	public MainApplication getApplicationContext();
+	public Application getApplicationContext();
 
 	//loading progress
 	public void showLoadingProgressDialog();

@@ -1,11 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sillycat.easyrestclientandroid"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
+        android:minSdkVersion="4"
+        android:targetSdkVersion="17" />
 
     <!-- GCM connects to Google Services. -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -27,14 +28,14 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <!-- Keeps the device on vibrating mode when a message is received. -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    
+
     <application
-        android:name=".mainframe.MainApplication"
+        android:name="com.sillycat.easyrestclientandroid.mainframe.MainApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".mainframe.MainActivity"
+            android:name="com.sillycat.easyrestclientandroid.mainframe.MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,6 +59,11 @@
         </receiver>
 
         <service android:name="com.sillycat.easyrestclientandroid.GCMIntentService" />
+
+        <activity
+            android:name="com.sillycat.easyrestclientandroid.activity.impl.ProductsListActivity"
+            android:label="@string/title_activity_products_list" >
+        </activity>
     </application>
 
 </manifest>

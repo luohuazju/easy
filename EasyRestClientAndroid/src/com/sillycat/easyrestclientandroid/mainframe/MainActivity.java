@@ -11,6 +11,7 @@ import com.sillycat.easyrestclientandroid.R;
 import com.sillycat.easyrestclientandroid.activity.impl.DemoActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.GetOnePersonActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity;
+import com.sillycat.easyrestclientandroid.activity.impl.ProductsListActivity;
 
 public class MainActivity extends ListActivity {
 
@@ -44,6 +45,8 @@ public class MainActivity extends ListActivity {
 				startActivity(intent);
 				break;
 			case 3:
+				intent.setClass(this, ProductsListActivity.class);
+				startActivity(intent);
 				break;
 			case 4:
 				break;

@@ -9,7 +9,7 @@ import android.util.Log;
 import com.sillycat.easyapi.rest.json.Person;
 import com.sillycat.easyrestclientandroid.R;
 import com.sillycat.easyrestclientandroid.activity.AbstractAsyncListActivity;
-import com.sillycat.easyrestclientandroid.adapter.PersonsListAdapter;
+import com.sillycat.easyrestclientandroid.adapter.impl.PersonsListAdapter;
 import com.sillycat.easyrestclientandroid.dao.PersonDAO;
 import com.sillycat.easyrestclientandroid.dao.rest.PersonRESTDAOImpl;
 
