@@ -27,20 +27,34 @@ public final class R {
         public static final int ic_action_search=0x7f020000;
         public static final int ic_launcher=0x7f020001;
         public static final int ic_stat_gcm=0x7f020002;
+        public static final int menu_checkin_off=0x7f020003;
+        public static final int menu_checkin_on=0x7f020004;
+        public static final int menu_info_off=0x7f020005;
+        public static final int menu_info_on=0x7f020006;
+        public static final int menu_list_off=0x7f020007;
+        public static final int menu_list_on=0x7f020008;
+        public static final int menu_location_off=0x7f020009;
+        public static final int menu_location_on=0x7f02000a;
+        public static final int menu_offers_off=0x7f02000b;
+        public static final int menu_offers_on=0x7f02000c;
     }
     public static final class id {
         public static final int button_add=0x7f09000b;
         public static final int button_json=0x7f090004;
         public static final int display=0x7f090000;
         public static final int edit_text_id=0x7f090003;
+        public static final int item_gcm_demo=0x7f090010;
+        public static final int item_get_one_person=0x7f09000f;
+        public static final int item_list_all_person=0x7f09000e;
+        public static final int item_list_product=0x7f090011;
         public static final int label=0x7f090002;
         public static final int options_clear=0x7f09000c;
         public static final int options_exit=0x7f09000d;
         public static final int person_name=0x7f090005;
-        public static final int product_desn=0x7f09000a;
+        public static final int product_desn=0x7f090009;
         public static final int product_image=0x7f090007;
         public static final int product_name=0x7f090008;
-        public static final int product_price=0x7f090009;
+        public static final int product_price=0x7f09000a;
         public static final int products_listview=0x7f090006;
         public static final int text_view_description=0x7f090001;
     }
@@ -54,6 +68,7 @@ public final class R {
     }
     public static final class menu {
         public static final int options_menu=0x7f080000;
+        public static final int options_menu_all=0x7f080001;
     }
     public static final class string {
         public static final int action_settings=0x7f05001a;
@@ -84,6 +99,9 @@ public final class R {
         public static final int server_unregistered=0x7f050012;
         public static final int title_activity_main=0x7f050001;
         public static final int title_activity_products_list=0x7f050019;
+        public static final int title_gcm_demo=0x7f05001e;
+        public static final int title_get_person=0x7f05001d;
+        public static final int title_list_all_person=0x7f05001c;
     }
     public static final class style {
         public static final int AppTheme=0x7f070000;

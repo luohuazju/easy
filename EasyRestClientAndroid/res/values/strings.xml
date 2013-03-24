@@ -37,5 +37,8 @@
     <string name="title_activity_products_list">MainActivity</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_list_all_person">List All Person</string>
+    <string name="title_get_person">Get One Person</string>
+    <string name="title_gcm_demo">GCM Demo</string>
 
 </resources>

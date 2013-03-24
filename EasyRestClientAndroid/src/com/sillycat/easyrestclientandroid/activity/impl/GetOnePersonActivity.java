@@ -17,6 +17,9 @@ import com.sillycat.easyrestclientandroid.dao.PersonDAO;
 import com.sillycat.easyrestclientandroid.dao.rest.PersonRESTDAOImpl;
 
 public class GetOnePersonActivity extends AbstractAsyncActivity {
+	
+	protected static final String TAG = GetOnePersonActivity.class
+			.getSimpleName();
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

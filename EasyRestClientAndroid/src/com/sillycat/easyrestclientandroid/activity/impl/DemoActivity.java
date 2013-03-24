@@ -22,6 +22,9 @@ import com.sillycat.easyrestclientandroid.constants.AllConstants;
 import com.sillycat.easyrestclientandroid.dao.ServerUtilities;
 
 public class DemoActivity extends Activity {
+	
+	protected static final String TAG = DemoActivity.class
+			.getSimpleName();
 
 	TextView mDisplay;
 
@@ -153,5 +156,7 @@ public class DemoActivity extends Activity {
 			mDisplay.append(newMessage + "\n");
 		}
 	};
+	
+	
 
 }

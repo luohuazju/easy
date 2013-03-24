@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/item_list_all_person"
+        android:icon="@drawable/menu_location_off"
+        android:title="@string/title_list_all_person">
+    </item>
+    <item
+        android:id="@+id/item_get_one_person"
+        android:icon="@drawable/menu_list_off"
+        android:title="@string/title_get_person">
+    </item>
+    <item
+        android:id="@+id/item_gcm_demo"
+        android:icon="@drawable/menu_checkin_off"
+        android:title="@string/title_gcm_demo">
+    </item>
+    <item
+        android:id="@+id/item_list_product"
+        android:icon="@drawable/menu_info_off"
+        android:title="@string/title_activity_products_list">
+    </item>
+
+</menu>
