@@ -15,6 +15,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>de.mud</groupId>
+			<artifactId>jta</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>3.1.1.RELEASE</version>
@@ -277,6 +282,11 @@
 	</build>
 
 	<repositories>
+	    <repository>
+			<id>sillycat</id>
+			<name>sillycat Repository</name>
+			<url>https://sillycat.googlecode.com/svn/repository</url>
+		</repository>
 		<!-- http://www.mvnsearch.org/maven2 -->
 		<repository>
 			<id>mvnsearch_snapshot_repo</id>
@@ -316,11 +326,7 @@
 			<name>maven java repository</name>
 			<url>http://download.java.net/maven/2/</url>
 		</repository>
-		<repository>
-			<id>sillycat</id>
-			<name>sillycat Repository</name>
-			<url>https://sillycat.googlecode.com/svn/repository</url>
-		</repository>
+
 		<repository>
 			<id>alfresco-maven-release</id>
 			<name>Alfresco Maven Release Repository</name>

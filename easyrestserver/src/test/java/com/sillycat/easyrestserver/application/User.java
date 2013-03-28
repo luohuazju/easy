@@ -1,4 +1,4 @@
-package com.sillycat.easyrestserver;
+package com.sillycat.easyrestserver.application;
 
 public class User {
 
