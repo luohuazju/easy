@@ -83,6 +83,7 @@ public class SendMessageServlet extends BaseServlet {
 		// build the send message
 		Message message = new Message.Builder().addData("message",
 				"Message I want you to know.").build();
+		
 		Result result;
 		try {
 			// send the message object to a registId
@@ -120,7 +121,8 @@ public class SendMessageServlet extends BaseServlet {
 			HttpServletResponse resp) {
 		// Recover registration ids from datastore
 		List<String> regIds = Datastore.getMulticast(multicastKey);
-		Message message = new Message.Builder().build();
+		Message message = new Message.Builder().addData("message",
+				"Message I want you to know.").build();
 		MulticastResult multicastResult;
 		try {
 			// send one message to multiple devices
