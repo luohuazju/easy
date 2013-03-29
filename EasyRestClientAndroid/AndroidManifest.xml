@@ -48,7 +48,7 @@
         <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.DemoActivity" />
 
         <receiver
-            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:name="com.sillycat.easyrestclientandroid.service.CustomerGCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -58,7 +58,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.sillycat.easyrestclientandroid.GCMIntentService" />
+        <service android:name="com.sillycat.easyrestclientandroid.service.CustomerGCMIntentService" />
 
         <activity
             android:name="com.sillycat.easyrestclientandroid.activity.impl.ProductsListActivity"

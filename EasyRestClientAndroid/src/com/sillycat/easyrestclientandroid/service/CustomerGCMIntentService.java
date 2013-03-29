@@ -1,5 +1,5 @@
 
-package com.sillycat.easyrestclientandroid;
+package com.sillycat.easyrestclientandroid.service;
 
 import static com.sillycat.easyrestclientandroid.constants.AllConstants.displayMessage;
 import android.app.Notification;
@@ -18,12 +18,12 @@ import com.sillycat.easyrestclientandroid.activity.impl.DemoActivity;
 import com.sillycat.easyrestclientandroid.constants.AllConstants;
 import com.sillycat.easyrestclientandroid.dao.ServerUtilities;
 
-public class GCMIntentService extends GCMBaseIntentService {
+public class CustomerGCMIntentService extends GCMBaseIntentService {
 
 	private static final String TAG = "GCMIntentService";
 
 	//construct the sender id
-	public GCMIntentService() {
+	public CustomerGCMIntentService() {
 		super(AllConstants.SENDER_ID);
 	}
 
