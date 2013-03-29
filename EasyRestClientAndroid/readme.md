@@ -22,4 +22,4 @@ Get one Person
 This demo is for get one Person Object.
 
 List Products
-This demo is for Navigation List Page, Detail Page.
+This demo is for Navigation List Page
