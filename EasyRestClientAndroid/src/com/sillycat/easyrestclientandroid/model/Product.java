@@ -1,6 +1,24 @@
 package com.sillycat.easyrestclientandroid.model;
 
 public class Product {
+	
+	//===========database
+	public static final String TABLE_NAME = "product";
+	public static final String COLUMN_NAME_PRODUCT_ID = "product_id";
+	public static final String COLUMN_NAME_PRODUCT_NAME = "product_name";
+	public static final String COLUMN_NAME_PRODUCT_PRICE = "product_price";
+	public static final String COLUMN_NAME_PRODUCT_DESN = "product_desn";
+	public static final String COLUMN_NAME_PRODUCT_IMAGE_URL = "product_imageurl";
+	
+	public static final String SQL_CREATE = "CREATE TABLE " + TABLE_NAME + " ( " +
+			COLUMN_NAME_PRODUCT_ID + " INTEGER PRIMARY KEY," + 
+			COLUMN_NAME_PRODUCT_NAME + " TEXT," + 
+			COLUMN_NAME_PRODUCT_PRICE + " TEXT," + 
+			COLUMN_NAME_PRODUCT_DESN + " TEXT," + 
+			COLUMN_NAME_PRODUCT_IMAGE_URL + " TEXT" + 
+			");";
+	public static final String SQL_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME;
+	//===========database
 
 	private String productName;
 
@@ -8,7 +26,7 @@ public class Product {
 
 	private String productDesn;
 
-	private Integer productId;
+	private Long productId;
 
 	private String productImageURL;
 
@@ -36,11 +54,11 @@ public class Product {
 		this.productDesn = productDesn;
 	}
 
-	public Integer getProductId() {
+	public Long getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Integer productId) {
+	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
 
