@@ -1,7 +1,11 @@
 package com.sillycat.easyrestclientandroid.mainframe;
 
+import java.util.List;
+
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -37,25 +41,44 @@ public class MainActivity extends ListActivity {
 		switch (position) {
 		case 0:
 			intent.setClass(this, PersonListActivity.class);
-			startActivity(intent);
+			if(isIntentSafe(intent)){
+				startActivity(intent);
+			}
 			break;
 		case 1:
 			intent.setClass(this, GetOnePersonActivity.class);
-			startActivity(intent);
+			if(isIntentSafe(intent)){
+				startActivity(intent);
+			}
 			break;
 		case 2:
 			intent.setClass(this, DemoActivity.class);
-			startActivity(intent);
+			if(isIntentSafe(intent)){
+				startActivity(intent);
+			}
 			break;
 		case 3:
 			intent.setClass(this, ProductsListActivity.class);
-			startActivity(intent);
+			if(isIntentSafe(intent)){
+				startActivity(intent);
+			}
 			break;
 		case 4:
 			break;
 		default:
 			break;
 		}
+	}
+
+	private boolean isIntentSafe(Intent intent) {
+		boolean flag = false;
+		PackageManager manager = this.getPackageManager();
+		List<ResolveInfo> activities = manager.queryIntentActivities(intent, 0);
+		if(activities != null && activities.size() > 0){
+			Log.d(TAG,"The intent is save to invoke.");
+			flag = true;
+		}
+		return flag;
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {

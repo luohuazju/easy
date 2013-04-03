@@ -23,7 +23,9 @@
 		<com.google.code.gson-version>2.2</com.google.code.gson-version>
 		<org.simpleframework-version>2.6.2</org.simpleframework-version>
 		<!-- SH0CHPL12484 SUPERMAN KIKO -->
+		<!--  
 		<android.device>SH0CHPL12484</android.device>
+		-->
 	</properties>
 
 	<build>
