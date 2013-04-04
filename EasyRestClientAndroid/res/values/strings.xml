@@ -15,6 +15,7 @@
         <item>Get One Person</item>
         <item>GCM Demo</item>
         <item>List Products</item>
+        <item>Call Contact</item>
     </string-array>
 
     <string name="error_config">Please set the %1$s constant and recompile the app.</string>

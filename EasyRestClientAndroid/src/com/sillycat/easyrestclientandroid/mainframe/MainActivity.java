@@ -18,6 +18,7 @@ import com.sillycat.easyrestclientandroid.R;
 import com.sillycat.easyrestclientandroid.activity.impl.DemoActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.GetOnePersonActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity;
+import com.sillycat.easyrestclientandroid.activity.impl.PickupContactActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.ProductsListActivity;
 
 public class MainActivity extends ListActivity {
@@ -64,6 +65,10 @@ public class MainActivity extends ListActivity {
 			}
 			break;
 		case 4:
+			intent.setClass(this, PickupContactActivity.class);
+			if(isIntentSafe(intent)){
+				startActivity(intent);
+			}
 			break;
 		default:
 			break;
@@ -77,6 +82,8 @@ public class MainActivity extends ListActivity {
 		if(activities != null && activities.size() > 0){
 			Log.d(TAG,"The intent is save to invoke.");
 			flag = true;
+		}else{
+			Log.d(TAG, "No where to find the match activity.");
 		}
 		return flag;
 	}

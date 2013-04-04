@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/pickup_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="22dp"
+        android:text="Find Contact"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/pickup_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/pickup_title"
+        android:layout_marginLeft="39dp"
+        android:layout_toRightOf="@+id/pickup_title"
+        android:text="Contact" />
+
+    <TextView
+        android:id="@+id/contact_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/pickup_title"
+        android:layout_below="@+id/pickup_contact"
+        android:layout_marginTop="16dp"
+        android:text="Information"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/send_content"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/contact_info"
+        android:layout_below="@+id/contact_info"
+        android:layout_marginTop="33dp"
+        android:text="Content Send" />
+
+</RelativeLayout>
