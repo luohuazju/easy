@@ -16,7 +16,8 @@ object UseSetMap {
     
     //HashSet need import, and identify mutable/immutable
     var hs = HashSet("b",3) 
-    hs.+=(5)
+    //hs.+=(5)
+    hs.+=(13)
     println(hs)    //Set(b, 3, 5)
     println(hs.contains(3)) //true
     
