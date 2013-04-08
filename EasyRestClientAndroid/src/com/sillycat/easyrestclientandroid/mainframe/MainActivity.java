@@ -18,6 +18,7 @@ import com.sillycat.easyrestclientandroid.R;
 import com.sillycat.easyrestclientandroid.activity.impl.DemoActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.GetOnePersonActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity;
+import com.sillycat.easyrestclientandroid.activity.impl.PhotoCameraActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.PickupContactActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.ProductsListActivity;
 
@@ -70,6 +71,11 @@ public class MainActivity extends ListActivity {
 				startActivity(intent);
 			}
 			break;
+		case 5:
+			intent.setClass(this, PhotoCameraActivity.class);
+			if(isIntentSafe(intent)){
+				startActivity(intent);
+			}
 		default:
 			break;
 		}

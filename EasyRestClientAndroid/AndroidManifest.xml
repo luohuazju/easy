@@ -7,6 +7,10 @@
     <uses-sdk
         android:minSdkVersion="4"
         android:targetSdkVersion="17" />
+    
+    <uses-feature android:name="android.hardware.camera" />
+    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!--  permission to read the contact -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -15,7 +19,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <!-- GCM requires a Google account. -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
@@ -49,6 +52,7 @@
         <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.GetOnePersonActivity" />
         <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.DemoActivity" />
 		<activity android:name="com.sillycat.easyrestclientandroid.activity.impl.PickupContactActivity" />
+		<activity android:name="com.sillycat.easyrestclientandroid.activity.impl.PhotoCameraActivity" />
         
         <receiver
             android:name="com.sillycat.easyrestclientandroid.service.CustomerGCMBroadcastReceiver"
