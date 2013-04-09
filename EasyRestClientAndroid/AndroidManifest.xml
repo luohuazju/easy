@@ -53,6 +53,7 @@
         <activity android:name="com.sillycat.easyrestclientandroid.activity.impl.DemoActivity" />
 		<activity android:name="com.sillycat.easyrestclientandroid.activity.impl.PickupContactActivity" />
 		<activity android:name="com.sillycat.easyrestclientandroid.activity.impl.PhotoCameraActivity" />
+		<activity android:name="com.sillycat.easyrestclientandroid.activity.impl.VideoCameraActivity" />
         
         <receiver
             android:name="com.sillycat.easyrestclientandroid.service.CustomerGCMBroadcastReceiver"

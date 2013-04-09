@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,11 +23,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.sillycat.easyrestclientandroid.R;
+import com.sillycat.easyrestclientandroid.activity.AbstractCameraActivity;
 import com.sillycat.easyrestclientandroid.util.factory.AlbumStorageDirFactory;
 import com.sillycat.easyrestclientandroid.util.factory.impl.BasicAlbumDirFactoryImpl;
 import com.sillycat.easyrestclientandroid.util.factory.impl.FroyoAlbumDirFactoryImpl;
 
-public class PhotoCameraActivity extends Activity {
+public class PhotoCameraActivity extends AbstractCameraActivity {
 
 	protected static final String TAG = PhotoCameraActivity.class
 			.getSimpleName();
@@ -218,22 +218,6 @@ public class PhotoCameraActivity extends Activity {
 		this.sendBroadcast(mediaScanIntent);
 	}
 
-	private static boolean isIntentAvailable(Context context, String action) {
-		final PackageManager packageManager = context.getPackageManager();
-		final Intent intent = new Intent(action);
-		List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
-				PackageManager.MATCH_DEFAULT_ONLY);
-		return list.size() > 0;
-	}
 
-	private void setBtnListenerOrDisable(Button btn,
-			Button.OnClickListener onClickListener, String intentName) {
-		if (isIntentAvailable(this, intentName)) {
-			btn.setOnClickListener(onClickListener);
-		} else {
-			btn.setText("Not working " + btn.getText());
-			btn.setClickable(false);
-		}
-	}
 
 }

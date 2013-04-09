@@ -21,6 +21,7 @@ import com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.PhotoCameraActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.PickupContactActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.ProductsListActivity;
+import com.sillycat.easyrestclientandroid.activity.impl.VideoCameraActivity;
 
 public class MainActivity extends ListActivity {
 
@@ -43,39 +44,46 @@ public class MainActivity extends ListActivity {
 		switch (position) {
 		case 0:
 			intent.setClass(this, PersonListActivity.class);
-			if(isIntentSafe(intent)){
+			if (isIntentSafe(intent)) {
 				startActivity(intent);
 			}
 			break;
 		case 1:
 			intent.setClass(this, GetOnePersonActivity.class);
-			if(isIntentSafe(intent)){
+			if (isIntentSafe(intent)) {
 				startActivity(intent);
 			}
 			break;
 		case 2:
 			intent.setClass(this, DemoActivity.class);
-			if(isIntentSafe(intent)){
+			if (isIntentSafe(intent)) {
 				startActivity(intent);
 			}
 			break;
 		case 3:
 			intent.setClass(this, ProductsListActivity.class);
-			if(isIntentSafe(intent)){
+			if (isIntentSafe(intent)) {
 				startActivity(intent);
 			}
 			break;
 		case 4:
 			intent.setClass(this, PickupContactActivity.class);
-			if(isIntentSafe(intent)){
+			if (isIntentSafe(intent)) {
 				startActivity(intent);
 			}
 			break;
 		case 5:
 			intent.setClass(this, PhotoCameraActivity.class);
-			if(isIntentSafe(intent)){
+			if (isIntentSafe(intent)) {
 				startActivity(intent);
 			}
+			break;
+		case 6:
+			intent.setClass(this, VideoCameraActivity.class);
+			if (isIntentSafe(intent)) {
+				startActivity(intent);
+			}
+			break;
 		default:
 			break;
 		}
@@ -85,10 +93,10 @@ public class MainActivity extends ListActivity {
 		boolean flag = false;
 		PackageManager manager = this.getPackageManager();
 		List<ResolveInfo> activities = manager.queryIntentActivities(intent, 0);
-		if(activities != null && activities.size() > 0){
-			Log.d(TAG,"The intent is save to invoke.");
+		if (activities != null && activities.size() > 0) {
+			Log.d(TAG, "The intent is save to invoke.");
 			flag = true;
-		}else{
+		} else {
 			Log.d(TAG, "No where to find the match activity.");
 		}
 		return flag;
