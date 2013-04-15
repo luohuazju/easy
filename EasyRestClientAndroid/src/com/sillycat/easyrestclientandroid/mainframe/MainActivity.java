@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.sillycat.easyrestclientandroid.R;
 import com.sillycat.easyrestclientandroid.activity.impl.DemoActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.GetOnePersonActivity;
+import com.sillycat.easyrestclientandroid.activity.impl.LocationActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.PersonListActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.PhotoCameraActivity;
 import com.sillycat.easyrestclientandroid.activity.impl.PickupContactActivity;
@@ -80,6 +81,12 @@ public class MainActivity extends ListActivity {
 			break;
 		case 6:
 			intent.setClass(this, VideoCameraActivity.class);
+			if (isIntentSafe(intent)) {
+				startActivity(intent);
+			}
+			break;
+		case 7:
+			intent.setClass(this, LocationActivity.class);
 			if (isIntentSafe(intent)) {
 				startActivity(intent);
 			}

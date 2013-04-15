@@ -18,6 +18,7 @@
         <item>Call Contact</item>
         <item>Take Photo</item>
         <item>Take Video</item>
+        <item>Location</item>
     </string-array>
 
     <string name="error_config">Please set the %1$s constant and recompile the app.</string>
