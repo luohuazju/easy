@@ -907,7 +907,6 @@ public class Blog implements org.apache.thrift.TBase<Blog, Blog._Fields>, java.i
       }
     }
 
-    @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, Blog struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
       BitSet incoming = iprot.readBitSet(6);

@@ -872,7 +872,6 @@ public class BlogService {
 
     private static class createBlog_argsTupleScheme extends TupleScheme<createBlog_args> {
 
-      @Override
       public void write(org.apache.thrift.protocol.TProtocol prot, createBlog_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
