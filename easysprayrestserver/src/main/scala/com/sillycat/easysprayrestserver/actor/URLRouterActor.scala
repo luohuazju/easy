@@ -1,4 +1,4 @@
-package com.sillycat.easysprayrestserver.actors
+package com.sillycat.easysprayrestserver.actor
 
 import scala.concurrent.duration._
 import akka.pattern.ask

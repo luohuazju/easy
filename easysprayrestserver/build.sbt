@@ -34,7 +34,11 @@ libraryDependencies ++= Seq(
   	"com.h2database"      %   "h2" 			              % "1.3.170",
   	"io.spray"            %   "spray-json_2.10"           % "1.2.3",
   	"org.xerial" 	      %   "sqlite-jdbc" 	          % "3.6.20",
-  	"mysql" 	          %   "mysql-connector-java"      % "5.1.13"
+  	"mysql" 	          %   "mysql-connector-java"      % "5.1.13",
+  	"joda-time"			  %   "joda-time"				  % "2.2",
+  	"org.joda" 	 	  	  %   "joda-convert" 			  % "1.3.1",
+  	"org.scalatest"       %   "scalatest_2.10"            % "1.9.1"   % "test",
+    "org.specs2"          %%  "specs2"                    % "1.13"    % "test"
 )
 
 seq(Revolver.settings: _*)

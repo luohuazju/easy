@@ -1,7 +1,5 @@
 import sbt._
 import Keys._
-//import AssemblyKeys._
-//import sbtassembly.Plugin._
 
 object ApplicationBuild extends Build {
 
