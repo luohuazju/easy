@@ -10,7 +10,7 @@ import spray.json.JsValue
 import spray.json.RootJsonFormat
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-
+import spray.json.JsArray
 
 object CartJsonProtocol extends DefaultJsonProtocol with SprayJsonSupport {
   
@@ -23,6 +23,21 @@ object CartJsonProtocol extends DefaultJsonProtocol with SprayJsonSupport {
     		  			"userName" -> JsString(cart.user.userName) 
     		  		) ++
     		  			cart.user.id.map( i => Map("id" -> JsNumber(i))).getOrElse(Map[String, JsValue]())
+    		  		),
+      "products" -> JsArray(
+    		  			List() :+
+    		  			JsObject(
+	    		  					Map(
+	    		  						"id" -> JsNumber(1),
+	    		  						"productName" -> JsString("Iphone 5")
+	    		  					)
+	    		  	    ) :+
+	    		  	    JsObject(
+	    		  					Map(
+	    		  						"id" -> JsNumber(2),
+	    		  						"productName" -> JsString("Iphone 4s")
+	    		  					)
+	    		  	    )
     		  		)
       ) ++
       cart.id.map( i => Map("id" -> JsNumber(i))).getOrElse(Map[String, JsValue]())
@@ -37,6 +52,8 @@ object CartJsonProtocol extends DefaultJsonProtocol with SprayJsonSupport {
 //      }
     	val params: Map[String, JsValue] = jsCart.asJsObject.fields
     	val userParams  = params("user").convertTo[JsValue].asJsObject.fields
+    	val productParams = params("products").convertTo[Seq[JsValue]]
+    	
     	Cart(
     	    params.get("id").map(_.convertTo[Int]), 
     	    params("cartName").convertTo[String],

@@ -23,7 +23,17 @@ class JSONMarshallSpec extends FlatSpec with ShouldMatchers with DefaultJsonProt
     		"user" : {
     			"id" : 3, 
     			"userName" : "Carl"
-    		}
+    		},
+    		"products" : [
+    			{
+    				"id" : 1,
+    				"productName" : "iphone 5"
+    			},
+    			{
+    				"id" : 2,
+    				"productName" : "iphone 4s"
+    			}
+            ]
       }"""
     val cartAST = jsonCart.asJson
     
