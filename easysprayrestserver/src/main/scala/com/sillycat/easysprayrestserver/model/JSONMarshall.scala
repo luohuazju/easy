@@ -11,68 +11,12 @@ import spray.json.RootJsonFormat
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import spray.json.JsArray
+import spray.json._
+import DefaultJsonProtocol._
 
-object CartJsonProtocol extends DefaultJsonProtocol with SprayJsonSupport {
-  
-  implicit object CartJsonFormat extends RootJsonFormat[Cart] {
-    def write(cart: Cart) = JsObject(
-      Map(
-      "cartName" -> JsString(cart.cartName),
-      "cartType" -> JsString(cart.cartType.toString()),
-      "user" -> JsObject(Map(
-    		  			"userName" -> JsString(cart.user.userName) 
-    		  		) ++
-    		  			cart.user.id.map( i => Map("id" -> JsNumber(i))).getOrElse(Map[String, JsValue]())
-    		  		),
-      "products" -> JsArray(
-    		  			List() :+
-    		  			JsObject(
-	    		  					Map(
-	    		  						"id" -> JsNumber(1),
-	    		  						"productName" -> JsString("Iphone 5")
-	    		  					)
-	    		  	    ) :+
-	    		  	    JsObject(
-	    		  					Map(
-	    		  						"id" -> JsNumber(2),
-	    		  						"productName" -> JsString("Iphone 4s")
-	    		  					)
-	    		  	    )
-    		  		)
-      ) ++
-      cart.id.map( i => Map("id" -> JsNumber(i))).getOrElse(Map[String, JsValue]())
-    )
-    def read(jsCart: JsValue) = {
-//      jsCart.asJsObject.getFields("id", "cartName", "cartType", "user") match {
-//        case Seq(JsNumber(id), JsString(cartName), JsString(cartType), JsObject(user)) =>
-//          
-//          val userObject = new User(None,"Carl",0,null,null,null)
-//          new Cart(Option(id.longValue), cartName, CartType.withName(cartType), userObject, null)
-//        case _ => throw new DeserializationException("Cart expected")
-//      }
-    	val params: Map[String, JsValue] = jsCart.asJsObject.fields
-    	val userParams  = params("user").convertTo[JsValue].asJsObject.fields
-    	val productParams = params("products").convertTo[Seq[JsValue]]
-    	
-    	Cart(
-    	    params.get("id").map(_.convertTo[Int]), 
-    	    params("cartName").convertTo[String],
-    	    CartType.withName(params("cartType").convertTo[String]),
-    	    User(
-    	    		userParams.get("id").map(_.convertTo[Int]), 
-    	    		userParams("userName").convertTo[String], 
-    	    		0, 
-    	    		null,
-    	    		null,
-    	    		null
-    	    	),
-    	    null
-    	)
-    }
-  }
-}
 
-object UserJsonProtocol extends DefaultJsonProtocol with SprayJsonSupport {
+
+object UserJsonProtocol extends DefaultJsonProtocol {
   private val dateTimeFormat = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm")
   implicit object UserJsonFormat extends RootJsonFormat[User] {
     def write(user: User) = JsObject(
@@ -101,7 +45,7 @@ object UserJsonProtocol extends DefaultJsonProtocol with SprayJsonSupport {
   }
 }
 
-object ProductJsonProtocol extends DefaultJsonProtocol with SprayJsonSupport {
+object ProductJsonProtocol extends DefaultJsonProtocol {
   private val dateTimeFormat = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm")
   implicit object ProductJsonFormat extends RootJsonFormat[Product] {
     def write(product: Product) = JsObject(
@@ -125,6 +69,33 @@ object ProductJsonProtocol extends DefaultJsonProtocol with SprayJsonSupport {
           new Product(None,  productName, productDesn, createDateObject, expirationDateObject)
         case _ => throw new DeserializationException("Product expected")
       }
+    }
+  }
+}
+
+object CartJsonProtocol extends DefaultJsonProtocol {
+  
+  implicit object CartJsonFormat extends RootJsonFormat[Cart] {
+  implicit val userFormatter = UserJsonProtocol.UserJsonFormat
+  implicit val productFormatter = ProductJsonProtocol.ProductJsonFormat
+    def write(cart: Cart) = JsObject(
+      Map(
+      "cartName" -> JsString(cart.cartName),
+      "cartType" -> JsString(cart.cartType.toString()),
+      "user"     -> cart.user.toJson,
+      "products" -> cart.products.toJson
+      ) ++
+      cart.id.map( i => Map("id" -> JsNumber(i))).getOrElse(Map[String, JsValue]())
+    )
+    def read(jsCart: JsValue) = {
+    	val params: Map[String, JsValue] = jsCart.asJsObject.fields
+    	Cart(
+    	    params.get("id").map(_.convertTo[Int]), 
+    	    params("cartName").convertTo[String],
+    	    CartType.withName(params("cartType").convertTo[String]),
+    	    params("user").convertTo[User],
+    	    params("products").convertTo[Seq[Product]]
+    	)
     }
   }
 }
