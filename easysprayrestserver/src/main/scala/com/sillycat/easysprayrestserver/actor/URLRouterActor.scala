@@ -7,48 +7,56 @@ import spray.util.LoggingContext
 import spray.http.StatusCodes._
 import spray.httpx.SprayJsonSupport._
 import shapeless._
+import com.sillycat.easysprayrestserver.service.auth.UsersAuthenticationDirectives
 
 class URLRouterActor extends Actor with URLRouterService {
   def actorRefFactory = context
   def receive = runRoute(route)
 }
 
-trait URLRouterService extends HttpService {
+trait URLRouterService extends HttpService with UsersAuthenticationDirectives {
+
+  implicit def myExceptionHandler(implicit log: LoggingContext) =
+    ExceptionHandler.fromPF {
+      case e: java.lang.IllegalArgumentException => ctx =>
+        log.warning("Request {} could not be handled normally", ctx.request)
+        ctx.complete(BadRequest, e.getMessage)
+    }
+
   def route = {
     pathPrefix(Version / BrandCode) { (apiVersion, brandCode) =>
-
       path("resource" / "all") {
         get {
           complete {
-            "Morning, guest. apiVersion = " + apiVersion + ", brandCode ="  + brandCode
+            "Morning, guest. apiVersion = " + apiVersion + ", brandCode =" + brandCode
           }
         }
       } ~
         path("resource" / "admin-only") {
-          get {
-            complete {
-              "Morning, admin-only. apiVersion = " + apiVersion + ", brandCode ="  + brandCode
+    	  println("11111111111111111111111")
+          authenticate(adminOnly) { user =>
+            get {
+              complete {
+                "Morning, " + user.userName + ". apiVersion = " + apiVersion + ", brandCode =" + brandCode
+              }
             }
           }
         } ~
         path("resource" / "customer-only") {
-          get {
-            complete {
-              "Morning, customer-only. apiVersion = " + apiVersion + ", brandCode ="  + brandCode
+          authenticate(customerOnly) { user =>
+            get {
+              complete {
+                "Morning, " + user.userName + ". apiVersion = " + apiVersion + ", brandCode =" + brandCode
+              }
             }
           }
         } ~
         path("resource" / "better-admin") {
-          get {
-            complete {
-              "Morning, better-admin. apiVersion = " + apiVersion + ", brandCode ="  + brandCode
-            }
-          }
-        } ~
-        path("resource" / "better-customer") {
-          get {
-            complete {
-              "Morning, better-customer. apiVersion = " + apiVersion + ", brandCode ="  + brandCode
+          authenticate(withRole("manager")) { user =>
+            get {
+              complete {
+                "Morning, " + user.userName + ". apiVersion = " + apiVersion + ", brandCode =" + brandCode
+              }
             }
           }
         }

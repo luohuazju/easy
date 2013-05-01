@@ -22,6 +22,7 @@ class UserJsonProtocol(currentId: Long) extends DefaultJsonProtocol {
     def write(user: User) = JsObject(
       Map(  
       "userName" -> JsString(user.userName),
+      "password" -> JsString(user.password),
       "age" -> JsNumber(user.age),
       "userType" -> JsString(user.userType.toString()),
       "createDate" -> JsString(dateTimeFormat.print(new DateTime(user.createDate))),
@@ -30,15 +31,15 @@ class UserJsonProtocol(currentId: Long) extends DefaultJsonProtocol {
       user.id.map( i => Map("id" -> JsNumber(i))).getOrElse(Map[String, JsValue]()) 
     )
     def read(jsUser: JsValue) = {
-      jsUser.asJsObject.getFields("id", "userName", "age", "userType", "createDate", "expirationDate") match {
-        case Seq(JsNumber(id), JsString(userName), JsNumber(age), JsString(userType), JsString(createDate), JsString(expirationDate)) =>
+      jsUser.asJsObject.getFields("id", "userName", "age", "userType", "createDate", "expirationDate", "password") match {
+        case Seq(JsNumber(id), JsString(userName), JsNumber(age), JsString(userType), JsString(createDate), JsString(expirationDate), JsString(password)) =>
           val createDateObject = dateTimeFormat.parseDateTime(createDate)
           val expirationDateObject = dateTimeFormat.parseDateTime(expirationDate)
-          new User(Some(id.longValue), userName, age.toInt, UserType.withName(userType), createDateObject, expirationDateObject)
-        case Seq(JsString(userName), JsNumber(age), JsString(userType), JsString(createDate), JsString(expirationDate)) =>
+          new User(Some(id.longValue), userName, age.toInt, UserType.withName(userType), createDateObject, expirationDateObject,password)
+        case Seq(JsString(userName), JsNumber(age), JsString(userType), JsString(createDate), JsString(expirationDate), JsString(password)) =>
           val createDateObject = dateTimeFormat.parseDateTime(createDate)
           val expirationDateObject = dateTimeFormat.parseDateTime(expirationDate)
-          new User( None, userName, age.toInt, UserType.withName(userType), createDateObject, expirationDateObject)
+          new User( None, userName, age.toInt, UserType.withName(userType), createDateObject, expirationDateObject,password)
         case _ => throw new DeserializationException("User expected")
       }
     }

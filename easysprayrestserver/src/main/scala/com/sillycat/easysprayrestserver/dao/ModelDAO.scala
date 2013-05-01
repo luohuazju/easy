@@ -5,6 +5,9 @@ import org.joda.time.DateTime
 import com.sillycat.easysprayrestserver.model.Product
 import com.sillycat.easysprayrestserver.model.Cart
 import scala.slick.jdbc.meta.MTable
+import com.sillycat.easysprayrestserver.model.User
+import com.sillycat.easysprayrestserver.model.UserType
+
 
 trait UserDAO extends Logging { this: Profile =>
   import profile.simple._
@@ -16,8 +19,18 @@ trait UserDAO extends Logging { this: Profile =>
     def userType = column[String]("USER_TYPE") //4
     def createDate = column[DateTime]("CREATE_DATE") //5
     def expirationDate = column[DateTime]("EXPIRATION_DATE") // 6
+    def password = column[DateTime]("PASSWORD") // 7
 
     def * = id
+    
+    def auth(userName: String, password: String)(implicit session: Session) : Option[User] = {
+      (userName, password) match {
+        case ("admin","admin") => Option(User(Some(1), "admin", 100, UserType.ADMIN, new DateTime(), new DateTime(),"admin"))
+        case ("customer","customer") => Option(User(Some(2), "customer", 100, UserType.CUSTOMER, new DateTime(), new DateTime(),"customer"))
+        case ("manager","manager") => Option(User(Some(3), "manager", 100, UserType.SELLER, new DateTime(), new DateTime(),"manager"))
+        case _ => None
+      }
+    } 
   }
 }
 

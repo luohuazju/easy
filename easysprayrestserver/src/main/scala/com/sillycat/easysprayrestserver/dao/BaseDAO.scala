@@ -10,7 +10,7 @@ import scala.slick.session.Session
 import com.sillycat.easysprayrestserver.util.DBConn
 import com.sillycat.easysprayrestserver.util.TestDBConn
 
-class BaseDAO(override val profile: ExtendedProfile, dbConn: DBConn) extends ProductDAO with Profile {
+class BaseDAO(override val profile: ExtendedProfile, dbConn: DBConn) extends ProductDAO with UserDAO with Profile {
 
   def db: Database = { dbConn.database }
 
