@@ -16,7 +16,7 @@ import DefaultJsonProtocol._
 
 
 
-object UserJsonProtocol extends DefaultJsonProtocol {
+class UserJsonProtocol(currentId: Long) extends DefaultJsonProtocol {
   private val dateTimeFormat = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm")
   implicit object UserJsonFormat extends RootJsonFormat[User] {
     def write(user: User) = JsObject(
@@ -76,7 +76,7 @@ object ProductJsonProtocol extends DefaultJsonProtocol {
 object CartJsonProtocol extends DefaultJsonProtocol {
   
   implicit object CartJsonFormat extends RootJsonFormat[Cart] {
-  implicit val userFormatter = UserJsonProtocol.UserJsonFormat
+  implicit val userFormatter = (new UserJsonProtocol(1)).UserJsonFormat
   implicit val productFormatter = ProductJsonProtocol.ProductJsonFormat
     def write(cart: Cart) = JsObject(
       Map(

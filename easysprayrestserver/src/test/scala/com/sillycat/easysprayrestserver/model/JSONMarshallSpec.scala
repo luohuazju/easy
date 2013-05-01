@@ -2,16 +2,13 @@ package com.sillycat.easysprayrestserver.model
 
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
-
-import com.sillycat.easysprayrestserver.model.UserJsonProtocol.UserJsonFormat
-
 import spray.json.DefaultJsonProtocol
 import spray.json.pimpAny
 import spray.json.pimpString
 
 class JSONMarshallSpec extends FlatSpec with ShouldMatchers with DefaultJsonProtocol {
 
-  import com.sillycat.easysprayrestserver.model.UserJsonProtocol._
+  //import com.sillycat.easysprayrestserver.model.UserJsonProtocol._
   import com.sillycat.easysprayrestserver.model.ProductJsonProtocol._
   import com.sillycat.easysprayrestserver.model.CartJsonProtocol._
   
@@ -78,6 +75,7 @@ class JSONMarshallSpec extends FlatSpec with ShouldMatchers with DefaultJsonProt
     		"createDate": "2012-05-21 12:34", 
     		"expirationDate": "2013-05-12 12:34" 
       }"""
+    implicit val formatter = (new UserJsonProtocol(1)).UserJsonFormat
     val userAST = jsonUser.asJson
 
     info("UserAST: " + userAST.prettyPrint)
@@ -94,6 +92,7 @@ class JSONMarshallSpec extends FlatSpec with ShouldMatchers with DefaultJsonProt
     		"createDate": "2012-05-21 12:34", 
     		"expirationDate": "2013-05-12 12:34" 
       }"""
+    implicit val formatter = (new UserJsonProtocol(1)).UserJsonFormat
     val userAST = jsonUser.asJson
 
     info("UserAST: " + userAST.prettyPrint)

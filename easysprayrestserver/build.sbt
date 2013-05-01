@@ -38,7 +38,8 @@ libraryDependencies ++= Seq(
   	"joda-time"			  %   "joda-time"				  % "2.2",
   	"org.joda" 	 	  	  %   "joda-convert" 			  % "1.3.1",
   	"org.scalatest"       %   "scalatest_2.10"            % "1.9.1"   % "test",
-    "org.specs2"          %%  "specs2"                    % "1.13"    % "test"
+    "org.specs2"          %%  "specs2"                    % "1.13"    % "test",
+    "c3p0"                %   "c3p0"                      % "0.9.1.2"
 )
 
 seq(Revolver.settings: _*)

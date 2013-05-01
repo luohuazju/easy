@@ -1,30 +1,69 @@
 package com.sillycat.easysprayrestserver.actor
 
-import scala.concurrent.duration._
-import akka.pattern.ask
-import akka.util.Timeout
-import akka.actor._
-import spray.io.{IOBridge, IOExtension}
-import spray.can.server.HttpServer
-import spray.util._
-import spray.http._
-import HttpMethods._
-import MediaTypes._
+import akka.actor.{ Props, Actor }
+import spray.routing._
+import spray.routing.directives._
+import spray.util.LoggingContext
+import spray.http.StatusCodes._
+import spray.httpx.SprayJsonSupport._
+import shapeless._
 
-class URLRouterActor extends Actor with SprayActorLogging {
+class URLRouterActor extends Actor with URLRouterService {
+  def actorRefFactory = context
+  def receive = runRoute(route)
+}
 
-  implicit val timeout: Timeout = Duration(1, "sec")
-  
-  def receive = {
-    case HttpRequest(HttpMethods.GET, "/", _, _, _) =>
-      sender ! index
-  }    
-      
-  lazy val index = HttpResponse(
-    entity = HttpBody(`text/html`,
-      <html>
-        <body>
-          <h1>Welcome Page</h1>
-        </body>
-      </html>.toString))
+trait URLRouterService extends HttpService {
+  def route = {
+    pathPrefix(Version / BrandCode) { (apiVersion, brandCode) =>
+
+      path("resource" / "all") {
+        get {
+          complete {
+            "Morning, guest. apiVersion = " + apiVersion + ", brandCode ="  + brandCode
+          }
+        }
+      } ~
+        path("resource" / "admin-only") {
+          get {
+            complete {
+              "Morning, admin-only. apiVersion = " + apiVersion + ", brandCode ="  + brandCode
+            }
+          }
+        } ~
+        path("resource" / "customer-only") {
+          get {
+            complete {
+              "Morning, customer-only. apiVersion = " + apiVersion + ", brandCode ="  + brandCode
+            }
+          }
+        } ~
+        path("resource" / "better-admin") {
+          get {
+            complete {
+              "Morning, better-admin. apiVersion = " + apiVersion + ", brandCode ="  + brandCode
+            }
+          }
+        } ~
+        path("resource" / "better-customer") {
+          get {
+            complete {
+              "Morning, better-customer. apiVersion = " + apiVersion + ", brandCode ="  + brandCode
+            }
+          }
+        }
+    }
+  }
+
+  val Version = PathMatcher("""v([0-9]+)""".r)
+    .flatMap {
+      case string :: HNil => {
+        try Some(java.lang.Integer.parseInt(string) :: HNil)
+        catch {
+          case _: NumberFormatException => None
+        }
+      }
+    }
+
+  val BrandCode = PathElement
 }
