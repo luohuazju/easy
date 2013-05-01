@@ -24,17 +24,15 @@ trait AuthenticationDirectives {
 
   def adminOnly: RequestContext => Future[Authentication[User]] = {
     ctx: RequestContext =>
-      println("2222222222222222222")
       val userPass = getToken(ctx)
       if (userPass.isEmpty)
-        Future(Left(AuthenticationRequiredRejection("https", "cake")))
+        Future(Left(AuthenticationRequiredRejection("https", "sillycat")))
       else doAuthenticate(userPass.get.user, userPass.get.pass).map {
         user =>
-          println(" username = " + user.get.userName + " password = " + user.get.password)
           if (user.isDefined)
             Right(user.get)
           else
-            Left(AuthenticationFailedRejection("cake"))
+            Left(AuthenticationFailedRejection("sillycat"))
       }
   }
 
@@ -42,13 +40,13 @@ trait AuthenticationDirectives {
     ctx: RequestContext =>
       val userPass = getToken(ctx)
       if (userPass.isEmpty)
-        Future(Left(AuthenticationRequiredRejection("https", "cake")))
+        Future(Left(AuthenticationRequiredRejection("https", "sillycat")))
       else doAuthenticate(userPass.get.user, userPass.get.pass).map {
         user =>
           if (user.isDefined)
             Right(user.get)
           else
-            Left(AuthenticationFailedRejection("cake"))
+            Left(AuthenticationFailedRejection("sillycat"))
       }
   }
 
@@ -56,13 +54,13 @@ trait AuthenticationDirectives {
     ctx: RequestContext =>
       val userPass = getToken(ctx)
       if (userPass.isEmpty)
-        Future(Left(AuthenticationRequiredRejection("https", "cake")))
+        Future(Left(AuthenticationRequiredRejection("https", "sillycat")))
       else doAuthenticate(userPass.get.user, userPass.get.pass).map {
         user =>
           if (user.isDefined)
             Right(user.get)
           else
-            Left(AuthenticationFailedRejection("cake"))
+            Left(AuthenticationFailedRejection("sillycat"))
       }
   }
 
@@ -87,7 +85,6 @@ trait UsersAuthenticationDirectives
   override def doAuthenticate(userName: String, password: String) = {
     Future {
       dao.db.withSession{
-    	  println("3333333333333333333333" + userName + password)
     	  dao.Users.auth(userName, password)
       }
     }

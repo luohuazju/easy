@@ -33,7 +33,6 @@ trait URLRouterService extends HttpService with UsersAuthenticationDirectives {
         }
       } ~
         path("resource" / "admin-only") {
-    	  println("11111111111111111111111")
           authenticate(adminOnly) { user =>
             get {
               complete {
