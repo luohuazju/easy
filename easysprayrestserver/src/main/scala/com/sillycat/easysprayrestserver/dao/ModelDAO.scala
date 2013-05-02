@@ -24,10 +24,14 @@ trait UserDAO extends Logging { this: Profile =>
     def * = id
     
     def auth(userName: String, password: String)(implicit session: Session) : Option[User] = {
+      logger.debug("I am authing the userName=" + userName + " password=" + password)
       (userName, password) match {
-        case ("admin","admin") => Option(User(Some(1), "admin", 100, UserType.ADMIN, new DateTime(), new DateTime(),"admin"))
-        case ("customer","customer") => Option(User(Some(2), "customer", 100, UserType.CUSTOMER, new DateTime(), new DateTime(),"customer"))
-        case ("manager","manager") => Option(User(Some(3), "manager", 100, UserType.SELLER, new DateTime(), new DateTime(),"manager"))
+        case ("admin","admin") => 
+          Option(User(Some(1), "admin", 100, UserType.ADMIN, new DateTime(), new DateTime(),"admin"))
+        case ("customer","customer") => 
+          Option(User(Some(2), "customer", 100, UserType.CUSTOMER, new DateTime(), new DateTime(),"customer"))
+        case ("manager","manager") => 
+          Option(User(Some(3), "manager", 100, UserType.SELLER, new DateTime(), new DateTime(),"manager"))
         case _ => None
       }
     } 

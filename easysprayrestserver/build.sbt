@@ -30,7 +30,7 @@ libraryDependencies ++= Seq(
     "com.typesafe.akka"   %%  "akka-transactor"           % "2.1.0",
   	"com.typesafe"        %   "config"                    % "1.0.0",
   	"com.typesafe"        %   "slick_2.10.0-RC2"          % "0.11.2",
-  	"org.slf4j" 	      %   "slf4j-nop" 	              % "1.6.4",
+  	//"org.slf4j" 	      %   "slf4j-nop" 	              % "1.6.4",
   	"com.h2database"      %   "h2" 			              % "1.3.170",
   	"io.spray"            %   "spray-json_2.10"           % "1.2.3",
   	"org.xerial" 	      %   "sqlite-jdbc" 	          % "3.6.20",
@@ -39,7 +39,9 @@ libraryDependencies ++= Seq(
   	"org.joda" 	 	  	  %   "joda-convert" 			  % "1.3.1",
   	"org.scalatest"       %   "scalatest_2.10"            % "1.9.1"   % "test",
     "org.specs2"          %%  "specs2"                    % "1.13"    % "test",
-    "c3p0"                %   "c3p0"                      % "0.9.1.2"
+    "c3p0"                %   "c3p0"                      % "0.9.1.2",
+    "com.typesafe"		  %%  "scalalogging-slf4j"	      % "1.0.1",
+    "ch.qos.logback"      %   "logback-classic"           % "1.0.3"
 )
 
 seq(Revolver.settings: _*)
@@ -57,3 +59,4 @@ excludedJars in assembly <<= (fullClasspath in assembly) map { cp =>
 }
 
 addArtifact(artifact in (Compile, assembly), assembly)
+

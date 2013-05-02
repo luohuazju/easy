@@ -16,7 +16,7 @@ object ProjectType extends Enumeration {
 object DatabaseConnection {
   import ProjectType._
 
-  val log = LoggerFactory.getLogger("DatabaseConnection")
+  val log = LoggerFactory.getLogger(this.getClass().getName())
 
   def database(projectType: ProjectType): Database = {
     import com.typesafe.config._

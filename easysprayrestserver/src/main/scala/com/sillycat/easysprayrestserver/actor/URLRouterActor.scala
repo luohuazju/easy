@@ -8,18 +8,22 @@ import spray.http.StatusCodes._
 import spray.httpx.SprayJsonSupport._
 import shapeless._
 import com.sillycat.easysprayrestserver.service.auth.UsersAuthenticationDirectives
+import com.typesafe.scalalogging.slf4j.Logging
+import akka.util.Timeout
 
 class URLRouterActor extends Actor with URLRouterService {
   def actorRefFactory = context
   def receive = runRoute(route)
 }
 
-trait URLRouterService extends HttpService with UsersAuthenticationDirectives {
+trait URLRouterService extends HttpService with UsersAuthenticationDirectives with Logging {
 
+  implicit val timeout = Timeout(30 * 1000)
+  
   implicit def myExceptionHandler(implicit log: LoggingContext) =
     ExceptionHandler.fromPF {
       case e: java.lang.IllegalArgumentException => ctx =>
-        log.warning("Request {} could not be handled normally", ctx.request)
+        logger.error("Request {} could not be handled normally", ctx.request)
         ctx.complete(BadRequest, e.getMessage)
     }
 
@@ -28,6 +32,7 @@ trait URLRouterService extends HttpService with UsersAuthenticationDirectives {
       path("resource" / "all") {
         get {
           complete {
+            logger.debug("Hitting the URI resource/all")
             "Morning, guest. apiVersion = " + apiVersion + ", brandCode =" + brandCode
           }
         }
@@ -36,6 +41,7 @@ trait URLRouterService extends HttpService with UsersAuthenticationDirectives {
           authenticate(adminOnly) { user =>
             get {
               complete {
+                logger.debug("Hitting the URI resource/admin-only")
                 "Morning, " + user.userName + ". apiVersion = " + apiVersion + ", brandCode =" + brandCode
               }
             }
@@ -45,6 +51,7 @@ trait URLRouterService extends HttpService with UsersAuthenticationDirectives {
           authenticate(customerOnly) { user =>
             get {
               complete {
+                logger.debug("Hitting the URI resource/customer-only")
                 "Morning, " + user.userName + ". apiVersion = " + apiVersion + ", brandCode =" + brandCode
               }
             }
@@ -54,6 +61,7 @@ trait URLRouterService extends HttpService with UsersAuthenticationDirectives {
           authenticate(withRole("manager")) { user =>
             get {
               complete {
+                logger.debug("Hitting the URI resource/better-admin")
                 "Morning, " + user.userName + ". apiVersion = " + apiVersion + ", brandCode =" + brandCode
               }
             }

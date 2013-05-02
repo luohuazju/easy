@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-		<target>System.out</target>
-		<encoder>
-			<pattern>%date{MM/dd HH:mm:ss} %-5level[%thread] %logger{1} - %msg%n
-			</pattern>
-		</encoder>
-	</appender>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.out</target>
+        <encoder>
+            <pattern>%date{MM/dd HH:mm:ss} %-5level[%thread] %logger{1} - %msg%n</pattern>
+        </encoder>
+    </appender>
 
-	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>akka.log</file>
-		<append>false</append>
-		<encoder>
-			<pattern>%date{MM/dd HH:mm:ss} %-5level[%thread] %logger{1} - %msg%n
-			</pattern>
-		</encoder>
-	</appender>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>akka.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%date{MM/dd HH:mm:ss} %-5level[%thread] %logger{1} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+	<logger name="com.sillycat.easysprayrestserver.actor" level="DEBUG" />
+	<logger name="com.sillycat.easysprayrestserver.util" level="INFO" />
+	<logger name="com.sillycat.easysprayrestserver.dao" level="DEBUG" />
 
-	<category name="com.mchange" additivity="false">
-		<priority value="DEBUG" />
-		<appender-ref ref="CONSOLE" />
-	</category>
+    <root level="ERROR">
+        <appender-ref ref="CONSOLE"/>
+    </root>
 
-	<logger name="akka" level="DEBUG" />
-
-	<root level="DEBUG">
-		<appender-ref ref="CONSOLE" />
-	</root>
+    <root level="ERROR">
+        <appender-ref ref="FILE"/>
+    </root>
 
 </configuration>
