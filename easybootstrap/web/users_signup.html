@@ -1,0 +1,131 @@
+<html>
+    <head>
+        <title>Form</title>
+        <link rel="stylesheet" media="screen" href="./stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" media="screen" href="./stylesheets/users.css">
+        <link rel="shortcut icon" type="image/png" href="./images/favicon.png">
+    </head>
+    <body>
+        <div class="topbar">
+            <div class="fill">
+                <div class="container">
+                    <a class="brand" href="/">Forms</a>
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="/signup">Sign up</a>
+                        </li>
+                        <li class="">
+                            <a href="/contacts">Contacts</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="content">
+                <div class="page-header">
+                    <h1>
+    					Sign Up <small><a href="/users/fakeuser">Or edit an existing user</a></small>
+					</h1>
+                </div>
+                <div class="row">
+                    <div class="span14">
+					<form action="/signup" method="POST" >
+        				<fieldset>
+            			<legend>Account informations</legend>
+						<div class="clearfix  error" id="username_field">
+    						<label for="username">Username</label>
+    						<div class="input">
+    							<input type="text" id="username" name="username" value="" >
+        						<span class="help-inline">Minimum length is 4</span>
+        						<span class="help-block">Please choose a valid username.</span> 
+    						</div>
+						</div>
+						<div class="clearfix  error" id="email_field">
+    						<label for="email">Email</label>
+    						<div class="input">
+    							<input type="text" id="email" name="email" value="" >
+        						<span class="help-inline">Valid email required</span>
+        						<span class="help-block">Enter a valid email address.</span> 
+    						</div>
+						</div>
+						<div class="clearfix  error" id="password_main_field">
+    						<label for="password_main">Password</label>
+    						<div class="input">
+    							<input type="password" id="password_main" name="password.main" >
+        						<span class="help-inline">Minimum length is 6</span>
+        						<span class="help-block">A password must be at least 6 characters. </span> 
+    						</div>
+						</div>
+						<div class="clearfix  " id="password_confirm_field">
+    						<label for="password_confirm">Repeat password</label>
+    						<div class="input">
+    							<input type="password" id="password_confirm" name="password.confirm" >
+        						<span class="help-inline"></span>
+        						<span class="help-block">Please repeat your password again.</span> 
+    						</div>
+						</div>
+        				</fieldset>
+        
+        				<fieldset>
+            			<legend>Contact informations</legend>
+						<div class="clearfix  error" id="profile_country_field">
+    						<label for="profile_country">Country</label>
+    						<div class="input">
+    							<select id="profile_country" name="profile.country" >
+            						<option class="blank" value="">--- Choose a country ---</option>
+            						<option value="Bulgaria" >Bulgaria</option>
+            						<option value="Italy" >Italy</option>
+    							</select>
+        						<span class="help-inline">Please select your country</span>
+        						<span class="help-block">Required</span> 
+    						</div>
+						</div>
+						<div class="clearfix  " id="profile_address_field">
+    						<label for="profile_address">Address</label>
+    						<div class="input">
+    							<textarea id="profile_address" name="profile.address" cols="50"></textarea>
+        						<span class="help-inline"></span>
+        						<span class="help-block"></span> 
+    						</div>
+						</div>
+						<div class="clearfix  " id="profile_age_field">
+    						<label for="profile_age">Age</label>
+    						<div class="input">
+    							<input type="text" id="profile_age" name="profile.age" value="" class="mini">
+        						<span class="help-inline"></span>
+        						<span class="help-block"></span> 
+    						</div>
+						</div>
+        				</fieldset>
+        
+        				<fieldset>
+							<div class="clearfix  error" id="accept_field">
+    							<label for="accept"></label>
+    							<div class="input">
+	    							<input type="checkbox" id="accept" name="accept" value="true"  >
+	    							<span>You aggree the Terms and conditions</span>
+	        						<span class="help-inline">You must accept the conditions</span>
+	        						<span class="help-block"></span> 
+    							</div>
+							</div>
+        				</fieldset>
+        
+        				<div class="actions">
+            				<input type="submit" class="btn primary" value="Sign Up">
+            				<a href="/" class="btn">Cancel</a>
+        				</div>
+					</form>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <p>
+                    <a href="#">This seems to be the footer</a>
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>
