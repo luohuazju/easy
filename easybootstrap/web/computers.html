@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>Computers</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="./stylesheets/bootstrap.min.css"> 
+        <link rel="stylesheet" type="text/css" media="screen" href="./stylesheets/computers.css"> 
+    </head>
+    <body>
+    
+    <header class="topbar">
+         <h1 class="fill">
+              This is the Header Banner
+         </h1>
+    </header>
+        
+    <section id="main">
+    <h1>574 computers found</h1>
+    <div id="actions">
+		<form action="/computers" method="GET" > 
+            <input type="search" id="searchbox" name="f" value="" placeholder="Filter by computer name...">
+            <input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">
+		</form>
+        <a class="btn success" id="add" href="/computers/new">Add a new computer</a>
+    </div>
+    
+    <table class="computers zebra-striped">
+    	<thead>
+             <tr>
+    			<th class="col2 header headerSortUp">
+        			<a href="#">Computer name</a>
+    			</th>
+    			<th class="col3 header ">
+        			<a href="#">Introduced</a>
+    			</th>
+    			<th class="col4 header ">
+        			<a href="#">Discontinued</a>
+    			</th>
+			    <th class="col5 header ">
+        			<a href="#">Company</a>
+    			</th>
+             </tr>
+         </thead>
+         <tbody>
+                <tr>
+                   <td><a href="#">ACE</a></td>
+                   <td><em>-</em></td>
+                   <td><em>-</em></td>
+                   <td><em>-</em></td>
+                </tr>
+                <tr>
+                   <td><a href="/computers/152">Acorn Archimedes</a></td>
+                   <td><em>-</em></td>
+                   <td><em>-</em></td>
+                   <td>Acorn computer</td>
+                </tr>
+                <tr>
+                   <td><a href="/computers/70">Amiga</a></td>
+                   <td>01 Jan 1985</td>
+                   <td><em>-</em></td>
+                   <td>Amiga Corporation</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="pagination" class="pagination">
+            <ul>
+                <li class="prev disabled">
+                        <a>&larr; Previous</a>
+                </li>
+                <li class="current">
+                    <a>Displaying 1 to 10 of 574</a>
+                </li>
+                <li class="next">
+                        <a href="/computers?p=1">Next &rarr;</a>
+                </li> 
+            </ul>
+        </div>
+        </section>
+    </body>
+</html>

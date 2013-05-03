@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Computers</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="./stylesheets/bootstrap.min.css"> 
+        <link rel="stylesheet" type="text/css" media="screen" href="./stylesheets/computers.css"> 
+    </head>
+    <body>
+        <header class="topbar">
+            <h1 class="fill">
+                This is the Header Banner
+            </h1>
+        </header>
+        <section id="main">
+    	<h1>No computers found</h1>
+    	<div id="actions">
+			<form action="/computers" method="GET" >
+	            <input type="search" id="searchbox" name="f" value="asdf" placeholder="Filter by computer name...">
+	            <input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">
+			</form>
+	        <a class="btn success" id="add" href="/computers/new">Add a new computer</a>
+    	</div>
+        
+        <div class="well">
+            <em>Nothing to display</em>
+        </div>
+
+        </section>
+        
+    </body>
+</html>
+
+
+            
