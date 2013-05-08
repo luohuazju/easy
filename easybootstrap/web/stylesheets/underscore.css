@@ -1,0 +1,35 @@
+
+body{background: #ccc;}
+
+.outer{padding-bottom:8px;}
+.title {
+	background-color: #FFF;
+	height: 32px;
+	font-size:15px;
+	line-height:32px;
+	padding-left:22px;
+	border-radius:3px;
+	box-shadow:0 3px 3px gray;
+	border:2px solid #FFF;
+}
+.title.hover{border-color:#ff9a16;}
+.title span {font-weight: bold;color: #292929;}
+
+.ul {padding-right: 2px;padding-left: 2px;}
+.ul li {
+	color: #767676;
+	height: 35px;
+	border: 1px solid #d1d1d1;
+	border-top:none;
+	font-size: 14px;
+	line-height: 35px;
+	background-color: #f5f5f5;
+	padding-left:16px;
+}
+.ul li a{color: #767676;text-decoration:none;}
+.ul li.hover{background-color:#FFF;}
+.ul li.last-li{
+	border-bottom-left-radius:3px;
+	border-bottom-right-radius:3px;
+}
+
