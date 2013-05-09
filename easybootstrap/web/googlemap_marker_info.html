@@ -1,0 +1,64 @@
+<html>
+	<head>
+	<title>Google Map Marker Info</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<script type="text/javascript">
+  function initialize() {
+    var latlng = new google.maps.LatLng(30.243089,-97.798446);
+    var myOptions = {
+      zoom: 12,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+	// Information Box Content
+	var InfoBoxContent = '<div id="infoboxcontent">' + 
+						 '<h1>Hello World!</h1><p>Example link <a href="http://sillycat.iteye.com">Blog</a></p>' +
+						 '<img width="240" height="180" src="http://dl.iteye.com/upload/picture/pic/84931/18cd6d9d-1905-35d8-a9e2-b4f5d7b59eb4.jpg" >' +
+						 '</div>';
+	//InfoWindow
+	var InfoBox_1 = new google.maps.InfoWindow({
+		content: InfoBoxContent
+	});
+	var InfoBox_2 = new google.maps.InfoWindow({
+		content: InfoBoxContent
+	});
+
+	// Marker
+	var marker_latlng_1 = new google.maps.LatLng(30.243416,-97.813464);
+	var marker_1 = new google.maps.Marker({
+		position: marker_latlng_1, 
+		map: map,
+		title:"Park 1"
+	});
+	var marker_latlng_2 = new google.maps.LatLng(30.241691,-97.794784);
+	var marker_1 = new google.maps.Marker({
+		position: marker_latlng_2, 
+		map: map,
+		title:"Park 2"
+	});
+
+	// Click marker to open information box
+	google.maps.event.addListener(marker_1, 'click', function() {
+		InfoBox_1.open(map, marker_1);
+	});
+	google.maps.event.addListener(marker_2, 'click', function() {
+		InfoBox_2.open(map, marker_2);
+	});
+  }
+  
+  function loadScript(){
+		var script = document.createElement("script");
+		script.type = "text/javascript";
+		script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyB_ZQ0qWQZ9kxT7s7nhaVkth0s49F0-iFY&sensor=true&callback=initialize";
+		document.body.appendChild(script);
+  }
+  
+  window.onload = loadScript;
+</script>
+	</head>
+	<body>
+		<div id="map_canvas" style="width:800px; height:600px;"></div>
+	</body>
+</html>
