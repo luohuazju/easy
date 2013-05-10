@@ -3,8 +3,8 @@ define([
   'underscore',
   'backbone',
   'text!template/map/StateMapTemplate.html',
-  'async!http://maps.google.com/maps/api/js?client=gme-digby&sensor=false&v=3'
-], function($, _, Backbone, htmlTemplate) {
+  'common/googlemap/MapBackBone'
+], function($, _, Backbone, htmlTemplate, MapBackBone) {
 
   var MapView = Backbone.View.extend({
     el: $("#content"),
@@ -12,6 +12,7 @@ define([
     render: function(){
       console.log("I am going to the controller, render to stateMapTemplate");
       this.$el.html(htmlTemplate);
+      MapBackBone.initialize();
     }
   
   });

@@ -1,0 +1,14 @@
+html,body {
+	height: 100%;
+}
+
+header {
+	width: 100%;
+	z-index: 999;
+}
+
+#page,#content {
+	position: static;
+	height: 100%;
+	padding: 0;
+}
