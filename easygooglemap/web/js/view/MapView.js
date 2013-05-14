@@ -12,7 +12,9 @@ define([
     render: function(){
       console.log("I am going to the controller, render to stateMapTemplate");
       this.$el.html(htmlTemplate);
-      MapBackBone.initialize();
+      jQuery(document).ready(function($) {
+    	  (new MapBackBone()).initialize();
+      });
     }
   
   });

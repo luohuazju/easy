@@ -54,20 +54,21 @@ object ProductJsonProtocol extends DefaultJsonProtocol {
       "productName" -> JsString(product.productName),
       "productDesn" -> JsString(product.productDesn),
       "createDate"	-> JsString(dateTimeFormat.print(new DateTime(product.createDate))),
-      "expirationDate" -> JsString(dateTimeFormat.print(new DateTime(product.expirationDate)))
+      "expirationDate" -> JsString(dateTimeFormat.print(new DateTime(product.expirationDate))),
+      "productCode" -> JsString(product.productCode)
       ) ++
       product.id.map( i => Map("id" -> JsNumber(i))).getOrElse(Map[String, JsValue]()) 
       )
     def read(jsProduct: JsValue) = {
-      jsProduct.asJsObject.getFields("id", "productName", "productDesn", "createDate", "expirationDate") match {
-        case Seq(JsNumber(id), JsString(productName), JsString(productDesn), JsString(createDate), JsString(expirationDate)) =>
+      jsProduct.asJsObject.getFields("id", "productName", "productDesn", "createDate", "expirationDate", "productCode") match {
+        case Seq(JsNumber(id), JsString(productName), JsString(productDesn), JsString(createDate), JsString(expirationDate), JsString(productCode)) =>
           val createDateObject = dateTimeFormat.parseDateTime(createDate)
           val expirationDateObject = dateTimeFormat.parseDateTime(expirationDate)
-          new Product(Some(id.longValue),  productName, productDesn, createDateObject, expirationDateObject)
-        case Seq(JsString(productName), JsString(productDesn), JsString(createDate), JsString(expirationDate)) =>
+          new Product(Some(id.longValue),  productName, productDesn, createDateObject, expirationDateObject, productCode)
+        case Seq(JsString(productName), JsString(productDesn), JsString(createDate), JsString(expirationDate), JsString(productCode)) =>
           val createDateObject = dateTimeFormat.parseDateTime(createDate)
           val expirationDateObject = dateTimeFormat.parseDateTime(expirationDate)
-          new Product(None,  productName, productDesn, createDateObject, expirationDateObject)
+          new Product(None,  productName, productDesn, createDateObject, expirationDateObject, productCode)
         case _ => throw new DeserializationException("Product expected")
       }
     }

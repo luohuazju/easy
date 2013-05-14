@@ -2,23 +2,27 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'common/googlemap/StateCenters',
   'async!https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_ZQ0qWQZ9kxT7s7nhaVkth0s49F0-iFY'
-], function($, _, Backbone) {
+], function($, _, Backbone,StateCenters) {
 	
-	var initialize = function(){
-		console.log("I am going to intialize the loading");
-		jQuery(document).ready(function($) {
-			drawMap();
-		});
-	};
+	function MapBackBone(opt_opts){
+		console.log("what we got from opt_opts_before=" + opt_opts); //undefined
+		opt_opts = opt_opts || {};
+		console.log("what we got from opt_opts_after=" + opt_opts); //object
+		this.geofenceMap = {};
+		this.statePolies = [];
+		this.zoomLevel = 4;
+		this.statePolygonColors = ['#ffffff', '#e2edff', '#d6e7ff', '#cee2ff', '#a9cdff', '#83b6ff', '#6099ec', '#325da1', '#143266', '#091f4a', '#091f4a'];
+	}
 	
-	function drawMap(){
+	MapBackBone.prototype.drawMap = function(){
 		console.log("I am going to draw that picture");
 		var mapStyle = {
 			    featureType: "administrative",
 			    elementType: "labels",
 			    stylers: [
-			        { visibility: "off" }
+			        { visibility: "off", }
 			    ]
 			};	
 		
@@ -49,8 +53,13 @@ define([
 		
 	};
 	
-	return { 
-	    initialize: initialize
+	MapBackBone.prototype.initialize = function(){
+		console.log("I am going to intialize the loading");
+		this.drawMap();
 	};
+	
+	
+	
+	return MapBackBone;
   
 });

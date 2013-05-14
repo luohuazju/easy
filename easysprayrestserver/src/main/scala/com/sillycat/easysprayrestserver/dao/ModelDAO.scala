@@ -35,6 +35,18 @@ trait UserDAO extends Logging { this: Profile =>
         case _ => None
       }
     } 
+    
+    def create(implicit session: Session) = {
+      if (!MTable.getTables(this.tableName).firstOption.isDefined) {
+        this.ddl.create
+      }
+    }
+
+    def drop(implicit session: Session) = {
+      if (MTable.getTables(this.tableName).firstOption.isDefined) {
+        this.ddl.drop
+      }
+    }
   }
 }
 
@@ -45,17 +57,25 @@ trait ProductDAO extends Logging { this: Profile =>
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc) // 1 This is the primary key column   
     def productName = column[String]("PRODUCT_NAME") // 2
     def productDesn = column[String]("PRODUCT_DESN") //3
-    def createDate = column[DateTime]("CREATE_DATE") //5
-    def expirationDate = column[DateTime]("EXPIRATION_DATE") // 6
+    def createDate = column[DateTime]("CREATE_DATE") //4
+    def expirationDate = column[DateTime]("EXPIRATION_DATE") // 5
+    def productCode = column[String]("PRODUCT_CODE") //6
 
-    def * = id.? ~ productName ~ productDesn ~ createDate ~ expirationDate <> (Product.apply _, Product.unapply _)
+    def * = id.? ~ productName ~ productDesn ~ createDate ~ expirationDate ~ productCode <> (Product.apply _, Product.unapply _)
     
-    def forInsert = productName ~ productDesn ~ createDate ~ expirationDate <>
-      ({ t => Product(None, t._1, t._2, t._3, t._4) },
-        { (s: Product) => Some(s.productName, s.productDesn, s.createDate, s.expirationDate) })
+    def forInsert = productName ~ productDesn ~ createDate ~ expirationDate ~ productCode <>
+      ({ t => Product(None, t._1, t._2, t._3, t._4, t._5) },
+        { (s: Product) => Some(s.productName, s.productDesn, s.createDate, s.expirationDate, s.productCode) })
 
     def insert(s: Product)(implicit session: Session): Long = {
       Products.forInsert returning id insert s
+    }
+      
+    def forProductCode(productCode: String)(implicit session: Session): Option[Product] = {
+      val query = for {
+        item <- Products if item.productCode === productCode
+      } yield item
+      query.firstOption
     }
 
     def create(implicit session: Session) = {
@@ -83,5 +103,17 @@ trait CartDAO extends Logging { this: Profile =>
     def userId = column[Long]("USER_ID") //5
 
     def * = id
+    
+    def create(implicit session: Session) = {
+      if (!MTable.getTables(this.tableName).firstOption.isDefined) {
+        this.ddl.create
+      }
+    }
+
+    def drop(implicit session: Session) = {
+      if (MTable.getTables(this.tableName).firstOption.isDefined) {
+        this.ddl.drop
+      }
+    }
   }
 }

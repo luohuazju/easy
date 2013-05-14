@@ -16,10 +16,12 @@ class BaseDAO(override val profile: ExtendedProfile, dbConn: DBConn) extends Pro
 
   def create: Unit = db withSession {
     Products.create
+    Users.create
   }
 
   def drop: Unit = db withSession {
     Products.drop
+    Users.create
   }
 
   def doWithSession(f: Unit => Unit) = db withSession { f }

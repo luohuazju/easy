@@ -7,7 +7,7 @@ import scala.slick.util.Logging
 
 case class Cart(id: Option[Long], cartName: String, cartType: CartType.Value, user: User, products: Seq[Product])
 
-case class Product(id: Option[Long], productName: String, productDesn: String, createDate: DateTime, expirationDate: DateTime)
+case class Product(id: Option[Long], productName: String, productDesn: String, createDate: DateTime, expirationDate: DateTime, productCode: String)
 
 /**
  * 1 User(1, 'admin', ... , 'admin')
