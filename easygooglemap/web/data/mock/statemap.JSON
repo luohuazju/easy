@@ -1,0 +1,210 @@
+{
+    "success": true,
+    "locationMapData": {
+        "AL": {
+            "count": 0,
+            "name": "Alabama"
+        },
+        "AK": {
+            "count": 0,
+            "name": "Alaska"
+        },
+        "AZ": {
+            "count": 0,
+            "name": "Arizona"
+        },
+        "AR": {
+            "count": 0,
+            "name": "Arkansas"
+        },
+        "CA": {
+            "count": 0,
+            "name": "California"
+        },
+        "CO": {
+            "count": 0,
+            "name": "Colorado"
+        },
+        "CT": {
+            "count": 0,
+            "name": "Connecticut"
+        },
+        "DC": {
+            "count": 0,
+            "name": "District of Columbia"
+        },
+        "DE": {
+            "count": 0,
+            "name": "Delaware"
+        },
+        "FL": {
+            "count": 0,
+            "name": "Florida"
+        },
+        "GA": {
+            "count": 0,
+            "name": "Georgia"
+        },
+        "HI": {
+            "count": 0,
+            "name": "Hawaii"
+        },
+        "ID": {
+            "count": 0,
+            "name": "Idaho"
+        },
+        "IL": {
+            "count": 0,
+            "name": "Illinois"
+        },
+        "IN": {
+            "count": 0,
+            "name": "Indiana"
+        },
+        "IA": {
+            "count": 0,
+            "name": "Iowa"
+        },
+        "KS": {
+            "count": 0,
+            "name": "Kansas"
+        },
+        "KY": {
+            "count": 0,
+            "name": "Kentucky"
+        },
+        "LA": {
+            "count": 0,
+            "name": "Louisiana"
+        },
+        "ME": {
+            "count": 0,
+            "name": "Maine"
+        },
+        "MD": {
+            "count": 0,
+            "name": "Maryland"
+        },
+        "MA": {
+            "count": 0,
+            "name": "Massachusetts"
+        },
+        "MI": {
+            "count": 0,
+            "name": "Michigan"
+        },
+        "MN": {
+            "count": 0,
+            "name": "Minnesota"
+        },
+        "MS": {
+            "count": 0,
+            "name": "Mississippi"
+        },
+        "MO": {
+            "count": 0,
+            "name": "Missouri"
+        },
+        "MT": {
+            "count": 0,
+            "name": "Montana"
+        },
+        "NE": {
+            "count": 0,
+            "name": "Nebraska"
+        },
+        "NV": {
+            "count": 0,
+            "name": "Nevada"
+        },
+        "NH": {
+            "count": 0,
+            "name": "New Hampshire"
+        },
+        "NJ": {
+            "count": 0,
+            "name": "New Jersey"
+        },
+        "NM": {
+            "count": 0,
+            "name": "New Mexico"
+        },
+        "NY": {
+            "count": 0,
+            "name": "New York"
+        },
+        "NC": {
+            "count": 0,
+            "name": "North Carolina"
+        },
+        "ND": {
+            "count": 0,
+            "name": "North Dakota"
+        },
+        "OH": {
+            "count": 0,
+            "name": "Ohio"
+        },
+        "OK": {
+            "count": 0,
+            "name": "Oklahoma"
+        },
+        "OR": {
+            "count": 0,
+            "name": "Oregon"
+        },
+        "PA": {
+            "count": 0,
+            "name": "Pennsylvania"
+        },
+        "RI": {
+            "count": 0,
+            "name": "Rhode Island"
+        },
+        "SC": {
+            "count": 0,
+            "name": "South Carolina"
+        },
+        "SD": {
+            "count": 0,
+            "name": "South Dakota"
+        },
+        "TN": {
+            "count": 0,
+            "name": "Tennessee"
+        },
+        "TX": {
+            "count": 4,
+            "name": "Texas"
+        },
+        "UT": {
+            "count": 0,
+            "name": "Utah"
+        },
+        "VT": {
+            "count": 0,
+            "name": "Vermont"
+        },
+        "VA": {
+            "count": 0,
+            "name": "Virginia"
+        },
+        "WA": {
+            "count": 0,
+            "name": "Washington"
+        },
+        "WI": {
+            "count": 0,
+            "name": "Wisconsin"
+        },
+        "WV": {
+            "count": 0,
+            "name": "West Virginia"
+        },
+        "WY": {
+            "count": 0,
+            "name": "Wyoming"
+        }
+    },
+    "maxCount": 4
+}

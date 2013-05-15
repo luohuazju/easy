@@ -1,0 +1,37 @@
+{
+    "success": true,
+    "locationMapData": [
+        {
+            "id": 1930,
+            "name": "company digby",
+            "code": "company_digby",
+            "lat": 30.242696,
+            "lng": -97.798532,
+            "radius": 200
+        },
+        {
+            "id": 1905,
+            "name": "location007",
+            "code": "location007",
+            "lat": 30.233014,
+            "lng": -97.837142,
+            "radius": 200
+        },
+        {
+            "id": 1906,
+            "name": "location008",
+            "code": "location008",
+            "lat": 30.233014,
+            "lng": -97.837142,
+            "radius": 200
+        },
+        {
+            "id": 1929,
+            "name": "location_003",
+            "code": "location_003",
+            "lat": 30.233014,
+            "lng": -97.837142,
+            "radius": 498
+        }
+    ]
+}

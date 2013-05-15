@@ -7,44 +7,75 @@ import com.sillycat.easysprayrestserver.model.Cart
 import scala.slick.jdbc.meta.MTable
 import com.sillycat.easysprayrestserver.model.User
 import com.sillycat.easysprayrestserver.model.UserType
-
+import spray.httpx.SprayJsonSupport
+import spray.json.DefaultJsonProtocol
+import spray.json.DeserializationException
+import spray.json.JsNumber
+import spray.json.JsObject
+import spray.json.JsString
+import spray.json.JsValue
+import spray.json.RootJsonFormat
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.DateTime
+import spray.json.JsArray
+import spray.json._
+import DefaultJsonProtocol._
+import org.joda.time.DateTime
+import scala.slick.util.Logging
+import scala.slick.jdbc.meta.MTable
+import spray.json.{ RootJsonFormat, DefaultJsonProtocol }
+import spray.httpx.SprayJsonSupport
+import org.joda.time.format.DateTimeFormat
+import scala.slick.ast._
+import scala.slick.ast.Util._
 
 trait UserDAO extends Logging { this: Profile =>
   import profile.simple._
 
-  object Users extends Table[Long]("USER") {
+  object Users extends Table[(Long, String, Int, String, DateTime, DateTime, String)]("USER") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc) // 1 This is the primary key column   
     def userName = column[String]("USER_NAME") // 2
     def age = column[Int]("AGE") //3
     def userType = column[String]("USER_TYPE") //4
     def createDate = column[DateTime]("CREATE_DATE") //5
     def expirationDate = column[DateTime]("EXPIRATION_DATE") // 6
-    def password = column[DateTime]("PASSWORD") // 7
+    def password = column[String]("PASSWORD") // 7
 
-    def * = id
-    
-    def auth(userName: String, password: String)(implicit session: Session) : Option[User] = {
+    def * = id ~ userName ~ age ~ userType ~ createDate ~ expirationDate ~ password
+
+    def persist(implicit session: Session) = id.? ~ userName ~ age ~ userType ~ createDate ~ expirationDate ~ password
+
+    def insert(user: User)(implicit session: Session): Long = {
+      val id = persist.insert(user.id, user.userName, user.age ,user.userType.toString(), user.createDate, user.expirationDate, user.password)
+      id
+    }
+
+    def auth(userName: String, password: String)(implicit session: Session): Option[User] = {
       logger.debug("I am authing the userName=" + userName + " password=" + password)
       (userName, password) match {
-        case ("admin","admin") => 
-          Option(User(Some(1), "admin", 100, UserType.ADMIN, new DateTime(), new DateTime(),"admin"))
-        case ("customer","customer") => 
-          Option(User(Some(2), "customer", 100, UserType.CUSTOMER, new DateTime(), new DateTime(),"customer"))
-        case ("manager","manager") => 
-          Option(User(Some(3), "manager", 100, UserType.SELLER, new DateTime(), new DateTime(),"manager"))
+        case ("admin", "admin") =>
+          Option(User(Some(1), "admin", 100, UserType.ADMIN, new DateTime(), new DateTime(), "admin"))
+        case ("customer", "customer") =>
+          Option(User(Some(2), "customer", 100, UserType.CUSTOMER, new DateTime(), new DateTime(), "customer"))
+        case ("manager", "manager") =>
+          Option(User(Some(3), "manager", 100, UserType.SELLER, new DateTime(), new DateTime(), "manager"))
         case _ => None
       }
-    } 
-    
+    }
+
     def create(implicit session: Session) = {
       if (!MTable.getTables(this.tableName).firstOption.isDefined) {
-        this.ddl.create
+        val ddl = this.ddl
+        ddl.create
+        ddl.createStatements.foreach(println)
       }
     }
 
     def drop(implicit session: Session) = {
       if (MTable.getTables(this.tableName).firstOption.isDefined) {
-        this.ddl.drop
+        val ddl = this.ddl
+        ddl.drop
+        ddl.dropStatements.foreach(println)
       }
     }
   }
@@ -62,7 +93,7 @@ trait ProductDAO extends Logging { this: Profile =>
     def productCode = column[String]("PRODUCT_CODE") //6
 
     def * = id.? ~ productName ~ productDesn ~ createDate ~ expirationDate ~ productCode <> (Product.apply _, Product.unapply _)
-    
+
     def forInsert = productName ~ productDesn ~ createDate ~ expirationDate ~ productCode <>
       ({ t => Product(None, t._1, t._2, t._3, t._4, t._5) },
         { (s: Product) => Some(s.productName, s.productDesn, s.createDate, s.expirationDate, s.productCode) })
@@ -70,7 +101,7 @@ trait ProductDAO extends Logging { this: Profile =>
     def insert(s: Product)(implicit session: Session): Long = {
       Products.forInsert returning id insert s
     }
-      
+
     def forProductCode(productCode: String)(implicit session: Session): Option[Product] = {
       val query = for {
         item <- Products if item.productCode === productCode
@@ -80,13 +111,17 @@ trait ProductDAO extends Logging { this: Profile =>
 
     def create(implicit session: Session) = {
       if (!MTable.getTables(this.tableName).firstOption.isDefined) {
-        this.ddl.create
+        val ddl = this.ddl
+        ddl.create
+        ddl.createStatements.foreach(println)
       }
     }
 
     def drop(implicit session: Session) = {
       if (MTable.getTables(this.tableName).firstOption.isDefined) {
-        this.ddl.drop
+        val ddl = this.ddl
+        ddl.drop
+        ddl.dropStatements.foreach(println)
       }
     }
   }
@@ -95,7 +130,7 @@ trait ProductDAO extends Logging { this: Profile =>
 //Cart(id: Option[Long], cartName: String, cartType: CartType.Value, user: User, products: Seq[Product])
 trait CartDAO extends Logging { this: Profile =>
   import profile.simple._
-  
+
   object Carts extends Table[Long]("CART") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc) // 1 This is the primary key column   
     def cartName = column[String]("CART_NAME") // 2
@@ -103,16 +138,20 @@ trait CartDAO extends Logging { this: Profile =>
     def userId = column[Long]("USER_ID") //5
 
     def * = id
-    
+
     def create(implicit session: Session) = {
       if (!MTable.getTables(this.tableName).firstOption.isDefined) {
-        this.ddl.create
+        val ddl = this.ddl
+        ddl.create
+        ddl.createStatements.foreach(println)
       }
     }
 
     def drop(implicit session: Session) = {
       if (MTable.getTables(this.tableName).firstOption.isDefined) {
-        this.ddl.drop
+        val ddl = this.ddl
+        ddl.drop
+        ddl.dropStatements.foreach(println)
       }
     }
   }
