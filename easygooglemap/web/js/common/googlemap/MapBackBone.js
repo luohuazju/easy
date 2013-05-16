@@ -7,9 +7,9 @@ define([
 ], function($, _, Backbone,StateCenters) {
 	
 	function MapBackBone(opt_opts){
-		console.log("what we got from opt_opts_before=" + opt_opts); //undefined
+		window.logger.debug("what we got from opt_opts_before=" + opt_opts); //undefined
 		opt_opts = opt_opts || {};
-		console.log("what we got from opt_opts_after=" + opt_opts); //object
+		window.logger.debug("what we got from opt_opts_after=" + opt_opts); //object
 		this.geofenceMap = {};
 		this.statePolies = [];
 		this.zoomLevel = 4;
@@ -17,7 +17,7 @@ define([
 	}
 	
 	MapBackBone.prototype.drawMap = function(){
-		console.log("I am going to draw that picture");
+		window.logger.debug("I am going to draw that picture");
 		var mapStyle = {
 			    featureType: "administrative",
 			    elementType: "labels",
@@ -54,7 +54,7 @@ define([
 	};
 	
 	MapBackBone.prototype.initialize = function(){
-		console.log("I am going to intialize the loading");
+		window.logger.debug("I am going to intialize the loading");
 		this.drawMap();
 	};
 	

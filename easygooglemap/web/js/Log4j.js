@@ -32,7 +32,7 @@ define([
 		
 		//%d{HH:mm:ss,SSS} %l{s:l} %-5p - %m{1}%n
 		//%d{HH:mm:ss} %-5p - %m%n
-		var simpleLayout = new log4javascript.PatternLayout("%d{HH:mm:ss,SSS} %-5p - %m %l{s:l} %n ");  
+		var simpleLayout = new log4javascript.PatternLayout("%d{HH:mm:ss,SSS} %l{s:l} %-5p - %m  %n ");  
 		consoleAppender.setLayout(simpleLayout); 
 		
 		logger.addAppender(consoleAppender);
