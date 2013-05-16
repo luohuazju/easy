@@ -20,7 +20,17 @@ require.config({
 });
 
 require([
-  'App',
-], function(App){
-  App.initialize();
+  'Router',
+], function(Router){
+	var IndexPageView = Backbone.View.extend({
+		el: "#content",
+		router: null,
+		
+		initialize: function(){
+			console.log("initialize the IndexPageView");
+			this.router = new Router();
+		}
+	});
+	
+	new IndexPageView();
 });
