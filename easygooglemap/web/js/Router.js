@@ -17,22 +17,22 @@ define([
     },
   
     initialize: function(){
-       console.log("init the router, and make backbone start.");
+       window.logger.debug("init the router, and make backbone start.");
        Backbone.history.start();
     },
     
     showHome: function(){
-    	console.log("Entering the showHome Page!");
+    	window.logger.debug("Entering the showHome Page!");
       	new HomeView().render();
     },
     
     showMap: function(){
-    	console.log("Entering the showMap Page!");
+    	window.logger.debug("Entering the showMap Page!");
     	new MapView().render();
     },
     
     showAbout: function(){
-    	console.log("Entering the showAbout Page!");
+    	window.logger.debug("Entering the showAbout Page!");
     	new AboutView().render();
     }
   });

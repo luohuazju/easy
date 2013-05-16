@@ -9,7 +9,7 @@ define([
     el: $("#content"),
     
     render: function(){
-      console.log("I am going to hit the About Page.");
+      window.logger.debug("I am going to hit the About Page.");
       this.$el.html(htmlTemplate);
     }
   

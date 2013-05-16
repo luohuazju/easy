@@ -10,7 +10,7 @@ define([
     el: $("#content"),
     
     render: function(){
-      console.log("I am going to the controller, render to stateMapTemplate");
+      window.logger.debug("I am going to the controller, render to stateMapTemplate");
       this.$el.html(htmlTemplate);
       jQuery(document).ready(function($) {
     	  (new MapBackBone()).initialize();

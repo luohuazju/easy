@@ -9,7 +9,7 @@ define([
     el: $("#content"),
     
     render: function(){
-      console.log("I am going to render to HomeView");
+      window.logger.debug("I am going to render to HomeView");
       this.$el.html(htmlTemplate);
     }
   
