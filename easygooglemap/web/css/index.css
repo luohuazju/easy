@@ -1,13 +1,22 @@
-html,body {
-	height: 100%;
+html {
+    background: #eee;
 }
 
-header {
-	width: 100%;
-	z-index: 999;
+header h1 {
+    padding: 0.4em 0.8em;
+    color: white;
+    font-weight: normal;
+    font-size: 20px;
 }
 
-#page,#content {
+section#main {
+    position: relative;
+    padding: 0.9em 0.9em;
+    border-bottom: 1px solid #ccc;
+    min-height: 600px;
+} 
+
+#content {
 	position: static;
 	height: 100%;
 	padding: 0;

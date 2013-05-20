@@ -5,3 +5,5 @@ target
 .project
 .classpath
 .cache
+easysparkserver_2.10-1.0.jar
+easysparkserver_2.9.2-1.0.jar

@@ -5,15 +5,17 @@ define([
   'backbone',
   'view/AboutView',
   'view/HomeView',
-  'view/MapView'
-], function($, _, Backbone, AboutView, HomeView, MapView) {
+  'view/MapView',
+  'view/LocationView'
+], function($, _, Backbone, AboutView, HomeView, MapView, LocationView) {
   
   var Router = Backbone.Router.extend({
     routes: {
       // Define some URL routes  
       'home'  : 'showHome',
       'map'   : 'showMap',
-      'about' : 'showAbout'
+      'about' : 'showAbout',
+      'location' : 'showLocation'
     },
   
     initialize: function(){
@@ -34,6 +36,10 @@ define([
     showAbout: function(){
     	window.logger.debug("Entering the showAbout Page!");
     	new AboutView().render();
+    },
+    showLocation: function(){
+    	window.logger.debug("Enterring the showLocation Page!");
+    	new LocationView().render();
     }
   });
   

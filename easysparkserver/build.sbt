@@ -6,7 +6,8 @@ organization := "com.sillycat"
 
 version := "1.0" 
 
-scalaVersion := "2.9.2"
+scalaVersion := "2.10.1"
+//scalaVersion := "2.9.2"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8") 
 
@@ -21,7 +22,8 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
     "com.sillycat"		  %%  "easycassandraserver"  	  % "1.0",
-    "org.spark-project"   %%  "spark-core"                % "0.7.0" 
+    "org.spark-project"   %%  "spark-core"                % "0.7.0-SNAPSHOT" 
+	//"org.spark-project"   %%  "spark-core"                % "0.7.0" 
 )
 
 seq(Revolver.settings: _*)

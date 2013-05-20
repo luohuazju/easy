@@ -1,25 +1,27 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<title>Google Map Sample</title>
   	<script data-main="js/Main" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.5/require.min.js"></script>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<link href="css/index.css" rel="stylesheet" type="text/css" />
+	<link href="css/lib/bootstrap/2.3.2/bootstrap.min.css" ref="stylesheet" type="text/css" />
+	<link href="css/lib/bootstrap/2.3.2/bootstrap-responsive.min.css" ref="stylesheet" type="text/css" />
 </head>
 
 <body>
-	<header>
-		<nav id="context">
-		<div>
-			<a href="#/home">Home</a> &nbsp; | &nbsp;
-			<a href="#/map">Map</a> &nbsp; | &nbsp;
-			<a href="#/about">About</a>
-		</div>
-		</nav>
-	</header>
-	<div id="page">
+	<header class="topbar">
+		<h1 class="fill">
+			<a href="#/home">Home</a> &nbsp;&nbsp;
+			<a href="#/map">Map</a> &nbsp;&nbsp;
+			<a href="#/location">Location</a> &nbsp;&nbsp;
+			<a href="#/about">About</a> &nbsp;&nbsp;
+		</h1>
+    </header>
+
+	<section id="main">
 		<div id="content">
 		</div>
-	</div>
+	</section>
 </body>
 </html>
