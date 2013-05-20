@@ -6,22 +6,27 @@ import scala.slick.driver.MySQLDriver
 import scala.slick.session.Database
 import scala.slick.session.Database.threadLocalSession
 import scala.slick.session.Session
-
 import com.sillycat.easysprayrestserver.util.DBConn
 import com.sillycat.easysprayrestserver.util.TestDBConn
 
-class BaseDAO(override val profile: ExtendedProfile, dbConn: DBConn) extends ProductDAO with UserDAO with Profile {
+class BaseDAO(override val profile: ExtendedProfile, dbConn: DBConn) extends ProductDAO with UserDAO with CartDAO with RCartProductDAO with Profile {
 
   def db: Database = { dbConn.database }
 
   def create: Unit = db withSession {
     Users.create
     Products.create
+    Carts.create
+    
+    RCartProducts.create
   }
 
   def drop: Unit = db withSession {
-    Users.create
+    Users.drop
     Products.drop
+    Carts.drop
+    
+    RCartProducts.drop
   }
 
   def doWithSession(f: Unit => Unit) = db withSession { f }

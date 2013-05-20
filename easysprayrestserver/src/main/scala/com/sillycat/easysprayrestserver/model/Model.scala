@@ -16,6 +16,7 @@ case class Product(id: Option[Long], productName: String, productDesn: String, c
  */
 case class User(id: Option[Long], userName: String, age: Int, userType: UserType.Value, createDate: DateTime, expirationDate: DateTime, password: String)
 
+
 /**
  * 1 Role(1, "admin", "")
  * 2 Role(2, "manager", "")
@@ -30,3 +31,5 @@ case class Role(id: Option[Long], roleCode: String, description: String)
  */
 case class RUserRole(roleId : Long, userId : Long)
 
+
+case class RCartProduct(cartId : Long, productId : Long)

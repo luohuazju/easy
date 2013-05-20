@@ -45,4 +45,22 @@ class ModelDAOSpec extends FunSuite with ShouldMatchers with BeforeAndAfterAll {
     }
   }
   
+  test("Fetch User"){
+    dao.db withSession {
+      val item = dao.Users.get(1)
+      info(item.toString)
+      assert(item.get.id.get === 1)
+      assert(item.get.userName === "sillycat")
+    }
+  }
+  
+  test("Persist Cart"){
+    dao.db withSession {
+      //id: Option[Long], cartName: String, cartType: CartType.Value, user: User, products: Seq[Product]
+      //val user = None
+      //val products = None
+      //val item = new Cart(None, "Sunday Cart", CartType.CHENGDU, user , products)
+    }
+  }
+  
 }

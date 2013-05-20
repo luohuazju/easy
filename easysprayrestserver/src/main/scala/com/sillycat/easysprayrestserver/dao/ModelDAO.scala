@@ -4,6 +4,7 @@ import scala.slick.util.Logging
 import org.joda.time.DateTime
 import com.sillycat.easysprayrestserver.model.Product
 import com.sillycat.easysprayrestserver.model.Cart
+import com.sillycat.easysprayrestserver.model.RCartProduct
 import scala.slick.jdbc.meta.MTable
 import com.sillycat.easysprayrestserver.model.User
 import com.sillycat.easysprayrestserver.model.UserType
@@ -46,7 +47,7 @@ trait UserDAO extends Logging { this: Profile =>
     def persist(implicit session: Session) = id.? ~ userName ~ age ~ userType ~ createDate ~ expirationDate ~ password
 
     def insert(user: User)(implicit session: Session): Long = {
-      val id = persist.insert(user.id, user.userName, user.age ,user.userType.toString(), user.createDate, user.expirationDate, user.password)
+      val id = persist.insert(user.id, user.userName, user.age, user.userType.toString(), user.createDate, user.expirationDate, user.password)
       id
     }
 
@@ -60,6 +61,15 @@ trait UserDAO extends Logging { this: Profile =>
         case ("manager", "manager") =>
           Option(User(Some(3), "manager", 100, UserType.SELLER, new DateTime(), new DateTime(), "manager"))
         case _ => None
+      }
+    }
+    
+    def get(userId: Long)(implicit session: Session): Option[User] = {
+      logger.debug("Try to fetch User Object with userId = " + userId)
+      val query = for { item <- Users if (item.id === userId) } yield (item)
+      logger.debug("Get User by id, SQL should be : " + query.selectStatement)
+      query.firstOption map {
+        case (user) => User(Option(user._1), user._2, user._3, UserType.withName(user._4), user._5, user._6, user._7)
       }
     }
 
@@ -128,16 +138,24 @@ trait ProductDAO extends Logging { this: Profile =>
 }
 
 //Cart(id: Option[Long], cartName: String, cartType: CartType.Value, user: User, products: Seq[Product])
-trait CartDAO extends Logging { this: Profile =>
+trait CartDAO extends Logging { this: Profile with RCartProductDAO =>
   import profile.simple._
 
-  object Carts extends Table[Long]("CART") {
+  object Carts extends Table[(Long, String, String, Long)]("CART") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc) // 1 This is the primary key column   
     def cartName = column[String]("CART_NAME") // 2
     def cartType = column[String]("CART_TYPE") //3
     def userId = column[Long]("USER_ID") //5
 
-    def * = id
+    def * = id ~ cartName ~ cartType ~ userId
+
+    def persist(implicit session: Session) = id.? ~ cartName ~ cartType ~ userId.?
+
+    def insert(cart: Cart)(implicit session: Session): Long = {
+      val cartId = persist.insert(cart.id, cart.cartName, cart.cartType.toString(), cart.user.id)
+      RCartProducts.insertAll(cartId, cart.products)
+      cartId
+    }
 
     def create(implicit session: Session) = {
       if (!MTable.getTables(this.tableName).firstOption.isDefined) {
@@ -156,3 +174,35 @@ trait CartDAO extends Logging { this: Profile =>
     }
   }
 }
+
+trait RCartProductDAO extends Logging { this: Profile =>
+  import profile.simple._
+
+  object RCartProducts extends Table[RCartProduct]("R_CART_PRODUCT") {
+    def cartId = column[Long]("CART_ID", O.NotNull) // 1 This is the primary key column   
+    def productId = column[Long]("PRODUCT_ID", O.NotNull) //2
+
+    def * = cartId ~ productId <> (RCartProduct.apply _, RCartProduct.unapply _)
+
+    def insertAll(cartId: Long, productIds: Seq[Product])(implicit session: Session): Unit = {
+      productIds.foreach(x => RCartProducts.insert(RCartProduct(cartId, x.id.get)))
+    }
+
+    def create(implicit session: Session) = {
+      if (!MTable.getTables(this.tableName).firstOption.isDefined) {
+        val ddl = this.ddl
+        ddl.create
+        //ddl.createStatements.foreach(println)
+      }
+    }
+
+    def drop(implicit session: Session) = {
+      if (MTable.getTables(this.tableName).firstOption.isDefined) {
+        val ddl = this.ddl
+        ddl.drop
+        //ddl.dropStatements.foreach(println)
+      }
+    }
+  }
+}
+
