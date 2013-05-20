@@ -118,6 +118,10 @@ trait ProductDAO extends Logging { this: Profile =>
       } yield item
       query.firstOption
     }
+    
+    def all()(implicit session: Session): Seq[Product] = {
+      Query(Products).list
+    }
 
     def create(implicit session: Session) = {
       if (!MTable.getTables(this.tableName).firstOption.isDefined) {

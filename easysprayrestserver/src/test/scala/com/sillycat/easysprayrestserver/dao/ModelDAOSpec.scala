@@ -25,6 +25,8 @@ class ModelDAOSpec extends FunSuite with ShouldMatchers with BeforeAndAfterAll {
       info(item.toString)
       val id = dao.Products.insert(item)
       assert(id === 1)
+      
+      dao.Products.insert(new Product(None, "IPhone4S", "Also good", DateTime.now, DateTime.now, "IPHONE4S"))
     }
   }
   
@@ -57,9 +59,12 @@ class ModelDAOSpec extends FunSuite with ShouldMatchers with BeforeAndAfterAll {
   test("Persist Cart"){
     dao.db withSession {
       //id: Option[Long], cartName: String, cartType: CartType.Value, user: User, products: Seq[Product]
-      //val user = None
-      //val products = None
-      //val item = new Cart(None, "Sunday Cart", CartType.CHENGDU, user , products)
+      val user = dao.Users.get(1).get
+      val products = dao.Products.all
+      val item = new Cart(None, "Sunday Cart", CartType.CHENGDU, user , products)
+      info(item.toString)
+      val id = dao.Carts.insert(item)
+      assert(id === 1)
     }
   }
   
