@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="../css/lib/bootstrap/2.3.2/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="../js/lib/bootstrap/2.3.2/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <h1>Base CSS</h1>
+    <div class="row">
+      <div class="span9">
+        Level 1 column
+        <div class="row">
+          <div class="span6">Level 2</div>
+          <div class="span3">Level 2</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span12">
+          Fluid 12
+          <div class="row-fluid">
+            <div class="span6">
+              Fluid 6.1
+              <div class="row-fluid">
+                <div class="span6">Fluid 6.1.1</div>
+                <div class="span6">Fluid 6.1.2</div>
+              </div>
+            </div>
+            <div class="span6">Fluid 6.2</div>
+          </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+          Sidebar content
+        </div>
+        <div class="span10">
+          <p class="lead">Body content</p>
+          <p><strong>Nullam</strong> quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+
+          <p><b>Cum</b> sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec </p>
+          <p class="text-warning">ullamcorper nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. </p>
+          <p class="text-error">Donec ullamcorper nulla non metus auctor fringilla.</p>
+
+          <p class="text-info">Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus. </p>
+          <p class="text-success">Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <abbr title="HyperText Markup Language" class="initialism">HTML</abbr>is the best thing since sliced bread.
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span5">
+          <address>
+             <strong>Twitter, Inc.</strong><br>
+              795 Folsom Ave, Suite 600<br>
+              San Francisco, CA 94107<br>
+              <abbr title="Phone">P:</abbr> (123) 456-7890
+          </address>
+          <address>
+            <strong>Full Name</strong><br>
+            <a href="mailto:#">first.last@example.com</a>
+          </address>
+        </div>
+        <div class="span6 offset1">
+          <blockquote class="pull-right">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <small>Someone famous <cite title="Source Title">Source Title</cite></small>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+    <!-- List -->
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span5">
+          <ul>
+            <li>Lorem ipsum dolor sit amet</li>
+            <li>Consectetur adipiscing elit</li>
+            <li>Integer molestie lorem at massa</li>
+            <li>Facilisis in pretium nisl aliquet</li>
+            <ol>
+              <li>Nulla volutpat aliquam velit</li>
+              <li>Phasellus iaculis neque</li>
+              <li>Purus sodales ultricies</li>
+            </ol>
+            <li>Vestibulum laoreet porttitor sem</li>
+            <li>Ac tristique libero volutpat at</li>
+          </ul>
+        </div>
+        <div class="span5 offset1">
+          <dl>
+            <dt>Description lists</dt>
+            <dd>A description list is perfect for defining terms.</dd>
+            <dt>Euismod</dt>
+            <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.
+            Donec id elit non mi porta gravida at eget metus.</dd>
+            <dt>Malesuada porta</dt>
+            <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <!-- Table -->
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span5">
+          <table class="table table-striped">
+            <tr><th>#</th><th>FirstName</th><th>LastName</th><th>Username</th></tr>
+            <tr class="success"><td>1</td><td>Mark</td><td>Otto</td><td>@mdo</td></tr>
+            <tr class="error"><td>1</td><td>Mark</td><td>Otto</td><td>@mdo</td></tr>
+            <tr class="warning"><td>2</td><td>Jacob</td><td>Thornton</td><td>@fat</td></tr>
+            <tr class="info"><td>2</td><td>Jacob</td><td>Thornton</td><td>@fat</td></tr>
+          </table>
+        </div>
+        <div class="span5 offset1">
+          <table class="table table-hover">
+            <tr><th>#</th><th>FirstName</th><th>LastName</th><th>Username</th></tr>
+            <tr><td>1</td><td>Mark</td><td>Otto</td><td>@mdo</td></tr>
+            <tr><td>2</td><td>Jacob</td><td>Thornton</td><td>@fat</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Form -->
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span5">
+          <form>
+            <fieldset>
+              <legend>Legend</legend>
+              <label>Label name</label>
+              <input type="text" placeholder="Type something…">
+              <span class="help-block">Example block-level help text here.</span>
+              <label class="checkbox">
+                <input type="checkbox"> Check me out
+              </label>
+              <button type="submit" class="btn">Submit</button>
+            </fieldset>
+          </form>
+          <input type="text" placeholder="Text input">
+          <textarea row="3" placeholder="Textarea input"></textarea>
+          <!-- Search Form -->
+          <form class="form-search">
+            <input type="text" class="input-medium search-query">
+            <button type="submit" class="btn"><i class="icon-search"></i>Search</button>
+          </form>
+          <form class="form-inline">
+            <input type="text" class="input-small" placeholder="Email">
+            <input type="password" class="input-small" placeholder="Password">
+            <label class="checkbox">
+              <input type="checkbox"> Remember me
+            </label>
+            <button type="submit" class="btn">Sign in</button>
+          </form><br>
+          <form class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label" for="inputEmail">Email</label>
+              <div class="controls">
+                <input type="text" id="inputEmail" placeholder="Email">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="inputPassword">Password</label>
+              <div class="controls">
+                <input type="password" id="inputPassword" placeholder="Password">
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <label class="checkbox">
+                  <input type="checkbox"> Remember me
+                </label>
+                <button type="submit" class="btn">Sign in</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="span5 offset1">
+          <label class="checkbox">
+            <input type="checkbox" value="">
+            Option one is this and that—be sure to include why it's great
+          </label>
+           <!-- Radio and Checkbox -->
+          <label class="radio">
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+            Option one is this and that—be sure to include why it's great
+          </label>
+          <label class="radio">
+            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+            Option two can be something else and selecting it will deselect option one
+          </label>
+          <label class="checkbox inline">
+            <input type="checkbox" id="inlineCheckbox1" value="option1"> 1 checkbox
+          </label>
+          <label class="checkbox inline">
+            <input type="checkbox" id="inlineCheckbox2" value="option2"> 2 checkbox
+          </label>
+          <label class="checkbox inline">
+            <input type="checkbox" id="inlineCheckbox3" value="option3"> 3 checkbox
+          </label>
+          <!-- Selects -->
+          <select>
+            <option>1 select</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+           
+          <select multiple="multiple">
+            <option>1 multiple</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <div class="input-prepend">
+            <span class="add-on">@</span>
+            <input class="span2" id="prependedInput" type="text" placeholder="Username">
+          </div>
+          <div class="input-append">
+            <input class="span2" id="appendedInput" type="text">
+            <span class="add-on">.00</span>
+          </div>
+          <div class="input-append">
+            <input class="span2" id="appendedInputButtons" type="text">
+            <button class="btn" type="button">Search</button>
+            <button class="btn" type="button">Options</button>
+          </div>
+          <span class="input-xlarge uneditable-input">Some value here</span>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn">Cancel</button>
+          </div>
+          <input class="span3" type="email" required>
+          <input class="input-xlarge" id="disabledInput" type="text" placeholder="Disabled input here..." disabled>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
