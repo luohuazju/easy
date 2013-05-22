@@ -10,5 +10,129 @@
   <body>
   	<p>For example, <code>&lt;section&gt;</code> should be wrapped as inline.</p>
   	<p>For example, <code>System.out.println("test for fun")</code> should be wrapped as inline.</p>
+
+    <pre>
+        try{
+            System.out.println("test for fun.");
+        }catch(Exception e){
+            e.printStack();
+        }
+    </pre>
+
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <caption>Here is Table Caption</caption>
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Hua</td>
+            <td>Luo</td>
+        </tr>
+        <tr>
+            <td>Carl</td>
+            <td>Luo</td>
+        </tr>
+        <tr>
+            <td>Sillycat</td>
+            <td>Luo</td>
+        </tr>
+        <tr class="success">
+            <td colspan=2>Here is just Success Information.</td>
+        </tr>
+        <tr class="warning">
+            <td colspan=2>Here is just Warning Information.</td>
+        </tr>
+        <tr class="info">
+            <td colspan=2>Here is just Info Information.</td>
+        </tr>
+        <tr class="error">
+            <td colspan=2>Here is just Error Information.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form>
+        <fieldset>
+            <legend>Legend</legend>
+            <label>Label name</label>
+            <input type="text" placeholder="Type something...">
+            <span class="help-block">Example block-level help text here.</span>
+            <label class="checkbox">
+                <input type="checkbox"> Check me out
+            </label>
+            <label>Description</label>
+            <textarea rows="3" cols="200"></textarea>
+
+            <label class="checkbox">
+                <input type="checkbox" value="">
+                Option one is this and that—be sure to include why it's great
+            </label>
+
+            <label class="checkbox inline">
+                <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+            </label>
+            <label class="checkbox inline">
+                <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+            </label>
+            <label class="checkbox inline">
+                <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+            </label>
+
+            <label class="radio">
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                Option one is this and that—be sure to include why it's great
+            </label>
+            <label class="radio">
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                Option two can be something else and selecting it will deselect option one
+            </label>
+
+
+
+            <button type="submit" class="btn">Submit</button>
+        </fieldset>
+    </form>
+
+    <form class="form-search">
+        <input type="text" class="input-small search-query">
+        <button type="submit" class="btn">Search</button>
+    </form>
+
+    <form class="form-inline">
+        <input type="text" class="input-small" placeholder="Email">
+        <input type="password" class="input-small" placeholder="Password">
+        <label class="checkbox">
+            <input type="checkbox"> Remember me
+        </label>
+        <button type="submit" class="btn">Sign in</button>
+    </form>
+
+    <form class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="inputEmail">Email</label>
+            <div class="controls">
+                <input type="text" id="inputEmail" placeholder="Email">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPassword">Password</label>
+            <div class="controls">
+                <input type="password" id="inputPassword" placeholder="Password">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox"> Remember me
+                </label>
+                <button type="submit" class="btn">Sign in</button>
+            </div>
+        </div>
+    </form>
+
   </body>
 </html>
