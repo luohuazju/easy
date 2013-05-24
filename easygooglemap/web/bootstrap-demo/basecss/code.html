@@ -1,11 +1,13 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Code</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../../css/lib/bootstrap/2.3.2/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="../../css/lib/bootstrap/2.3.2/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../../css/lib/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/lib/bootstrap/2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet">
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script src="../../js/lib/bootstrap/2.3.2/bootstrap.min.js"></script>
+    <script src="../../js/lib/bootstrap/2.3.2/js/bootstrap.min.js"></script>
   </head>
   <body>
   	<p>For example, <code>&lt;section&gt;</code> should be wrapped as inline.</p>
@@ -134,5 +136,57 @@
         </div>
     </form>
 
+    <div class="input-prepend">
+        <span class="add-on">@</span>
+        <input class="span2" id="prependedInput" type="text" placeholder="Username">
+    </div>
+    <div class="input-append">
+        <input class="span2" id="appendedInput" type="text">
+        <span class="add-on">.00</span>
+    </div>
+    <br>
+
+    <div class="input-append">
+        <input class="span2" id="appendedInputButton" type="text">
+        <button class="btn" type="button">Go!</button>
+    </div>
+    <br>
+
+    <div class="input-append">
+        <input class="span2" id="appendedInputButtons" type="text">
+        <button class="btn" type="button">Search</button>
+        <button class="btn" type="button">Options</button>
+    </div>
+    <br>
+
+    <div class="input-append">
+        <input class="span2" id="appendedDropdownButton" type="text">
+        <div class="btn-group">
+            <button class="btn dropdown-toggle" data-toggle="dropdown">
+                Action
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>Add</li>
+                <li>Update</li>
+                <li>Delete</li>
+                <li class="divider">
+                <li>Quit</li>
+            </ul>
+        </div>
+    </div>
+
+    <form class="form-search">
+        <div class="input-append">
+            <input type="text" class="span2 search-query">
+            <button type="submit" class="btn">Search</button>
+        </div>
+    </form>
+
+    <input class="input-block-level" type="text" placeholder=".input-block-level">
+
+    <br>
+    <br>
+    <br>
   </body>
 </html>
