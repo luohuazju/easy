@@ -44,5 +44,20 @@ object CollectionFunctions {
     // sort
     val sort = l.sortWith((a, b) => a > b)
     println("sorted list " + sort) //(7, 5, 3, 1, -1)
+    
+    val s = Seq(1,2,3,4)
+    val s_afeter = s.filter(_ == 3)
+    println("all after filter " + s_afeter) //
+    
+    val t1 = List(1,2,3,4,5)
+    
+    def addOne(int: Int) : Int = {
+      int + 3
+    } 
+    
+    val t1_after = t1.map(addOne(_))
+    println("t1 after " + t1_after)
+    
+   
   }
 }

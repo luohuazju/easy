@@ -4,3 +4,5 @@
 /project
 .classpath
 .project
+.idea/
+.idea_modules/

@@ -24,6 +24,8 @@ object OptionSomeNoneTest {
     val bag = List("1", "2", "foo", "3", "bar")
     val sum = bag.flatMap(toInt).sum  //flatMap know how to handle with None, Option, Some
     println(sum)  //6
+    
+    
   }
 
 }

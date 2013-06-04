@@ -5,7 +5,8 @@ organization := "com.sillycat"
 
 version := "1.0" 
 
-scalaVersion := "2.10.0-RC1"
+/* scalaVersion := "2.10.0-RC1" */
+scalaVersion := "2.10.0-RC5"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8") 
 
@@ -22,9 +23,11 @@ libraryDependencies ++= Seq(
 	"io.spray"            %   "spray-routing"             % "1.1-M7",
 	"io.spray"            %   "spray-caching"             % "1.1-M7",
 	"io.spray"            %   "spray-http"                % "1.1-M7",
+	"io.spray"            %   "spray-client"              % "1.1-M7",
 	"io.spray" 			  %   "spray-testkit" 			  % "1.1-M7",
 	"io.spray"            %   "spray-util"                % "1.1-M7",
-	"com.typesafe.akka"   %%  "akka-actor"                % "2.1.0-RC1"   cross CrossVersion.full,
+	/* "com.typesafe.akka"   %%  "akka-actor"                % "2.1.0-RC1"   cross CrossVersion.full, */
+	"com.typesafe.akka"   %%  "akka-actor"                % "2.1.0-RC6"   cross CrossVersion.full,
   	"com.typesafe"        %   "config"                    % "1.0.0",
   	"com.typesafe"        %   "slick_2.10.0-RC2"      	  % "0.11.2",
   	"org.slf4j" 		  %   "slf4j-nop" 				  % "1.6.4",

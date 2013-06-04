@@ -34,9 +34,7 @@ define(function(){
                 onLoad(null); //avoid errors on the optimizer
             }else{
                 var id = uid();
-                //create a global variable that stores onLoad so callback
-                //function can define new module after async load
-                window[id] = onLoad;
+                window[id] = onLoad; //create a global variable that stores onLoad so callback function can define new module after async load
                 injectScript(formatUrl(name, id));
             }
         }
