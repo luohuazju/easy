@@ -14,7 +14,8 @@ resolvers ++= Seq(
 	"sonatype releases"  at "https://oss.sonatype.org/content/repositories/releases/",
   	"sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
   	"typesafe repo"      at "http://repo.typesafe.com/typesafe/releases/",
-  	"spray repo"         at "http://repo.spray.io/"
+  	"spray repo"         at "http://repo.spray.io/",
+  	"spraynight repo"    at "http://nightlies.spray.io/"
 )
 
 libraryDependencies ++= Seq(
@@ -26,8 +27,7 @@ libraryDependencies ++= Seq(
 	"io.spray"            %   "spray-client"              % "1.1-M7",
 	"io.spray" 			  %   "spray-testkit" 			  % "1.1-M7",
 	"io.spray"            %   "spray-util"                % "1.1-M7",
-	/* "com.typesafe.akka"   %%  "akka-actor"                % "2.1.0-RC1"   cross CrossVersion.full, */
-	"com.typesafe.akka"   %%  "akka-actor"                % "2.1.0-RC6"   cross CrossVersion.full,
+	"com.typesafe.akka"   %%  "akka-actor"                % "2.1.0",
   	"com.typesafe"        %   "config"                    % "1.0.0",
   	"com.typesafe"        %   "slick_2.10.0-RC2"      	  % "0.11.2",
   	"org.slf4j" 		  %   "slf4j-nop" 				  % "1.6.4",
