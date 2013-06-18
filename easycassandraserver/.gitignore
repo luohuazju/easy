@@ -6,3 +6,4 @@ target
 .classpath
 .idea/
 easycassandraserver.iml
+.idea_modules
