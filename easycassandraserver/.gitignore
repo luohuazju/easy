@@ -4,3 +4,5 @@ project/target/
 target
 .project
 .classpath
+.idea/
+easycassandraserver.iml

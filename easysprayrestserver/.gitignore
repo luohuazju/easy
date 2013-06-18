@@ -7,3 +7,6 @@ project/target/
 target/
 .history
 akka.log
+.idea/
+.idea_modules/
+easysprayrestserver.iml
