@@ -41,7 +41,8 @@ libraryDependencies ++= Seq(
     "org.specs2"          %%  "specs2"                    % "1.13"    % "test",
     "c3p0"                %   "c3p0"                      % "0.9.1.2",
     "com.typesafe"		  %%  "scalalogging-slf4j"	      % "1.0.1",
-    "ch.qos.logback"      %   "logback-classic"           % "1.0.3"
+    "ch.qos.logback"      %   "logback-classic"           % "1.0.3",
+    "org.hectorclient"    %   "hector-core"               % "1.1-3"
 )
 
 seq(Revolver.settings: _*)
