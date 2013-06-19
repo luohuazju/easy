@@ -6,7 +6,9 @@ organization := "com.sillycat"
 
 version := "1.0" 
 
-scalaVersion := "2.10.0"
+scalaVersion  := "2.10.0"
+
+crossScalaVersions := Seq("2.9.2","2.10.0","2.10.1")
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8") 
 
@@ -42,7 +44,9 @@ libraryDependencies ++= Seq(
     "c3p0"                %   "c3p0"                      % "0.9.1.2",
     "com.typesafe"		  %%  "scalalogging-slf4j"	      % "1.0.1",
     "ch.qos.logback"      %   "logback-classic"           % "1.0.3",
-    "org.hectorclient"    %   "hector-core"               % "1.1-3"
+    "org.hectorclient"    %   "hector-core"               % "1.1-3",
+    "com.google.guava"    %   "guava"                     % "14.0.1",
+    "com.google.code.findbugs" % "jsr305"                 % "2.0.1"
 )
 
 seq(Revolver.settings: _*)

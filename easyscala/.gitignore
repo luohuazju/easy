@@ -7,3 +7,5 @@
 /project
 /src/.DS_Store
 /target
+.idea/
+easyscala.iml
