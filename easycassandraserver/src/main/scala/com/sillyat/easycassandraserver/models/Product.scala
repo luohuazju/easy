@@ -9,4 +9,4 @@ import org.joda.time.DateTime
  * Time: 3:32 PM
  * To change this template use File | Settings | File Templates.
  */
-case class Product(id: Option[Long], productName: String, create: DateTime)
+case class Product(id: Option[Long], productName: String, create: DateTime, productPrice: BigDecimal, productCode: String)

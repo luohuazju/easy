@@ -19,7 +19,7 @@ object GuavaCacheApp extends App{
     .build(
     new CacheLoader[String, Product](){
      def load(key: String): Product = {
-      val p: Product = Product(None, "Nice Product", DateTime.now)
+      val p: Product = Product(None, "Nice Product", DateTime.now, 32.32, "code1")
       p
     }
   })
@@ -42,7 +42,7 @@ object GuavaCacheApp extends App{
 
   val product1 = cacheCallable.get("key2",new Callable[Product](){
     def call: Product = {
-       Product(None, "Good Product", DateTime.now)
+       Product(None, "Good Product", DateTime.now, 32.32, "code1")
     }
   })
   Console.println("Product 1 hit=" + product1)
@@ -51,7 +51,7 @@ object GuavaCacheApp extends App{
   Thread.sleep(TimeUnit.SECONDS.toMillis(3))
   val product2 = cacheCallable.get("key2",new Callable[Product](){
     def call: Product = {
-      Product(None, "Good Product", DateTime.now)
+      Product(None, "Good Product", DateTime.now, 32.32, "code1")
     }
   })
   Console.println("Product 2 hit=" + product2)
@@ -60,7 +60,7 @@ object GuavaCacheApp extends App{
   Thread.sleep(TimeUnit.SECONDS.toMillis(6))
   val product3 = cacheCallable.get("key2",new Callable[Product](){
     def call: Product ={
-      Product(None, "Good Product", DateTime.now)
+      Product(None, "Good Product", DateTime.now, 32.32, "code1")
     }
   })
   Console.println("Product 3 hit=" + product3)
