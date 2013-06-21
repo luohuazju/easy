@@ -7,3 +7,4 @@ target
 .idea/
 easycassandraserver.iml
 .idea_modules
+.cache
