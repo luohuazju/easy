@@ -16,5 +16,5 @@ object SimpleJob extends App {
   val numBs = logData.filter(line => line.contains("b")).count()
   println("Lines with a: %s, Lines with b: %s".format(numAs, numBs))
 
-  sc.stop;
+  sc.stop
 }
