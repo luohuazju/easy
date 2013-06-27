@@ -1,9 +1,9 @@
 package com.sillycat.easysparkserver.model
 
 import net.noerd.prequel.SQLFormatterImplicits._
-import net.noerd.prequel.DatabaseConfig
 import spark.Logging
 import org.joda.time.DateTime
+import net.noerd.prequel.Transaction
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,8 +17,7 @@ case class Product(id: Option[Long], brand: String, productName: String, createD
 trait ProductsPrequel extends Logging{
 
    object Products {
-     def create(implicit database: DatabaseConfig){
-       database transaction { tx =>
+     def create(implicit tx: Transaction){
          tx.execute(
            """create table if not exists PRODUCTS (
              |ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -28,17 +27,13 @@ trait ProductsPrequel extends Logging{
              |)
            """.stripMargin)
          tx.commit()
-       }
      }
 
-     def drop(implicit database: DatabaseConfig){
-       database transaction { tx =>
+     def drop(implicit tx: Transaction){
           tx.execute("""drop table if exists PRODUCTS""")
-       }
      }
 
-     def insertProduct(item: Product)(implicit database: DatabaseConfig): Long = {
-        database transaction { tx =>
+     def insertProduct(item: Product)(implicit tx: Transaction): Long = {
           tx.execute(
             "insert into PRODUCTS( BRAND, PRODUCT_NAME, CREATE_DATE) values ( ?, ?, ? )",
             item.brand, item.productName, item.createDate
@@ -47,11 +42,9 @@ trait ProductsPrequel extends Logging{
             """
               |SELECT LAST_INSERT_ID()
             """.stripMargin)
-        }
      }
 
-     def loadProducts()(implicit database: DatabaseConfig): Seq[Product] = {
-       database transaction { tx =>
+     def loadProducts()(implicit tx: Transaction): Seq[Product] = {
          tx.select(
            """select
              |ID,
@@ -63,11 +56,9 @@ trait ProductsPrequel extends Logging{
            """.stripMargin){ r =>
            Product(r.nextLong,r.nextString.getOrElse(""),r.nextString.getOrElse(""),new DateTime(r.nextDate.get.getTime))
          }
-       }
      }
 
-     def getProduct(id: Long)(implicit database: DatabaseConfig): Option[Product] = {
-        database transaction { tx =>
+     def getProduct(id: Long)(implicit tx: Transaction): Option[Product] = {
           tx.selectHeadOption(
             """select
               |ID,
@@ -81,7 +72,14 @@ trait ProductsPrequel extends Logging{
             """.stripMargin, id){ r =>
             Product(r.nextLong,r.nextString.getOrElse(""),r.nextString.getOrElse(""),new DateTime(r.nextDate.get.getTime))
           }
-        }
+     }
+
+     def deleteProduct(id: Long)(implicit tx: Transaction): Unit = {
+        tx.execute(
+          """
+            |delete from PRODUCTS
+            |where ID = ?
+          """.stripMargin, id)
      }
    }
 }

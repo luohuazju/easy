@@ -16,7 +16,7 @@ object PrequelDAO extends ProductsPrequel{
 
   val config = ConfigFactory.load()
 
-  implicit val testDatabase: DatabaseConfig = DatabaseConfig(
+  val testDatabase: DatabaseConfig = DatabaseConfig(
     driver = config.getString("database.driver"),
     jdbcURL = config.getString("database.url"),
     username = config.getString("database.username"),
@@ -31,11 +31,15 @@ object PrequelDAO extends ProductsPrequel{
   )
 
   def create: Unit = {
+    testDatabase transaction { implicit tx =>
       Products.create
+    }
   }
 
   def drop: Unit = {
-    Products.drop
+    testDatabase transaction { implicit tx =>
+      Products.drop
+    }
   }
 
 }
