@@ -81,5 +81,13 @@ trait ProductsPrequel extends Logging{
             |where ID = ?
           """.stripMargin, id)
      }
+
+     def batchInsertProducts(products: Seq[Product])(implicit tx: Transaction): Unit = {
+       tx.executeBatch("insert into PRODUCTS( BRAND, PRODUCT_NAME, CREATE_DATE) values ( ?, ?, ? )") { statement =>
+           products.foreach { item =>
+             statement.executeWith(item.brand,item.productName,item.createDate)
+           }
+       }
+     }
    }
 }

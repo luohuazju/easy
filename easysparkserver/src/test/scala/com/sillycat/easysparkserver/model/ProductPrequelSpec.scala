@@ -62,4 +62,13 @@ class ProductPrequelSpec extends FunSuite with ShouldMatchers with BeforeAndAfte
     }
   }
 
+  test("Verify batch Insert Operation"){
+    dao.testDatabase transaction { implicit tx =>
+      val items = Seq(Product(None,"CK1","good things1",DateTime.now), Product(None,"CK2","good things2",DateTime.now))
+      dao.Products.batchInsertProducts(items)
+      val return_items = dao.Products.loadProducts()
+      assert(return_items.size === 2)
+    }
+  }
+
 }
