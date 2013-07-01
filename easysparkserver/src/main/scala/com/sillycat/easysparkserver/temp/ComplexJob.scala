@@ -20,7 +20,7 @@ object ComplexJob extends App{
 
   val item1 = Product(None,"CK","good",DateTime.now)
   val item2 = Product(None,"apple","good",DateTime.now)
-  val item3 = Product(None,"nike","nice",DateTime.now)
+  val item3 = Product(None,"nike","bad",DateTime.now)
   val item4 = Product(None,"cat","bad",DateTime.now)
   val products = Seq(item1,item2,item3,item4)
 
@@ -28,12 +28,17 @@ object ComplexJob extends App{
 
   val rdd = sc.makeRDD(products,2)
 
-  //val rdd2 = rdd.filter{ s => s.productName == name }
 
-  rdd.foreach{  s =>
-     if(s.productName == name){
-       println("Products are good = " + s)
-     }
+  val rdd2 = rdd.groupBy{ s => s.productName == name}
+
+
+  println("rdd first array ============" + rdd2.toArray()(0)._2)
+  println("rdd second array ============" + rdd2.toArray()(1)._2)
+
+
+  rdd2.toArray()(1)._2.foreach{  s =>
+       println("Products are good ============== " + s)
+       //persist
   }
 
   sc.stop
