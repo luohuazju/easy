@@ -25,7 +25,7 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
     //"com.sillycat"		  %%  "easycassandraserver"  	  % "1.0",
     "net.noerd"           %%  "prequel"                   % "0.3.9.1",
-    "org.spark-project"   %%  "spark-core"                % "0.7.0-SNAPSHOT",
+    "org.spark-project"   %%  "spark-core"                % "0.8.0-SNAPSHOT",
 	//"org.spark-project" %%  "spark-core"                % "0.7.0",
 	"org.scalatest"       %   "scalatest_2.10"            % "1.9.1"   % "test",
     "org.specs2"          %%  "specs2"                    % "1.13"    % "test",
