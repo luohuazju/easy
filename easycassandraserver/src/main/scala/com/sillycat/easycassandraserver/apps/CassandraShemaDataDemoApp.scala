@@ -8,10 +8,11 @@ import me.prettyprint.cassandra.service.ThriftCfDef
 import java.util.Arrays
 import me.prettyprint.hector.api.mutation.Mutator
 import me.prettyprint.cassandra.serializers.{LongSerializer, StringSerializer, BigDecimalSerializer}
-import com.sillyat.easycassandraserver.models.Product
 import org.joda.time.DateTime
 import me.prettyprint.hector.api.query.{QueryResult, ColumnQuery}
 import me.prettyprint.hector.api.beans.HColumn
+import com.sillycat.easycassandraserver.models.Product
+import scala.Product
 
 
 /**

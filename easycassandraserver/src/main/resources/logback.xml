@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.out</target>
+        <encoder>
+            <pattern>%date{MM/dd HH:mm:ss} %-5level[%thread] %logger{1} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>akka.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%date{MM/dd HH:mm:ss} %-5level[%thread] %logger{1} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.sillycat.winnersellerserver.bootstrap" level="DEBUG" />
+	<logger name="com.sillycat.winnersellerserver.util" level="INFO" />
+	<logger name="com.sillycat.winnersellerserver.dao" level="INFO" />
+    <logger name="com.sillycat.winnersellerserver.model" level="INFO" />
+
+    <root level="ERROR">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <root level="ERROR">
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>

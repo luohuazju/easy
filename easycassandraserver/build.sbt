@@ -46,7 +46,8 @@ libraryDependencies ++= Seq(
     "ch.qos.logback"      %   "logback-classic"           % "1.0.3",
     "org.hectorclient"    %   "hector-core"               % "1.1-3",
     "com.google.guava"    %   "guava"                     % "14.0.1",
-    "com.google.code.findbugs" % "jsr305"                 % "2.0.1"
+    "com.google.code.findbugs" % "jsr305"                 % "2.0.1",
+    "com.esotericsoftware.kryo" % "kryo"                  % "2.21"
 )
 
 seq(Revolver.settings: _*)

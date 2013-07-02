@@ -3,12 +3,13 @@ package com.sillycat.easycassandraserver.apps
 import me.prettyprint.hector.api.{Keyspace, Cluster}
 import me.prettyprint.hector.api.factory.HFactory
 import me.prettyprint.hector.api.query.{MultigetSliceQuery, QueryResult, RangeSlicesQuery}
-import com.sillyat.easycassandraserver.models.Product
 import scala.Product
 import org.joda.time.DateTime
 import me.prettyprint.hector.api.beans.{Row, Rows, OrderedRows}
 import me.prettyprint.cassandra.serializers.{BigDecimalSerializer, StringSerializer}
 import scala.collection.JavaConversions._
+import com.sillycat.easycassandraserver.models.Product
+import scala.Product
 
 /**
  * Created with IntelliJ IDEA.
@@ -95,4 +96,17 @@ object CassandraQueryDemoApp extends App{
   val orderedRows5 = pagenationSliceQuery.execute().get()
 
   orderedRows5.toList.foreach(row => println("result5: " + row.getColumnSlice))
+
+  //load all
+  val loadAllQuery = HFactory.createRangeSlicesQuery(keyspaceOperator,StringSerializer.get(), StringSerializer.get(), StringSerializer.get())
+  loadAllQuery.setColumnFamily(columnFamilyName)
+  loadAllQuery.setRange(null, null, false, 1)
+
+  val result6 = loadAllQuery.execute()
+  val orderedRows6 = result6.get()
+
+  orderedRows6.toList.foreach{ row =>
+    println("result6: " + row.getKey + " " + row.getColumnSlice)
+
+  }
 }

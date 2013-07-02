@@ -1,9 +1,9 @@
 package com.sillycat.easycassandraserver.apps
 
-import com.sillyat.easycassandraserver.models.Product
 import com.google.common.cache.{Cache, CacheLoader, CacheBuilder, LoadingCache}
 import java.util.concurrent.{Callable, TimeUnit}
 import org.joda.time.DateTime
+import com.sillycat.easycassandraserver.models.Product
 
 /**
  * Created with IntelliJ IDEA.
