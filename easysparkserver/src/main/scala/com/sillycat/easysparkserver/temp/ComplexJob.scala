@@ -12,10 +12,13 @@ import org.joda.time.DateTime
  * To change this template use File | Settings | File Templates.
  */
 object ComplexJob extends App{
-  val sc = new SparkContext("local",
+  //val sparkMaster = "local"
+  val sparkMaster = "spark://localhost:7077"
+  val sc = new SparkContext(sparkMaster,
     "Complex Job",
     "/opt/spark",
-    List("target/scala-2.10/easysparkserver_2.10-1.0.jar"),
+    //List("/Users/carl/work/easy/easysparkserver/target/scala-2.10/easysparkserver_2.10-1.0.jar"),
+    List("/Users/carl/work/easy/easysparkserver/target/easysparkserver-assembly-1.0.jar"),
     Map())
 
   val item1 = Product(None,"CK","good",DateTime.now)
@@ -32,13 +35,17 @@ object ComplexJob extends App{
   val rdd2 = rdd.groupBy{ s => s.productName == name}
 
 
-  println("rdd first array ============" + rdd2.toArray()(0)._2)
-  println("rdd second array ============" + rdd2.toArray()(1)._2)
+  //println("rdd first array ============" + rdd2.toArray()(0)._2)
+  //println("rdd second array ============" + rdd2.toArray()(1)._2)
 
 
-  rdd2.toArray()(1)._2.foreach{  s =>
-       println("Products are good ============== " + s)
-       //persist
+  //rdd2.toArray()(1)._2.foreach{  s =>
+  //     println("Products are good ============== " + s)
+  //}
+  rdd2.toArray().foreach { arrays =>
+    arrays._2.foreach { item =>
+      println("Products are " + arrays._1 +  " ===============" + item)
+    }
   }
 
   sc.stop

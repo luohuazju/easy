@@ -12,7 +12,7 @@ import net.noerd.prequel.Transaction
  * Time: 2:18 PM
  * To change this template use File | Settings | File Templates.
  */
-case class Product(id: Option[Long], brand: String, productName: String, createDate: DateTime)
+case class Product(id: Option[Long], brand: String, productName: String, createDate: DateTime) extends Serializable
 
 trait ProductsPrequel extends Logging{
 

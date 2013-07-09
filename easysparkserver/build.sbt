@@ -1,3 +1,6 @@
+import sbt._
+import Keys._
+import sbtassembly.Plugin._
 import AssemblyKeys._
 
 name := "easysparkserver" 
@@ -7,8 +10,6 @@ organization := "com.sillycat"
 version := "1.0" 
 
 scalaVersion := "2.10.0"
-//scalaVersion := "2.9.2"
-//scalaVersion := "2.10.1"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8") 
 
@@ -23,21 +24,51 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-    //"com.sillycat"		  %%  "easycassandraserver"  	  % "1.0",
     "net.noerd"           %%  "prequel"                   % "0.3.9.1",
     "org.spark-project"   %%  "spark-core"                % "0.8.0-SNAPSHOT",
-	//"org.spark-project" %%  "spark-core"                % "0.7.0",
 	"org.scalatest"       %   "scalatest_2.10"            % "1.9.1"   % "test",
     "org.specs2"          %%  "specs2"                    % "1.13"    % "test",
-    //"org.hsqldb"          %   "hsqldb"                    % "2.2.4"
     "mysql"               %   "mysql-connector-java"      % "5.1.24"
 )
 
 seq(Revolver.settings: _*)
 
-assemblySettings
+seq(assemblySettings: _*)
 
-mainClass in assembly := Some("com.sillycat.easysparkserver.Boot")
+mainClass in assembly := Some("com.sillycat.easysparkserver.temp.ComplexJob")
+
+mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
+  {
+    case PathList("javax", "servlet", xs @ _*) => MergeStrategy.first
+    case PathList("org", "apache", "jasper", xs @ _*) => MergeStrategy.first
+    case PathList("org", "fusesource", xs @ _*) => MergeStrategy.first
+    case PathList("org", "apache", "commons", "beanutils", xs @ _*) => MergeStrategy.first
+    case PathList("org", "apache", "commons", "collections", xs @ _*) => MergeStrategy.first
+    case PathList("META-INF", xs @ _*) =>
+      (xs map {_.toLowerCase}) match {
+            case ("manifest.mf" :: Nil) | ("index.list" :: Nil) | ("dependencies" :: Nil) =>
+              MergeStrategy.discard
+            case ps @ (x :: xs) if ps.last.endsWith(".sf") || ps.last.endsWith(".dsa") =>
+              MergeStrategy.discard
+            case "plexus" :: xs =>
+              MergeStrategy.discard
+            case "services" :: xs =>
+              MergeStrategy.filterDistinctLines
+            case ("spring.schemas" :: Nil) | ("spring.handlers" :: Nil) =>
+              MergeStrategy.filterDistinctLines
+            case ps @ (x :: xs) if ps.last.endsWith(".jnilib") || ps.last.endsWith(".dll") =>
+              MergeStrategy.first
+            case ps @ (x :: xs) if ps.last.endsWith(".txt") =>
+              MergeStrategy.discard
+            case ("notice" :: Nil) | ("license" :: Nil)=>
+              MergeStrategy.discard
+            case _ => MergeStrategy.deduplicate
+      }
+    case "application.conf" => MergeStrategy.concat
+    case "about.html" => MergeStrategy.discard
+    case x => old(x)
+  }
+}
 
 artifact in (Compile, assembly) ~= { art =>
   art.copy(`classifier` = Some("assembly"))
