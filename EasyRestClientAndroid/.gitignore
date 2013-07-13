@@ -5,3 +5,5 @@
 /.project
 /target
 /gen
+.idea/
+easyrestclientandroid.iml

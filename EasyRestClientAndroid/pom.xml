@@ -10,7 +10,7 @@
 	
 	<properties> 
 	    <android-platform>15</android-platform>
-		<android-maven-plugin-version>3.4.0</android-maven-plugin-version>
+		<android-maven-plugin-version>3.6.0</android-maven-plugin-version>
 		<maven-compiler-plugin-version>2.3.2</maven-compiler-plugin-version>
 		<java-version>1.6</java-version>
 		<maven-eclipse-plugin-version>2.8</maven-eclipse-plugin-version>
@@ -115,7 +115,7 @@
 		<dependency>
 			<groupId>com.sillycat.easyapi</groupId>
 			<artifactId>easyapi</artifactId>
-			<version>1.0</version>
+			<version>1.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.android</groupId>	
@@ -125,13 +125,7 @@
 	</dependencies>
 
 	<repositories>
-		<!-- For developing with Android ROME Feed Reader -->
-		<repository>
-			<id>android-rome-feed-reader-repository</id>
-			<name>Android ROME Feed Reader Repository</name>
-			<url>https://android-rome-feed-reader.googlecode.com/svn/maven2/releases</url>
-		</repository>
-		<repository>
+	    <repository>
 			<id>sillycat-repository</id>
 			<name>Sillycat Repository</name>
 			<url>https://sillycat.googlecode.com/svn/repository</url>
@@ -141,6 +135,12 @@
       		<snapshots>
       		    <enabled>true</enabled><updatePolicy>always</updatePolicy>
       		</snapshots>
+		</repository>
+		<!-- For developing with Android ROME Feed Reader -->
+		<repository>
+			<id>android-rome-feed-reader-repository</id>
+			<name>Android ROME Feed Reader Repository</name>
+			<url>https://android-rome-feed-reader.googlecode.com/svn/maven2/releases</url>
 		</repository>
 		<!-- For testing against latest Spring snapshots -->
 		<repository>
