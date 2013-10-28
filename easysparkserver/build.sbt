@@ -14,6 +14,7 @@ scalaVersion := "2.10.0"
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8") 
 
 resolvers ++= Seq(
+ Resolver.defaultLocal,
  "MAVEN repo"        at "http://repo1.maven.org/maven2",
  "sonatype releases"  at "https://oss.sonatype.org/content/repositories/releases/",
  "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
@@ -44,6 +45,7 @@ mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
     case PathList("org", "fusesource", xs @ _*) => MergeStrategy.first
     case PathList("org", "apache", "commons", "beanutils", xs @ _*) => MergeStrategy.first
     case PathList("org", "apache", "commons", "collections", xs @ _*) => MergeStrategy.first
+    case PathList("org", "eclipse", xs @ _*) => MergeStrategy.first
     case PathList("META-INF", xs @ _*) =>
       (xs map {_.toLowerCase}) match {
             case ("manifest.mf" :: Nil) | ("index.list" :: Nil) | ("dependencies" :: Nil) =>
@@ -66,6 +68,7 @@ mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
       }
     case "application.conf" => MergeStrategy.concat
     case "about.html" => MergeStrategy.discard
+    case "plugin.properties" => MergeStrategy.first
     case x => old(x)
   }
 }

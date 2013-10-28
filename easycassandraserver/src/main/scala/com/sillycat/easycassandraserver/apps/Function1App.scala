@@ -25,9 +25,21 @@ object Function1App extends App{
 
   val filter2 = Set("1","2","3")
 
+  filter2 match {
+    case x: Seq => x
+    case _ => good
+  }
+
   println(filter2)
 
   println(filter2("1"))
   println(filter2("5"))
+
+  val filter3 = List("1","2","3")
+
+  println("filter3= " + filter3)
+
+  println(filter3("1"))
+  println(filter3("5"))
 
 }

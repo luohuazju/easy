@@ -11,7 +11,7 @@ import org.joda.time.DateTime
  * Time: 10:56 AM
  * To change this template use File | Settings | File Templates.
  */
-object ComplexJob extends App{
+object ClusterComplexJob extends App{
   //val sparkMaster = "local"
   val sparkMaster = "spark://localhost:7077"
   val sc = new SparkContext(sparkMaster,

@@ -3,12 +3,13 @@ package com.sillycat.easysparkserver.temp
 import spark.SparkContext
 import spark.SparkContext._
 
-object SimpleJob extends App {
+object LocalSimpleJob extends App {
   val logFile = "/var/log/apache2" // Should be some file on your system
   val sc = new SparkContext("local", 
       "Simple Job", 
-      "/opt/spark", 
-      List("target/scala-2.10/easysparkserver_2.10-1.0.jar"), 
+      "/opt/spark",
+      List("target/easysparkserver-assembly-1.0.jar"),
+      //List("target/scala-2.10/easysparkserver_2.10-1.0.jar"),
       //List("target/scala-2.9.2/easysparkserver_2.9.2-1.0.jar"), 
       Map())
   val logData = sc.textFile(logFile, 2).cache()
