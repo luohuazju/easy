@@ -1,11 +1,20 @@
-addSbtPlugin("io.spray" % "sbt-revolver" % "0.6.2")
+resolvers += "Another Typesafe Repo" at "http://repo.akka.io/releases/"
 
-addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.8.5")
+resolvers += Resolver.url("artifactory", url("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-scalariform" % "1.0.1")
+resolvers += Classpaths.typesafeResolver
 
-addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.2.0")
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.1.0")
 
-resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
+addSbtPlugin("com.typesafe.startscript" % "xsbt-start-script-plugin" % "0.5.3")
 
-addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.5.0-SNAPSHOT")
+addSbtPlugin("cc.spray" % "sbt-revolver" % "0.6.1")
+
+resolvers += Resolver.url("sbt-plugin-releases",
+  new URL("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases/"))(Resolver.ivyStylePatterns)
+
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.8.4")
+
+addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.1.0")
+
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.8.4")
