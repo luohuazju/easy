@@ -85,5 +85,5 @@ class BasicExampleSimulation extends Simulation {
 				.get("/public/login.html")
 				.headers(headers_1))
 
-	setUp(scn.users(2).ramp(1).protocolConfig(httpConf))
+	setUp(scn.users(1).ramp(1).protocolConfig(httpConf))
 }

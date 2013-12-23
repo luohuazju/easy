@@ -11,7 +11,7 @@ object BuildSettings {
   import Dependencies._
 
   val buildOrganization = "com.sillycat.easygatling"
-  val buildVersion = "0.0.2"
+  val buildVersion = "0.1"
   val buildScalaVersion = "2.9.3"
 
   val globalSettings = Seq(
@@ -49,12 +49,16 @@ object Dependencies {
   val resolutionRepos = Seq(
     "Scala Tools" at "http://scala-tools.org/repo-releases/",
     "Typesafe repo" at "http://repo.typesafe.com/typesafe/releases","Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository",
-    "Excilys" at "http://repository.excilys.com/content/groups/public")
+    "Excilys" at "http://repository.excilys.com/content/groups/public",
+    "Excilys Snapshot" at "http://repository-gatling.forge.cloudbees.com/snapshot",
+    "spray repo" at "http://repo.spray.io",
+    "spray nightlies repo" at "http://nightlies.spray.io" )
 
   object V {
     val slf4j = "1.7.2"
     val logback = "1.0.0"
-    val gatling = "1.4.3"
+    val gatling = "1.5.3"
+    //val gatling = "2.0.0-SNAPSHOT"
   }
 
   object Compile {
