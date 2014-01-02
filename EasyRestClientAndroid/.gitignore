@@ -7,3 +7,8 @@
 /gen
 .idea/
 easyrestclientandroid.iml
+.gradle/
+build/
+gradle/
+gradlew
+gradlew.bat
