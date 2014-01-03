@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/item_gcm_demo"
+        android:icon="@drawable/menu_checkin_off"
+        android:title="@string/title_gcm_demo">
+    </item>
+
+</menu>

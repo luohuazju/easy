@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.hello"
+    package="com.sillycat.easyandroidgcm"
     android:versionCode="1"
     android:versionName="1.0.0" >
 
+    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="19" />
+
+    <!-- GCM connects to Google Services. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <permission
+        android:name="com.sillycat.easyandroidgcm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.sillycat.easyandroidgcm.permission.C2D_MESSAGE" />
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <!-- Keeps the device on vibrating mode when a message is received. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application android:label="@string/app_name" >
         <activity
-            android:name=".HelloActivity"
-            android:label="@string/app_name" >
+            android:name="com.sillycat.easyandroidgcm.mainframe.MainActivity"
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
