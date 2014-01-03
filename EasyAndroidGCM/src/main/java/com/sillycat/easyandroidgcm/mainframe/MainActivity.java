@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.sillycat.easyandroidgcm.R;
+import com.sillycat.easyandroidgcm.activity.impl.GCMDemoActivity;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class MainActivity extends ListActivity {
 
 		switch (position) {
 		case 0:
-			//intent.setClass(this, DemoActivity.class);
+			intent.setClass(this, GCMDemoActivity.class);
 			if (isIntentSafe(intent)) {
 				startActivity(intent);
 			}
@@ -70,7 +71,7 @@ public class MainActivity extends ListActivity {
 		try {
 			switch (item.getItemId()) {
 			case R.id.item_gcm_demo:
-				//startActivity(new Intent(this, DemoActivity.class));
+				startActivity(new Intent(this, GCMDemoActivity.class));
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
