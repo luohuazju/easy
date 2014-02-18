@@ -21,12 +21,12 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
     "io.spray"            %   "spray-io"                  % "1.1-M7",
-	"io.spray"            %   "spray-can"                 % "1.1-M7",
-	"io.spray"            %   "spray-routing"             % "1.1-M7",
-	"io.spray"            %   "spray-caching"             % "1.1-M7",
-	"io.spray"            %   "spray-http"                % "1.1-M7",
-	"io.spray" 	          %   "spray-testkit" 	          % "1.1-M7",
-	"io.spray"            %   "spray-util"                % "1.1-M7",
+	  "io.spray"            %   "spray-can"                 % "1.1-M7",
+	  "io.spray"            %   "spray-routing"             % "1.1-M7",
+	  "io.spray"            %   "spray-caching"             % "1.1-M7",
+	  "io.spray"            %   "spray-http"                % "1.1-M7",
+	  "io.spray" 	          %   "spray-testkit" 	          % "1.1-M7",
+	  "io.spray"            %   "spray-util"                % "1.1-M7",
     "com.typesafe.akka"   %%  "akka-actor"                % "2.1.0",
     "com.typesafe.akka"   %%  "akka-testkit"              % "2.1.0",
     "com.typesafe.akka"   %%  "akka-transactor"           % "2.1.0",
@@ -47,7 +47,8 @@ libraryDependencies ++= Seq(
     "org.hectorclient"    %   "hector-core"               % "1.1-3",
     "com.google.guava"    %   "guava"                     % "14.0.1",
     "com.google.code.findbugs" % "jsr305"                 % "2.0.1",
-    "com.esotericsoftware.kryo" % "kryo"                  % "2.21"
+    "com.esotericsoftware.kryo" % "kryo"                  % "2.21",
+    "com.datastax.cassandra" % "cassandra-driver-core" % "2.0.0-rc2"
 )
 
 seq(Revolver.settings: _*)
