@@ -14,13 +14,7 @@
 
 static NSString * const eaUUID = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
 
-//static NSString * const eaIdentifier = @"kontakt";
-//static NSString * const eaIdentifier1 = @"kontakt1";
-//static NSString * const eaIdentifier2 = @"kontakt2";
-
-//static NSString * const eaIdentifier = @"estimote";
-//static NSString * const eaIdentifier1 = @"estimote1";
-//static NSString * const eaIdentifier2 = @"estimote2";
+static const int SHAKE_MAX_COUNT = 5;
 
 static NSString * const eaIdentifier = @"estimote";
 static NSString * const eaIdentifier1 = @"estimote1";
@@ -43,6 +37,12 @@ static NSString * const eaCellIdentifier = @"key";
 @property (nonatomic, strong) NSString *inside;
 @property (nonatomic, strong) NSString *outside;
 
+@property (nonatomic, strong) NSString *rangingInside;
+@property (nonatomic, strong) NSString *rangingOutside;
+
+@property (nonatomic, strong) NSMutableDictionary *beacons;
+
+@property (nonatomic) int shakeCount;
 
 @end
 
@@ -57,6 +57,9 @@ static NSString * const eaCellIdentifier = @"key";
                      forControlEvents:UIControlEventValueChanged];
     [self.monitorSwitch addTarget:self
                            action:@selector(changeMonitoringState:)
+                 forControlEvents:UIControlEventValueChanged];
+    [self.rangingSwitch addTarget:self
+                           action:@selector(changeRangingState:)
                  forControlEvents:UIControlEventValueChanged];
 }
 
@@ -73,6 +76,10 @@ static NSString * const eaCellIdentifier = @"key";
 
     self.beaconRegion1 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:40564 minor:38384 identifier:eaIdentifier1];
     self.beaconRegion2 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:10465 minor:22872 identifier:eaIdentifier2];
+    
+    self.beacons = [[NSMutableDictionary alloc] init];
+    [self.beacons setObject:self.beaconRegion1.identifier forKey:[NSString stringWithFormat:@"%@_%@_%@",self.beaconRegion1.proximityUUID.UUIDString,self.beaconRegion1.major,self.beaconRegion1.minor]];
+    [self.beacons setObject:self.beaconRegion2.identifier forKey:[NSString stringWithFormat:@"%@_%@_%@",self.beaconRegion2.proximityUUID.UUIDString,self.beaconRegion2.major,self.beaconRegion2.minor]];
     
 }
 
@@ -95,7 +102,7 @@ static NSString * const eaCellIdentifier = @"key";
     [self createBeaconRegion];
     
     //ranging
-    [self.locationManager startRangingBeaconsInRegion:self.beaconRegions];
+    //[self.locationManager startRangingBeaconsInRegion:self.beaconRegions];
     
     //monitoring
     [self.locationManager startMonitoringForRegion:self.beaconRegion1];
@@ -104,12 +111,110 @@ static NSString * const eaCellIdentifier = @"key";
     NSLog(@"Monitoring turned on for region: %@ ", self.beaconRegions);
 }
 
+//start monitoring
+- (void)turnOnRanging
+{
+    NSLog(@"Turning on Ranging...");
+    
+    if (![CLLocationManager isRangingAvailable]) {
+        NSLog(@"Couldn't turn on Ranging: Ranging is not available.");
+        self.rangingSwitch.on = NO;
+        return;
+    }
+    
+    if (self.locationManager.rangedRegions.count > 0) {
+        NSLog(@"Didn't turn on ranging: Ranging already on.");
+        return;
+    }
+    
+    [self createBeaconRegion];
+    
+    //ranging
+    [self.locationManager startRangingBeaconsInRegion:self.beaconRegions];
+    
+    NSLog(@"Ranging turned on for region: %@ ", self.beaconRegions);
+}
 
 
-//monitoring beacon
+//ranging beacon
 - (void)locationManager:(CLLocationManager *)manager
         didRangeBeacons:(NSArray *)beacons
                inRegion:(CLBeaconRegion *)region {
+    if ([beacons count] == 0) {
+        //outside event
+        if(self.rangingInside != nil){
+            self.rangingOutside = self.rangingInside;
+            self.rangingInside = nil;
+            self.shakeCount = 0;
+        }
+        
+        self.shakeCount++;
+        
+        if(self.shakeCount == SHAKE_MAX_COUNT){
+            //fire an exit event
+            if([self.inside isEqualToString: self.rangingOutside ]){
+                //set the current inside beacon to nil
+                self.inside = nil;
+                
+                //equal
+                UILocalNotification *notification_exit = [[UILocalNotification alloc] init];
+                notification_exit.alertBody = [NSString stringWithFormat:@"A outside Region %@", self.rangingOutside];
+                [[UIApplication sharedApplication] presentLocalNotificationNow:notification_exit];
+            }else{
+                //not equal
+                //Do nothing
+                UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
+                notification_entry.alertBody = [NSString stringWithFormat:@"Do nothing %@", self.rangingOutside];
+                [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
+            }
+        }
+    }else{
+        //first object
+        CLBeacon *nearest = [beacons firstObject];
+        NSString *key = [NSString stringWithFormat:@"%@_%@_%@",nearest.proximityUUID.UUIDString,nearest.major,nearest.minor];
+        
+        NSString *identifier = [self.beacons objectForKey:key];
+        //enter event
+        if(self.rangingInside == nil){
+            //first time
+            self.rangingInside = identifier;
+            self.shakeCount = 0;
+        }
+        if(self.rangingInside != nil && [self.rangingInside isEqualToString:identifier]){
+            //same identifier
+        }else{
+            self.rangingInside = identifier;
+            self.shakeCount = 0;
+        }
+        
+        self.shakeCount++;
+        
+        if(self.shakeCount == SHAKE_MAX_COUNT){
+            //fire an entry event
+            //enter
+            if(self.inside != nil){
+                if( ![self.inside isEqualToString:self.rangingInside]){
+                    //not empty
+                    //fire exit old beacon if is not equal to current beacon
+                    UILocalNotification *notification_exit = [[UILocalNotification alloc] init];
+                    notification_exit.alertBody = [NSString stringWithFormat:@"AA outside Region %@", self.inside];
+                    [[UIApplication sharedApplication] presentLocalNotificationNow:notification_exit];
+                    
+                    //fire enter beacon
+                    UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
+                    notification_entry.alertBody = [NSString stringWithFormat:@"AAA inside Region %@", self.rangingInside];
+                    [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
+                }
+            }else{
+                //fire enter beacon
+                UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
+                notification_entry.alertBody = [NSString stringWithFormat:@"AAAA inside Region %@", self.rangingInside];
+                [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
+            }
+            self.inside = self.rangingInside;
+        }
+    }
+    
     self.detectedBeacons = beacons;
     [self.beaconTableView reloadData];
 }
@@ -144,20 +249,26 @@ static NSString * const eaCellIdentifier = @"key";
     
     if(state == CLRegionStateInside) {
         //enter
-        if( self.inside != nil && ![self.inside isEqualToString:region.identifier]){
-            //not empty
-            //fire exit old beacon if is not equal to current beacon
-            UILocalNotification *notification_exit = [[UILocalNotification alloc] init];
-            notification_exit.alertBody = [NSString stringWithFormat:@"XX outside Region %@", self.inside];
-            [[UIApplication sharedApplication] presentLocalNotificationNow:notification_exit];
+        if(self.inside != nil){
+            if( ![self.inside isEqualToString:region.identifier]){
+                //not empty
+                //fire exit old beacon if is not equal to current beacon
+                UILocalNotification *notification_exit = [[UILocalNotification alloc] init];
+                notification_exit.alertBody = [NSString stringWithFormat:@"X outside Region %@", self.inside];
+                [[UIApplication sharedApplication] presentLocalNotificationNow:notification_exit];
+                
+                //fire enter beacon
+                UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
+                notification_entry.alertBody = [NSString stringWithFormat:@"XX inside Region %@", region.identifier];
+                [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
+            }
+        }else{
+            //fire enter beacon
+            UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
+            notification_entry.alertBody = [NSString stringWithFormat:@"XXX inside Region %@", region.identifier];
+            [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
         }
-        
         self.inside = region.identifier;
-        
-        //fire enter beacon
-        UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
-        notification_entry.alertBody = [NSString stringWithFormat:@"XXX inside Region %@", region.identifier];
-        [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
     }
     else if(state == CLRegionStateOutside) {
         //exit
@@ -197,14 +308,19 @@ static NSString * const eaCellIdentifier = @"key";
     [self turnOnMonitoring];
 }
 
+- (void)startRangingForBeacons
+{
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.activityType = CLActivityTypeFitness;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    [self turnOnRanging];
+}
+
 - (void)stopMonitoringForBeacons
 {
-    if (self.locationManager.rangedRegions.count == 0) {
-        NSLog(@"Didn't turn off monitoring: Monitoring already off.");
-        return;
-    }
-    
-    [self.locationManager stopRangingBeaconsInRegion:self.beaconRegions];
     
     [self.locationManager stopMonitoringForRegion:self.beaconRegion1];
     [self.locationManager stopMonitoringForRegion:self.beaconRegion2];
@@ -214,31 +330,56 @@ static NSString * const eaCellIdentifier = @"key";
     
     NSLog(@"Turned off monitoring.");
 }
-
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+ 
+- (void)stopRangingForBeacons
 {
-    if (![CLLocationManager locationServicesEnabled]) {
-        NSLog(@"Couldn't turn on monitoring: Location services are not enabled.");
-        self.monitorSwitch.on = NO;
+    if (self.locationManager.rangedRegions.count == 0) {
+        NSLog(@"Didn't turn off ranging: Ranging already off.");
         return;
     }
     
-    if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
-        NSLog(@"Couldn't turn on monitoring: Location services not authorised.");
-        self.monitorSwitch.on = NO;
-        return;
-    }
+    [self.locationManager stopRangingBeaconsInRegion:self.beaconRegions];
     
-    self.monitorSwitch.on = YES;
+    self.detectedBeacons = nil;
+    [self.beaconTableView reloadData];
+    
+    NSLog(@"Turned off Ranging.");
 }
+
 
 - (void)changeMonitoringState:sender
 {
     UISwitch *theSwitch = (UISwitch *)sender;
     if (theSwitch.on) {
+        self.inside = nil;
+        self.outside = nil;
+        
+        self.rangingInside = nil;
+        self.rangingOutside = nil;
+        
+        self.shakeCount = 0;
+        
         [self startMonitoringForBeacons];
     } else {
         [self stopMonitoringForBeacons];
+    }
+}
+
+- (void)changeRangingState:sender
+{
+    UISwitch *theSwitch = (UISwitch *)sender;
+    if (theSwitch.on) {
+        self.inside = nil;
+        self.outside = nil;
+        
+        self.rangingInside = nil;
+        self.rangingOutside = nil;
+        
+        self.shakeCount = 0;
+        
+        [self startRangingForBeacons];
+    } else {
+        [self stopRangingForBeacons];
     }
 }
 

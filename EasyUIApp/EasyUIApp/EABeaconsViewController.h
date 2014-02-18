@@ -14,6 +14,7 @@
 
 @property (nonatomic,weak) IBOutlet UISwitch *advertisingSwitch;
 @property (nonatomic,weak) IBOutlet UISwitch *monitorSwitch;
+@property (nonatomic,weak) IBOutlet UISwitch *rangingSwitch;
 @property (nonatomic,weak) IBOutlet UITableView *beaconTableView;
 
 @end
