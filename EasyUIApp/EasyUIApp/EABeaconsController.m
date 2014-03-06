@@ -14,11 +14,15 @@
 
 static NSString * const eaUUID = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
 
+//static NSString * const eaUUIDDifferent = @"e37e4eff-a544-4810-aaf5-27968b579019";
+
 static const int SHAKE_MAX_COUNT = 5;
 
 static NSString * const eaIdentifier = @"estimote";
+//static NSString * const eaIdentifierDifferent = @"estimoteDifferent";
+
 static NSString * const eaIdentifier1 = @"estimote1";
-static NSString * const eaIdentifier2 = @"estimote2";
+static NSString * const eaIdentifier2 = @"estimote1";
 
 static NSString * const eaCellIdentifier = @"key";
 
@@ -27,6 +31,9 @@ static NSString * const eaCellIdentifier = @"key";
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 @property (nonatomic, strong) CLBeaconRegion *beaconRegions;
+
+//@property (nonatomic, strong) CLBeaconRegion *beaconRegionsDifferent;
+
 @property (nonatomic, strong) CLBeaconRegion *beaconRegion1;
 @property (nonatomic, strong) CLBeaconRegion *beaconRegion2;
 
@@ -48,9 +55,50 @@ static NSString * const eaCellIdentifier = @"key";
 
 @implementation EABeaconsViewController
 
+- (void)startOberver {
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//            selector:@selector(handleAppLaunched) name:UIApplicationDidFinishLaunchingNotification object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppResigningActive) name:UIApplicationWillResignActiveNotification object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppBecomingActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppEnteringBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppEnteringForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppClosing) name:UIApplicationWillTerminateNotification object:nil];
+}
+
+//+ (void)handleAppLaunched{
+//    NSLog(@"I am handleAppLaunched.....");
+//}
+
+//+ (void)handleAppResigningActive{
+//    NSLog(@"I am handleAppResigningActive.....");
+//}
+//
+//+ (void)handleAppBecomingActive{
+//    NSLog(@"I am handleAppBecomingActive.....");
+//}
+
++ (void)handleAppEnteringBackground{
+    NSLog(@"I am handleAppEnteringBackground.....");
+}
+
++ (void)handleAppEnteringForeground{
+    NSLog(@"I am handleAppEnteringForeground.....");
+}
+
++ (void)handleAppClosing{
+    NSLog(@"I am handleAppClosing.....");
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self startOberver];
     
     [self.advertisingSwitch addTarget:self
                                action:@selector(changeAdvertisingState:)
@@ -71,8 +119,11 @@ static NSString * const eaCellIdentifier = @"key";
     }
     
     NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:eaUUID];
+    //NSUUID *proximityUUIDDifferent = [[NSUUID alloc] initWithUUIDString:eaUUIDDifferent];
     
     self.beaconRegions = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:eaIdentifier];
+    
+    //self.beaconRegionsDifferent = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUIDDifferent identifier:eaIdentifierDifferent];
 
     self.beaconRegion1 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:40564 minor:38384 identifier:eaIdentifier1];
     self.beaconRegion2 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:10465 minor:22872 identifier:eaIdentifier2];
@@ -101,9 +152,6 @@ static NSString * const eaCellIdentifier = @"key";
     
     [self createBeaconRegion];
     
-    //ranging
-    //[self.locationManager startRangingBeaconsInRegion:self.beaconRegions];
-    
     //monitoring
     [self.locationManager startMonitoringForRegion:self.beaconRegion1];
     [self.locationManager startMonitoringForRegion:self.beaconRegion2];
@@ -111,7 +159,7 @@ static NSString * const eaCellIdentifier = @"key";
     NSLog(@"Monitoring turned on for region: %@ ", self.beaconRegions);
 }
 
-//start monitoring
+//start ranging
 - (void)turnOnRanging
 {
     NSLog(@"Turning on Ranging...");
@@ -131,8 +179,11 @@ static NSString * const eaCellIdentifier = @"key";
     
     //ranging
     [self.locationManager startRangingBeaconsInRegion:self.beaconRegions];
+     NSLog(@"Ranging turned on for region: %@ ", self.beaconRegions);
     
-    NSLog(@"Ranging turned on for region: %@ ", self.beaconRegions);
+    //[self.locationManager startRangingBeaconsInRegion:self.beaconRegionsDifferent];
+    
+    //NSLog(@"Ranging turned on for region: %@ ", self.beaconRegionsDifferent);
 }
 
 
@@ -171,6 +222,10 @@ static NSString * const eaCellIdentifier = @"key";
     }else{
         //first object
         CLBeacon *nearest = [beacons firstObject];
+        
+        //CLBeaconRegion *castNearest = (CLBeaconRegion *)nearest;
+        //NSLog(@"Final Magic Things: %@ ", castNearest);
+        
         NSString *key = [NSString stringWithFormat:@"%@_%@_%@",nearest.proximityUUID.UUIDString,nearest.major,nearest.minor];
         
         NSString *identifier = [self.beacons objectForKey:key];
@@ -245,9 +300,11 @@ static NSString * const eaCellIdentifier = @"key";
 //determine State
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
 
+    
     [EALoggingManager logInternal:@"Processing download geofences operation."];
     
     if(state == CLRegionStateInside) {
+        NSLog(@"what is the state:%@ ", @"entry");
         //enter
         if(self.inside != nil){
             if( ![self.inside isEqualToString:region.identifier]){
@@ -271,6 +328,7 @@ static NSString * const eaCellIdentifier = @"key";
         self.inside = region.identifier;
     }
     else if(state == CLRegionStateOutside) {
+        NSLog(@"what is the state:%@ ", @"exit");
         //exit
         if([self.inside isEqualToString: region.identifier ]){
             //set the current inside beacon to nil
@@ -339,6 +397,7 @@ static NSString * const eaCellIdentifier = @"key";
     }
     
     [self.locationManager stopRangingBeaconsInRegion:self.beaconRegions];
+    //[self.locationManager stopRangingBeaconsInRegion:self.beaconRegionsDifferent];
     
     self.detectedBeacons = nil;
     [self.beaconTableView reloadData];
