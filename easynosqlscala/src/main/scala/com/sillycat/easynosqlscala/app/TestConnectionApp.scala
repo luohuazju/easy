@@ -2,7 +2,7 @@ package com.sillycat.easynosqlscala.app
 
 import com.mongodb.casbah.Imports._
 
-object TestConnectionApp extends App{
+object TestConnectionApp extends App {
   //connection
   val rs1 = new ServerAddress("localhost", 27017)
   val rs2 = new ServerAddress("localhost", 27018)
@@ -27,7 +27,7 @@ object TestConnectionApp extends App{
   colUsers.insert(b)
 
   //count
-  println("number of the users = " + colUsers.count() )
+  println("number of the users = " + colUsers.count())
 
   //query
   val all = colUsers.find()

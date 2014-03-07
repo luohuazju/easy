@@ -9,20 +9,18 @@
 #import "EABeaconsViewController.h"
 #import "EALoggingManager.h"
 
-//static NSString * const eaUUID = @"e37e4eff-a544-4810-aaf5-27968b579019";
-//static NSString * const eaUUID = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
+//static NSString * const eaUUID = @"e37e4eff-a544-4810-aaf5-27968b579019"; kontakt
+//static NSString * const eaUUID = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"; estimote
+//static NSString * const eaUUID = @"8B856FBB-6421-A429-B54E-E75BFC412576"; peripheral motorola
 
 static NSString * const eaUUID = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
 
-//static NSString * const eaUUIDDifferent = @"e37e4eff-a544-4810-aaf5-27968b579019";
-
 static const int SHAKE_MAX_COUNT = 5;
 
-static NSString * const eaIdentifier = @"estimote";
-//static NSString * const eaIdentifierDifferent = @"estimoteDifferent";
+static NSString * const eaIdentifier = @"ranging";
 
-static NSString * const eaIdentifier1 = @"estimote1";
-static NSString * const eaIdentifier2 = @"estimote1";
+static NSString * const eaIdentifier1 = @"monitor1";
+static NSString * const eaIdentifier2 = @"monitor2";
 
 static NSString * const eaCellIdentifier = @"key";
 
