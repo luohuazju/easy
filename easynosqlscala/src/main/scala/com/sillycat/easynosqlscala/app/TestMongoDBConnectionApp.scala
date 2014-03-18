@@ -2,7 +2,7 @@ package com.sillycat.easynosqlscala.app
 
 import com.mongodb.casbah.Imports._
 
-object TestConnectionApp extends App {
+object TestMongoDBConnectionApp extends App {
   //connection
   val rs1 = new ServerAddress("localhost", 27017)
   val rs2 = new ServerAddress("localhost", 27018)

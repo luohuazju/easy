@@ -12,8 +12,9 @@
 //static NSString * const eaUUID = @"e37e4eff-a544-4810-aaf5-27968b579019"; kontakt
 //static NSString * const eaUUID = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"; estimote
 //static NSString * const eaUUID = @"8B856FBB-6421-A429-B54E-E75BFC412576"; peripheral motorola
+//static NSString * const eaUUID = @"f7826da6-4fa2-4e98-8024-bc5b71e0893e"; kontakt latest
 
-static NSString * const eaUUID = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
+static NSString * const eaUUID = @"DF892040-A072-48F4-93B9-46DD5DEC3E54";
 
 static const int SHAKE_MAX_COUNT = 5;
 
@@ -123,8 +124,11 @@ static NSString * const eaCellIdentifier = @"key";
     
     //self.beaconRegionsDifferent = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUIDDifferent identifier:eaIdentifierDifferent];
 
-    self.beaconRegion1 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:40564 minor:38384 identifier:eaIdentifier1];
-    self.beaconRegion2 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:10465 minor:22872 identifier:eaIdentifier2];
+    //self.beaconRegion1 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:40564 minor:38384 identifier:eaIdentifier1];
+    //self.beaconRegion2 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:10465 minor:22872 identifier:eaIdentifier2];
+    
+    self.beaconRegion1 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:0 minor:0 identifier:eaIdentifier1];
+    self.beaconRegion2 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:1 minor:1 identifier:eaIdentifier2];
     
     self.beacons = [[NSMutableDictionary alloc] init];
     [self.beacons setObject:self.beaconRegion1.identifier forKey:[NSString stringWithFormat:@"%@_%@_%@",self.beaconRegion1.proximityUUID.UUIDString,self.beaconRegion1.major,self.beaconRegion1.minor]];
@@ -189,6 +193,7 @@ static NSString * const eaCellIdentifier = @"key";
 - (void)locationManager:(CLLocationManager *)manager
         didRangeBeacons:(NSArray *)beacons
                inRegion:(CLBeaconRegion *)region {
+    
     if ([beacons count] == 0) {
         //outside event
         if(self.rangingInside != nil){
@@ -207,13 +212,13 @@ static NSString * const eaCellIdentifier = @"key";
                 
                 //equal
                 UILocalNotification *notification_exit = [[UILocalNotification alloc] init];
-                notification_exit.alertBody = [NSString stringWithFormat:@"A outside Region %@", self.rangingOutside];
+                notification_exit.alertBody = [NSString stringWithFormat:@"R outside Region %@", self.rangingOutside];
                 [[UIApplication sharedApplication] presentLocalNotificationNow:notification_exit];
             }else{
                 //not equal
                 //Do nothing
                 UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
-                notification_entry.alertBody = [NSString stringWithFormat:@"Do nothing %@", self.rangingOutside];
+                notification_entry.alertBody = [NSString stringWithFormat:@"R Do nothing %@", self.rangingOutside];
                 [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
             }
         }
@@ -250,18 +255,18 @@ static NSString * const eaCellIdentifier = @"key";
                     //not empty
                     //fire exit old beacon if is not equal to current beacon
                     UILocalNotification *notification_exit = [[UILocalNotification alloc] init];
-                    notification_exit.alertBody = [NSString stringWithFormat:@"AA outside Region %@", self.inside];
+                    notification_exit.alertBody = [NSString stringWithFormat:@"RR outside Region %@", self.inside];
                     [[UIApplication sharedApplication] presentLocalNotificationNow:notification_exit];
                     
                     //fire enter beacon
                     UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
-                    notification_entry.alertBody = [NSString stringWithFormat:@"AAA inside Region %@", self.rangingInside];
+                    notification_entry.alertBody = [NSString stringWithFormat:@"RRR inside Region %@", self.rangingInside];
                     [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
                 }
             }else{
                 //fire enter beacon
                 UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
-                notification_entry.alertBody = [NSString stringWithFormat:@"AAAA inside Region %@", self.rangingInside];
+                notification_entry.alertBody = [NSString stringWithFormat:@"RRRR inside Region %@", self.rangingInside];
                 [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
             }
             self.inside = self.rangingInside;
@@ -309,18 +314,18 @@ static NSString * const eaCellIdentifier = @"key";
                 //not empty
                 //fire exit old beacon if is not equal to current beacon
                 UILocalNotification *notification_exit = [[UILocalNotification alloc] init];
-                notification_exit.alertBody = [NSString stringWithFormat:@"X outside Region %@", self.inside];
+                notification_exit.alertBody = [NSString stringWithFormat:@"M outside Region %@", self.inside];
                 [[UIApplication sharedApplication] presentLocalNotificationNow:notification_exit];
                 
                 //fire enter beacon
                 UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
-                notification_entry.alertBody = [NSString stringWithFormat:@"XX inside Region %@", region.identifier];
+                notification_entry.alertBody = [NSString stringWithFormat:@"MM inside Region %@", region.identifier];
                 [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
             }
         }else{
             //fire enter beacon
             UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
-            notification_entry.alertBody = [NSString stringWithFormat:@"XXX inside Region %@", region.identifier];
+            notification_entry.alertBody = [NSString stringWithFormat:@"MMM inside Region %@", region.identifier];
             [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
         }
         self.inside = region.identifier;
@@ -334,13 +339,13 @@ static NSString * const eaCellIdentifier = @"key";
             
             //equal
             UILocalNotification *notification_exit = [[UILocalNotification alloc] init];
-            notification_exit.alertBody = [NSString stringWithFormat:@"XXXX outside Region %@", region.identifier];
+            notification_exit.alertBody = [NSString stringWithFormat:@"MMMM outside Region %@", region.identifier];
             [[UIApplication sharedApplication] presentLocalNotificationNow:notification_exit];
         }else{
             //not equal
             //Do nothing
             UILocalNotification *notification_entry = [[UILocalNotification alloc] init];
-            notification_entry.alertBody = [NSString stringWithFormat:@"Do nothing %@", region.identifier];
+            notification_entry.alertBody = [NSString stringWithFormat:@"M Do nothing %@", region.identifier];
             [[UIApplication sharedApplication] presentLocalNotificationNow:notification_entry];
             
         }

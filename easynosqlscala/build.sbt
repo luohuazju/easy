@@ -12,10 +12,12 @@ scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 
 resolvers ++= Seq(
 	"sonatype releases"  at "https://oss.sonatype.org/content/repositories/releases/",
-  	"sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
-  	"typesafe repo"      at "http://repo.typesafe.com/typesafe/releases/",
-  	"spray repo"         at "http://repo.spray.io/",
-  	"maven repo"         at "http://repo1.maven.org/maven2/"
+  "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
+  "typesafe repo"      at "http://repo.typesafe.com/typesafe/releases/",
+  "spray repo"         at "http://repo.spray.io/",
+  "maven repo"         at "http://repo1.maven.org/maven2/",
+  "jboss repo"         at "https://repository.jboss.org/nexus/content/groups/public/",
+  "MIT repo"           at "http://simile.mit.edu/maven/"
 )
 
 libraryDependencies ++= Seq(
@@ -47,7 +49,12 @@ libraryDependencies ++= Seq(
         "com.rabbitmq"        %   "amqp-client"               % "3.1.4",
         "com.twitter"         %%  "util-collection"           % "6.3.6",
         "com.101tec"          %   "zkclient"                  % "0.3",
-        "org.mongodb"         %   "casbah_2.10"               % "2.6.4"
+        "org.mongodb"         %   "casbah_2.10"               % "2.6.4",
+        "org.scala-lang.modules" %% "scala-async" % "0.9.0-M4",
+        "com.github.mauricio" %% "mysql-async" % "0.2.11",
+        "com.github.mauricio" %% "postgresql-async" % "0.2.11",
+        "org.apache.kafka" %% "kafka" % "0.8.0",
+        "redis.clients" % "jedis" % "2.4.1"
 )
 
 seq(Revolver.settings: _*)
