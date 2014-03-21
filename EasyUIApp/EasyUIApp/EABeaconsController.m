@@ -11,7 +11,7 @@
 
 //static NSString * const eaUUID = @"e37e4eff-a544-4810-aaf5-27968b579019"; kontakt
 //static NSString * const eaUUID = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"; estimote
-//static NSString * const eaUUID = @"8B856FBB-6421-A429-B54E-E75BFC412576"; peripheral motorola
+//static NSString * const eaUUID = @"DF892040-A072-48F4-93B9-46DD5DEC3E54"; peripheral motorola
 //static NSString * const eaUUID = @"f7826da6-4fa2-4e98-8024-bc5b71e0893e"; kontakt latest
 
 static NSString * const eaUUID = @"DF892040-A072-48F4-93B9-46DD5DEC3E54";
@@ -127,8 +127,8 @@ static NSString * const eaCellIdentifier = @"key";
     //self.beaconRegion1 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:40564 minor:38384 identifier:eaIdentifier1];
     //self.beaconRegion2 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:10465 minor:22872 identifier:eaIdentifier2];
     
-    self.beaconRegion1 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:0 minor:0 identifier:eaIdentifier1];
-    self.beaconRegion2 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:1 minor:1 identifier:eaIdentifier2];
+    self.beaconRegion1 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:100 minor:200 identifier:eaIdentifier1];
+    self.beaconRegion2 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:100 minor:100 identifier:eaIdentifier2];
     
     self.beacons = [[NSMutableDictionary alloc] init];
     [self.beacons setObject:self.beaconRegion1.identifier forKey:[NSString stringWithFormat:@"%@_%@_%@",self.beaconRegion1.proximityUUID.UUIDString,self.beaconRegion1.major,self.beaconRegion1.minor]];
@@ -303,7 +303,7 @@ static NSString * const eaCellIdentifier = @"key";
 //determine State
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
 
-    
+    NSLog(@"asdfasdfasdfsadf, what happend.");
     [EALoggingManager logInternal:@"Processing download geofences operation."];
     
     if(state == CLRegionStateInside) {
