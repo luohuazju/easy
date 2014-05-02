@@ -17,7 +17,8 @@ resolvers ++= Seq(
   "spray repo"         at "http://repo.spray.io/",
   "maven repo"         at "http://repo1.maven.org/maven2/",
   "jboss repo"         at "https://repository.jboss.org/nexus/content/groups/public/",
-  "MIT repo"           at "http://simile.mit.edu/maven/"
+  "MIT repo"           at "http://simile.mit.edu/maven/",
+  "couchbase repo"     at "http://files.couchbase.com/maven2/"
 )
 
 libraryDependencies ++= Seq(
@@ -54,7 +55,8 @@ libraryDependencies ++= Seq(
         "com.github.mauricio"    %% "mysql-async"                % "0.2.12",
         "com.github.mauricio"    %% "postgresql-async"           % "0.2.12",
         "org.apache.kafka"       %% "kafka"                      % "0.8.0",
-        "redis.clients"          % "jedis"                       % "2.4.1"
+        "redis.clients"          % "jedis"                       % "2.4.1",
+        "com.couchbase.client"   % "couchbase-client"            % "1.4.0"
 )
 
 seq(Revolver.settings: _*)
