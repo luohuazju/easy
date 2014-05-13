@@ -28,5 +28,6 @@
 		<dependency org="org/springframework" name="spring-aop" rev="3.1.2.RELEASE" />
 		
 		<dependency org="log4j" name="log4j" rev="1.2.15" />
+		
 	</dependencies>
 </ivy-module>
