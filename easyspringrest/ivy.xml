@@ -1,0 +1,32 @@
+<ivy-module version="2.0">
+	<info organisation="sillycat" module="jersey" />
+	<configurations>
+		<conf name="release" />
+	</configurations>
+	<publications>
+		<artifact name="common" />
+		<artifact name="client" />
+	</publications>
+	<dependencies>
+		<!-- commons -->
+		<dependency org="commons-logging" name="commons-logging" rev="1.1.1"/>
+		<dependency org="commons-httpclient" name="commons-httpclient" rev="3.1"/>
+		<dependency org="commons-codec" name="commons-codec" rev="1.4" />
+		<dependency org="commons-pool" name="commons-pool" rev="1.5" />
+		<dependency org="commons-configuration" name="commons-configuration" rev="1.5" />
+		<dependency org="commons-lang" name="commons-lang" rev="2.4"/>
+		<dependency org="commons-collections" name="commons-collections" rev="3.2" />
+		<dependency org="commons-beanutils" name="commons-beanutils" rev="1.8.3" />
+		<!-- spring jar -->
+		<dependency org="org/springframework" name="spring-context" rev="3.1.2.RELEASE"/>
+		<dependency org="org/springframework" name="spring-web" rev="3.1.2.RELEASE"/>
+		<dependency org="org/springframework" name="spring-webmvc" rev="3.1.2.RELEASE"/>
+		<dependency org="org/springframework" name="spring-beans" rev="3.1.2.RELEASE"/>
+		<dependency org="org/springframework" name="spring-core" rev="3.1.2.RELEASE"/>
+		<dependency org="org/springframework" name="spring-asm" rev="3.1.2.RELEASE"/>
+		<dependency org="org/springframework" name="spring-expression" rev="3.1.2.RELEASE"/>
+		<dependency org="org/springframework" name="spring-aop" rev="3.1.2.RELEASE" />
+		
+		<dependency org="log4j" name="log4j" rev="1.2.15" />
+	</dependencies>
+</ivy-module>

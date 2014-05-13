@@ -1,0 +1,26 @@
+<ivysettings>
+	<settings defaultResolver="chained" />
+	<resolvers>
+		<chain name="chained" returnFirst="true">
+			<filesystem name="libraries">
+				<artifact pattern="${ivy.conf.dir}/lib/[artifact]-[revision].[type]" />
+			</filesystem>
+			<url name="office1">
+				<artifact
+					pattern="http://repo1.maven.org/maven2/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			</url>
+			<url name="office2">
+				<artifact
+					pattern="http://repo2.maven.org/maven2/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			</url>
+			<url name="office3">
+				<artifact
+					pattern="http://download.java.net/maven/2/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			</url>
+			<url name="sillycat">
+				<artifact
+					pattern="https://sillycat.googlecode.com/svn/repository/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			</url>
+		</chain>
+	</resolvers>
+</ivysettings>
