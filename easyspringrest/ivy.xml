@@ -9,25 +9,39 @@
 	</publications>
 	<dependencies>
 		<!-- commons -->
-		<dependency org="commons-logging" name="commons-logging" rev="1.1.1"/>
-		<dependency org="commons-httpclient" name="commons-httpclient" rev="3.1"/>
-		<dependency org="commons-codec" name="commons-codec" rev="1.4" />
-		<dependency org="commons-pool" name="commons-pool" rev="1.5" />
-		<dependency org="commons-configuration" name="commons-configuration" rev="1.5" />
-		<dependency org="commons-lang" name="commons-lang" rev="2.4"/>
-		<dependency org="commons-collections" name="commons-collections" rev="3.2" />
-		<dependency org="commons-beanutils" name="commons-beanutils" rev="1.8.3" />
+		<dependency org="commons-logging" 		name="commons-logging" 			rev="1.1.1" />
+		<dependency org="commons-httpclient" 	name="commons-httpclient" 		rev="3.1" />
+		<dependency org="commons-codec" 		name="commons-codec" 			rev="1.4" />
+		<dependency org="commons-pool" 			name="commons-pool" 			rev="1.5" />
+		<dependency org="commons-configuration" name="commons-configuration" 	rev="1.5" />
+		<dependency org="commons-lang" 			name="commons-lang" 			rev="2.4" />
+		<dependency org="commons-collections" 	name="commons-collections" 		rev="3.2" />
+		<dependency org="commons-beanutils" 	name="commons-beanutils" 		rev="1.8.3" />
 		<!-- spring jar -->
-		<dependency org="org/springframework" name="spring-context" rev="3.1.2.RELEASE"/>
-		<dependency org="org/springframework" name="spring-web" rev="3.1.2.RELEASE"/>
-		<dependency org="org/springframework" name="spring-webmvc" rev="3.1.2.RELEASE"/>
-		<dependency org="org/springframework" name="spring-beans" rev="3.1.2.RELEASE"/>
-		<dependency org="org/springframework" name="spring-core" rev="3.1.2.RELEASE"/>
-		<dependency org="org/springframework" name="spring-asm" rev="3.1.2.RELEASE"/>
-		<dependency org="org/springframework" name="spring-expression" rev="3.1.2.RELEASE"/>
-		<dependency org="org/springframework" name="spring-aop" rev="3.1.2.RELEASE" />
-		
-		<dependency org="log4j" name="log4j" rev="1.2.15" />
-		
+		<dependency org="org/springframework" name="spring-context" 	rev="3.1.2.RELEASE" />
+		<dependency org="org/springframework" name="spring-web"     	rev="3.1.2.RELEASE" />
+		<dependency org="org/springframework" name="spring-webmvc" 		rev="3.1.2.RELEASE" />
+		<dependency org="org/springframework" name="spring-beans" 		rev="3.1.2.RELEASE" />
+		<dependency org="org/springframework" name="spring-core" 		rev="3.1.2.RELEASE" />
+		<dependency org="org/springframework" name="spring-asm" 		rev="3.1.2.RELEASE" />
+		<dependency org="org/springframework" name="spring-expression" 	rev="3.1.2.RELEASE" />
+		<dependency org="org/springframework" name="spring-aop" 		rev="3.1.2.RELEASE" />
+		<!--  jersey -->
+		<dependency org="com/sun/jersey"      		name="jersey-server" 		rev="1.18" />
+		<dependency org="com/sun/jersey" 	  		name="jersey-servlet" 		rev="1.18" />
+		<dependency org="com/sun/jersey/contribs"	name="jersey-multipart" 	rev="1.18" />
+		<dependency org="com/sun/jersey"	  		name="jersey-json" 	    	rev="1.18" />
+		<dependency org="com/sun/jersey"			name="jersey-client"		rev="1.18" />
+		<dependency org="com/sun/jersey/contribs"	name="jersey-spring"		rev="1.18" />
+		<dependency org="com/sun/jersey" 			name="jersey-core" 			rev="1.18" />
+		<dependency org="javax/ws/rs" 				name="jsr311-api" 			rev="1.1.1" />
+		<!-- jackson -->
+		<dependency org="org/codehaus/jackson" 		name="jackson-core-lgpl" 	rev="1.9.10" />
+		<dependency org="org/codehaus/jackson"		name="jackson-mapper-lgpl"	rev="1.9.10" />
+		<dependency org="org/codehaus/jackson"		name="jackson-jaxrs"		rev="1.9.10" />
+		<dependency org="org/codehaus/jackson" 		name="jackson-xc" 			rev="1.9.10" />
+		<!-- other -->
+		<dependency org="log4j" 	name="log4j" 	rev="1.2.15" />
+		<dependency org="asm" 		name="asm" 		rev="3.3" />
 	</dependencies>
 </ivy-module>

@@ -26,12 +26,7 @@
 		</property>
 	</bean>
     
-    <!--  
-    <import resource="classpath:util-context.xml" />
-    <import resource="classpath:manager-context.xml" />
-	<import resource="classpath:controller-easymarket-context.xml" />
-	<import resource="classpath:restclient-context.xml" />
-	-->
+    <import resource="classpath:scan-context.xml" />
 
 </beans>
 
