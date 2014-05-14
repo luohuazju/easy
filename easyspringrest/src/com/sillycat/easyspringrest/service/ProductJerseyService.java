@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -43,6 +45,32 @@ public class ProductJerseyService {
 		items.add(item1);
 		items.add(item2);
 		return items;
+	}
+	
+	@GET
+	@Path("products/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Product getProduct(@PathParam("id") Long id){
+		logger.debug("hitting the get product REST API with id = " + id);
+		Product item1 = new Product();
+		item1.setDesn("desn1");
+		item1.setId(Long.valueOf(1));
+		item1.setProductLink("http://github.com/luohuazju");
+		item1.setProductName("My Github Linke");
+		
+		return item1;
+	}
+	
+	@POST
+	@Path("products")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Product saveProduct(Product item){
+		logger.debug("hitting the save product REST API");
+		logger.debug("id=" + item.getId());
+		logger.debug("desn=" + item.getDesn());
+		logger.debug("link=" + item.getProductLink());
+		logger.debug("name=" + item.getProductName());
+		return item;
 	}
 	
 	

@@ -25,6 +25,8 @@ public class Product {
 		return id;
 	}
 	
+	@XmlElement
+	@JsonProperty
 	public void setId(Long id) {
 		this.id = id;
 	}
