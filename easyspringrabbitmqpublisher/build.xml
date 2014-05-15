@@ -1,0 +1,112 @@
+<project name="${app.name}" default="war" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<!-- some variables used -->
+	<property file="build.properties" />
+	<property name="app.name" value="${app.name}" />
+	<property name="src.dir" value="src" />
+	<property name="conf.dir" value="conf" />
+	<property name="build.dir" value="build" />
+	<property name="dist.dir" value="dist" />
+	<property name="web.dir" value="WebContent" />
+	<property name="lib.dir" value="${web.dir}/WEB-INF/lib" />
+	<property name="tomcat.dir" value="${tomcat.home}" />
+
+	<property name="ivy.install.version" value="2.0.0" />
+	<property name="ivy.home" value="${user.home}/.ant" />
+	<property name="ivy.jar.dir" value="${ivy.home}/lib" />
+	<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+
+	<!-- paths used for compilation and run  -->
+	<path id="compile.path.id">
+		<fileset dir="${tomcat.dir}\lib">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${lib.dir}" />
+		<path location="${build.dir}" />
+	</path>
+
+	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.jar.file}" />
+	<target name="download-ivy">
+		<mkdir dir="${ivy.jar.dir}" />
+		<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true" />
+	</target>
+
+	<!-- ================================= target: resolve ================================= -->
+	<target name="resolve" depends="download-ivy" description="--> retreive dependencies with ivy">
+		<ivy:retrieve pattern="${web.dir}/WEB-INF/lib/[artifact]-[revision].[ext]" />
+	</target>
+
+	<!-- ================================= target: clean-cache ================================= -->
+	<target name="clean-cache-lib" description="--> clean the ivy cache">
+		<delete dir="${ivy.home}/cache" />
+	</target>
+
+	<!-- ================================= target: clean ================================= -->
+	<target name="clean" description="--> clean the project">
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<!-- ================================= target: prepare ================================= -->
+	<target name="prepare" description="--> make-dir build , dist">
+		<tstamp />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<echo message="built at ${DSTAMP}-${TSTAMP}" />
+		<echo message="ant.version - ${ant.version}" />
+		<echo message="ant.java.version - ${ant.java.version}" />
+		<echo message="ivy.cache.dir - ${ivy.home}/cache" />
+	</target>
+
+	<!-- ================================= target: compile ================================= -->
+	<target name="compile" depends="prepare,resolve" description="--> Compile Java sources">
+		<!-- Compile Java classes as necessary -->
+		<property name="compile.java.encoding" value="${ant.encoding}" />
+		<mkdir dir="${build.dir}/WEB-INF/classes" />
+		<javac srcdir="${src.dir}" destdir="${build.dir}/WEB-INF/classes" debug="${compile.debug}" deprecation="${compile.deprecation}" optimize="${compile.optimize}" encoding="${ant.encoding}" source="${java.level}">
+			<classpath refid="compile.path.id" />
+		</javac>
+		<copy todir="${build.dir}/WEB-INF/classes">
+			<fileset dir="${src.dir}">
+				<include name="**/*.xml" />
+				<include name="**/*.txt" />
+				<include name="**/*.properties" />
+				<exclude name="config.properties" />
+				<exclude name="log4j.properties" />
+			</fileset>
+			<fileset dir="${conf.dir}">
+				<include name="**/*.xml" />
+				<include name="**/*.txt" />
+				<include name="**/*.properties" />
+				<exclude name="config.properties" />
+				<exclude name="log4j.properties" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="copyWeb">
+		<copy todir="${build.dir}">
+			<fileset dir="${web.dir}">
+				<exclude name="WEB-INF/classes/**" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="war" depends="clean,compile,copyWeb" description="--> build web application war package">
+		<war destfile="${dist.dir}/${app.name}.war" webxml="${build.dir}/WEB-INF/web.xml">
+			<fileset dir="${build.dir}" />
+		</war>
+		<copy tofile="${dist.dir}/config.properties" file="${conf.dir}/config.properties" />
+		<copy tofile="${dist.dir}/log4j.properties" file="${conf.dir}/log4j.properties" />
+	</target>
+	
+	<target name="jar" depends="compile" description="build the jar">
+		<jar jarfile="${dist.dir}\${app.name}.jar">
+			<fileset dir="${build.dir}/WEB-INF/classes">
+				<include name="com/sillycat/easyrestspring/model/**/*.class" />
+				<include name="com/sillycat/easyrestspring/view/**/*.class" />
+			</fileset>
+		</jar>
+	</target>
+
+</project>
+
