@@ -39,11 +39,8 @@ exports.get = function(req, res) {
 exports.update = function(req, res) {
 	var id = req.params.id;
 	var body = req.body;
-	console.info("asdfasdfsadfsadf=" + body);
-	if(body._id != undefined){
-		delete body._id;
-	}
-	collection.findAndModify({_id: id}, {$set: body}, {multi:false}, function(err, bug){
+	delete body._id;
+	collection.findAndModify({_id: id}, {$set: body}, {multi:false, new:true}, function(err, bug){
 		if (err) res.json(500, err);
 		else if (bug) res.json(bug);
 		else res.send(404);
