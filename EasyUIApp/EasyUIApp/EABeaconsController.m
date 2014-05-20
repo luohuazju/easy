@@ -13,8 +13,9 @@
 //static NSString * const eaUUID = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"; estimote
 //static NSString * const eaUUID = @"DF892040-A072-48F4-93B9-46DD5DEC3E54"; peripheral motorola
 //static NSString * const eaUUID = @"f7826da6-4fa2-4e98-8024-bc5b71e0893e"; kontakt latest
+//static NSString * const eaUUID = @"6E42F68A-D0D1-467B-A23E-9D11FA746E43"; phunware
 
-static NSString * const eaUUID = @"DF892040-A072-48F4-93B9-46DD5DEC3E54";
+static NSString * const eaUUID = @"6E42F68A-D0D1-467B-A23E-9D11FA746E43";
 
 static const int SHAKE_MAX_COUNT = 5;
 
