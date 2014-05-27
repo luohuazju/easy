@@ -1,0 +1,9 @@
+{
+	"name"			:	"sillycat-platform",
+	"version"		:	"0.1.0",
+	"description"	:	"Sillycat Platform, provide all kinds of tools.",
+	"main"			: 	"app.js",
+	"dependencies"	:	{
+		"sillycat-aes"	:	">= 0.1.0"
+	}
+}
