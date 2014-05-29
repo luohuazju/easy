@@ -2,8 +2,8 @@
 	"name"			:	"sillycat-platform",
 	"version"		:	"0.1.0",
 	"description"	:	"Sillycat Platform, provide all kinds of tools.",
-	"main"			: 	"app.js",
+	"main"			: 	"lib/app.js",
 	"dependencies"	:	{
-		"sillycat-aes"	:	">= 0.1.0"
+		"sillycat-aes"	:	"git://github.com/luohuazju/easy/tree/master/easynodejs/sillycat-platform/sillycat-aes"
 	}
 }

@@ -2,5 +2,5 @@
 	"name"			:	"sillycat-aes",
 	"version"		:	"0.1.0",
 	"description"	:	"Module for AES encryption and descritpion",
-	"main"			: 	"app.js"
+	"main"			: 	"lib/app.js"
 }

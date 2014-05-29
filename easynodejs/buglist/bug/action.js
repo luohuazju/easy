@@ -1,13 +1,36 @@
 var config = require('../config.json');
-var monk = require('monk');
-var db = monk(config.host+":"+config.port+'/'+config.dbname);
-var collection = db.get('bugs');
+var mongodb = require('mongodb');
+var poolModule = require('generic-pool');
+
+var pool = poolModule.Pool({
+	name: 'mongo1',
+	create: function(callback){
+		var mongoClient = new mongodb.MongoClient(new mongodb.Server(config.host, config.port));
+		mongoClient.open(function(err, mongoClient) {
+  			var db = mongoClient.db(config.dbname);
+			callback(err, db);
+		});
+	},
+	destroy: function(db) { db.close(); },
+	max: 10,
+	min: 2,
+	idleTimeoutMillis: 30000,
+	log: false
+});
 
 // Returns all the bugs
 exports.getAll = function(req, res) {
-	collection.find({}, function(err, bugs){
-		if (err) res.json(500, err);
-		else res.json(bugs);
+	pool.acquire(function(err, db){
+		if (err) { 
+            res.json(500,err);
+        } else {
+			db.collection('bugs').find({}).toArray(function(err, bugs){
+				if (err) res.json(500, err);
+				else res.json(bugs);
+
+				pool.release(db);
+			});
+        }
 	});
 };
 
@@ -19,20 +42,40 @@ exports.create = function(req, res) {
 	console.log("create creation = " + body.creation);
 	console.log("create status = " + body.status);
 	console.log("create assignee = " + body.assignee);
-	collection.insert(body, function(err, bug){
-		if (err) res.json(500, err);
-		else res.json(201, bug);
+
+	pool.acquire(function(err, db){
+		if (err) { 
+            res.json(500,err);
+        } else {
+			db.collection('bugs').insert(body, function(err, bug){
+				if (err) res.json(500, err);
+				else res.json(201, bug);
+
+				pool.release(db);
+			});
+        }
 	});
+
 };
 
 // Get a bug
 exports.get = function(req, res) {
 	var id = req.params.id;
-	collection.findById(id, function(err, bug){
-		if (err) res.json(500, err);
-		else if (bug) res.json(bug);
-		else res.send(404);
+
+	pool.acquire(function(err, db){
+		if (err) { 
+            res.json(500,err);
+        } else {
+			db.collection('bugs').findOne({_id: new mongodb.ObjectID(id) }, function(err, bug){
+				if (err) res.json(500, err);
+				else if (bug) res.json(bug);
+				else res.send(404);
+
+				pool.release(db);
+			});
+        }
 	});
+
 };
 
 // Updates a bug
@@ -40,18 +83,40 @@ exports.update = function(req, res) {
 	var id = req.params.id;
 	var body = req.body;
 	delete body._id;
-	collection.findAndModify({_id: id}, {$set: body}, {multi:false, new:true}, function(err, bug){
-		if (err) res.json(500, err);
-		else if (bug) res.json(bug);
-		else res.send(404);
+
+	pool.acquire(function(err, db){
+		if (err) { 
+            res.json(500,err);
+        } else {
+			db.collection('bugs').findAndModify({_id: new mongodb.ObjectID(id)}, [['_id','asc']], {$set: body}, {multi:false, new:true}, function(err, bug){
+				if (err) res.json(500, err);
+				else if (bug) res.json(bug);
+				else res.send(404);
+
+				pool.release(db);
+			});
+        }
 	});
 };
 
 // Deletes a bug
 exports.del = function(req, res) {
 	var id = req.params.id;
-	collection.remove({_id: id}, function(err){
-		if (err) res.json(500, err);
-		else res.send(204);
+
+	pool.acquire(function(err, db){
+		if (err) { 
+            res.json(500,err);
+        } else {
+			db.collection('bugs').remove({_id: new mongodb.ObjectID(id) }, function(err){
+				if (err) res.json(500, err);
+				else res.send(204);
+
+				pool.release(db);
+			});
+        }
 	});
+
+
 };
+
+
