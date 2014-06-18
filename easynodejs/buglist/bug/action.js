@@ -1,6 +1,11 @@
-var config = require('../config.json');
+var config = require('../config/config.json');
 var mongodb = require('mongodb');
 var poolModule = require('generic-pool');
+var Memcached = require('memcached');
+var log4js = require('log4js');
+
+log4js.configure(__dirname +'/../config/log/log4js.json');
+var logger = log4js.getLogger("root");
 
 var pool = poolModule.Pool({
 	name: 'mongo1',
@@ -18,18 +23,33 @@ var pool = poolModule.Pool({
 	log: false
 });
 
+var memcached = new Memcached({'127.0.0.1:11211': 1, '127.0.0.1:11212': 1 })
+
 // Returns all the bugs
 exports.getAll = function(req, res) {
 	pool.acquire(function(err, db){
 		if (err) { 
             res.json(500,err);
         } else {
-			db.collection('bugs').find({}).toArray(function(err, bugs){
-				if (err) res.json(500, err);
-				else res.json(bugs);
-
-				pool.release(db);
-			});
+        	memcached.get("bugs", function(err, data){
+        		if(data != false){
+        			logger.debug("hitting the memached =" + data + "!");
+        			res.json(data);
+        		}else{
+        			logger.debug("missing the memached!");
+        			db.collection('bugs').find({}).toArray(function(err, bugs){
+						if (err) res.json(500, err);
+						else {
+							logger.debug("setting the memached!");
+							memcached.set("bugs", bugs ,120,function(err){ 
+								if(err != undefined) res.json(500, err);
+							});
+							res.json(bugs);
+						}
+						pool.release(db);
+					});
+        		}
+        	});
         }
 	});
 };

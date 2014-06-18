@@ -1,0 +1,51 @@
+[2014-05-30 14:55:29,582] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-05-30 14:58:21,921] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-05-30 14:59:11,652] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-05-30 15:00:07,015] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-05-30 15:01:39,201] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-05-30 15:01:47,771] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 130 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 15:01:54,154] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 130 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 17:07:21,073] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-05-30 17:07:29,666] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 - "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 17:07:29,680] [DEBUG] [M] hitting the memached!
+[2014-05-30 17:07:38,288] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 - "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 17:07:38,292] [DEBUG] [M] hitting the memached!
+[2014-05-30 17:07:39,562] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 - "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 17:07:39,564] [DEBUG] [M] hitting the memached!
+[2014-05-30 17:09:10,340] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-05-30 17:09:15,081] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 - "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 17:09:15,087] [DEBUG] [M] hitting the memached =false!
+[2014-05-30 17:09:31,443] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-05-30 17:09:34,332] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 - "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 17:09:34,337] [DEBUG] [M] missing the memached!
+[2014-05-30 17:09:34,369] [DEBUG] [M] setting the memached!
+[2014-05-30 17:11:08,444] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-05-30 17:11:20,695] [DEBUG] [M] hitting the memached =[object Object]!
+[2014-05-30 17:11:20,700] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 130 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 17:11:33,955] [DEBUG] [M] missing the memached!
+[2014-05-30 17:11:33,962] [DEBUG] [M] setting the memached!
+[2014-05-30 17:11:33,968] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 130 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 17:26:15,776] [DEBUG] [M] missing the memached!
+[2014-05-30 17:26:15,778] [DEBUG] [M] setting the memached!
+[2014-05-30 17:26:15,780] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 130 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 17:26:22,356] [DEBUG] [M] hitting the memached =[object Object]!
+[2014-05-30 17:26:22,358] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 130 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 17:26:55,744] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-05-30 17:26:58,078] [DEBUG] [M] hitting the memached =[object Object]!
+[2014-05-30 17:26:58,084] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 130 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
+[2014-05-30 18:40:25,979] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-06-02 09:10:28,715] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-06-02 09:10:49,707] [INFO ] [M] 127.0.0.1 - - "GET /bugs/5386b97ee549e300003c3727 HTTP/1.1" 500 21 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36"
+[2014-06-02 09:10:52,517] [DEBUG] [M] missing the memached!
+[2014-06-02 09:10:52,528] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 500 21 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36"
+[2014-06-02 09:10:56,316] [INFO ] [M] 127.0.0.1 - - "GET /bugs/5386b97ee549e300003c3727 HTTP/1.1" 500 21 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36"
+[2014-06-02 09:10:59,620] [INFO ] [M] 127.0.0.1 - - "PUT /bugs/5386b97ee549e300003c3727 HTTP/1.1" 500 2 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36"
+[2014-06-02 09:11:11,890] [DEBUG] [M] missing the memached!
+[2014-06-02 09:11:11,893] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 500 21 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36"
+[2014-06-02 09:14:31,071] [DEBUG] [M] Running nodeJS on port3010 !
+[2014-06-02 09:14:33,279] [INFO ] [M] 127.0.0.1 - - "GET /bugs/5386b97ee549e300003c3727 HTTP/1.1" 200 128 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36"
+[2014-06-02 09:14:43,426] [DEBUG] [M] missing the memached!
+[2014-06-02 09:14:43,430] [DEBUG] [M] setting the memached!
+[2014-06-02 09:14:43,434] [INFO ] [M] 127.0.0.1 - - "GET /bugs HTTP/1.1" 200 130 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36"
+[2014-06-02 09:14:45,689] [INFO ] [M] 127.0.0.1 - - "GET /bugs/5386b97ee549e300003c3727 HTTP/1.1" 200 128 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36"
+[2014-06-02 09:14:52,796] [INFO ] [M] 127.0.0.1 - - "GET /bugs/5386b97ee549e300003c3727 HTTP/1.1" 200 128 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36"

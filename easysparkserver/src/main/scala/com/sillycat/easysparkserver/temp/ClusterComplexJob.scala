@@ -12,13 +12,13 @@ import org.joda.time.DateTime
  * To change this template use File | Settings | File Templates.
  */
 object ClusterComplexJob extends App{
-  //val sparkMaster = "local"
-  val sparkMaster = "spark://localhost:7077"
+  val sparkMaster = "local"
+  //val sparkMaster = "spark://localhost:7077"
   val sc = new SparkContext(sparkMaster,
     "Complex Job",
     "/opt/spark",
-    //List("/Users/carl/work/easy/easysparkserver/target/scala-2.10/easysparkserver_2.10-1.0.jar"),
-    List("/Users/carl/work/easy/easysparkserver/target/easysparkserver-assembly-1.0.jar"),
+    List("/Users/carl/work/easy/easysparkserver/target/scala-2.10/easysparkserver_2.10-1.0.jar"),
+    //List("/Users/carl/work/easy/easysparkserver/target/easysparkserver-assembly-1.0.jar"),
     Map())
 
   val item1 = Product(None,"CK","good",DateTime.now)
