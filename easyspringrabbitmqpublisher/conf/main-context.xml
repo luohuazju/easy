@@ -27,6 +27,7 @@
 	</bean>
     
     <import resource="classpath:scan-context.xml" />
+    <import resource="classpath:rabbitmq-context.xml" />
 
 </beans>
 
