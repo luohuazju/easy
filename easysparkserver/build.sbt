@@ -26,8 +26,9 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
     "net.noerd"           %%  "prequel"                   % "0.3.9.1",
-    "org.spark-project"   %%  "spark-core"                % "0.8.0-SNAPSHOT",
-	"org.scalatest"       %   "scalatest_2.10"            % "1.9.1"   % "test",
+    //"org.spark-project"   %%  "spark-core"                % "0.8.0-SNAPSHOT",
+    "org.apache.spark"    %%  "spark-core"           % "1.0.0", 
+    "org.scalatest"       %   "scalatest_2.10"            % "1.9.1"   % "test",
     "org.specs2"          %%  "specs2"                    % "1.13"    % "test",
     "mysql"               %   "mysql-connector-java"      % "5.1.24"
 )
