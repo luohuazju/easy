@@ -1,0 +1,14 @@
+<configuration>
+        <property>
+                <name>hbase.rootdir</name>
+                <value>hdfs://ubuntu-master:9000/hbase</value>
+        </property>
+        <property>
+                <name>hbase.cluster.distributed</name>
+                <value>true</value>
+        </property>
+        <property>
+                <name>hbase.zookeeper.quorum</name>
+                <value>ubuntu-client1,ubuntu-client2,ubuntu-client3</value>
+        </property>
+</configuration>
