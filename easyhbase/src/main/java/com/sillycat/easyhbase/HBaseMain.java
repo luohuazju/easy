@@ -10,7 +10,6 @@ import org.apache.hadoop.hbase.CellUtil;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.MasterNotRunningException;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.ZooKeeperConnectionException;
@@ -125,6 +124,25 @@ public class HBaseMain {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void getRangeRecord(String tableName,String startRowKey,String endRowKey){
+		try {
+			HTable table = new HTable(conf, tableName);
+			Scan s = new Scan(startRowKey.getBytes(),endRowKey.getBytes());
+			ResultScanner ss = table.getScanner(s);
+			for (Result r : ss) {
+				for (Cell cell : r.rawCells()) {
+					System.out.print(new String(CellUtil.cloneRow(cell)) + " ");
+					System.out.print(new String(CellUtil.cloneFamily(cell)) + ":");
+					System.out.print(new String(CellUtil.cloneQualifier(cell)) + " ");
+					System.out.print(cell.getTimestamp() + " ");
+					System.out.println(new String(CellUtil.cloneValue(cell)));
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
 		try {
@@ -133,13 +151,20 @@ public class HBaseMain {
 			HBaseMain.creatTable(tablename, familys);
 
 			// add record sillycat
-			HBaseMain.addRecord(tablename, "sillycat", "grade", "", "5");
-			HBaseMain.addRecord(tablename, "sillycat", "course", "", "90");
-			HBaseMain.addRecord(tablename, "sillycat", "course", "math", "97");
-			HBaseMain.addRecord(tablename, "sillycat", "course", "art", "87");
+			HBaseMain.addRecord(tablename, "sillycat-20140723", "grade", "", "5");
+			HBaseMain.addRecord(tablename, "sillycat-20140723", "course", "math", "97");
+			HBaseMain.addRecord(tablename, "sillycat-20140723", "course", "art", "87");
+			
+			HBaseMain.addRecord(tablename, "sillycat-20130723", "grade", "", "5");
+			HBaseMain.addRecord(tablename, "sillycat-20130723", "course", "math", "97");
+			HBaseMain.addRecord(tablename, "sillycat-20130723", "course", "art", "87");
+			
+			HBaseMain.addRecord(tablename, "sillycat-20120723", "grade", "", "5");
+			HBaseMain.addRecord(tablename, "sillycat-20120723", "course", "math", "97");
+			HBaseMain.addRecord(tablename, "sillycat-20120723", "course", "art", "87");
 			// add record kiko
-			HBaseMain.addRecord(tablename, "kiko", "grade", "", "4");
-			HBaseMain.addRecord(tablename, "kiko", "course", "math", "89");
+			HBaseMain.addRecord(tablename, "kiko-20140723", "grade", "", "4");
+			HBaseMain.addRecord(tablename, "kiko-20140723", "course", "math", "89");
 
 			System.out.println("===========get one record========");
 			HBaseMain.getOneRecord(tablename, "sillycat");
@@ -153,6 +178,9 @@ public class HBaseMain {
 
 			System.out.println("===========show all record========");
 			HBaseMain.getAllRecord(tablename);
+			
+			System.out.print("=============show range record=======");
+			HBaseMain.getRangeRecord(tablename, "sillycat-20130101", "sillycat-20141231");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
