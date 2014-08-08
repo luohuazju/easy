@@ -5,7 +5,7 @@ import spark.SparkContext._
 
 object LocalSimpleJob extends App {
   val logFile = "/var/log/apache2" // Should be some file on your system
-  val sc = new SparkContext("local", 
+  val sc = new SparkContext("local[2]",
       "Simple Job", 
       "/opt/spark",
       List("target/easysparkserver-assembly-1.0.jar"),
