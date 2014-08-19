@@ -1,5 +1,5 @@
 
-print("Hello, Carl")
+-- print("Hello, Carl")
 
 function fact(n)
     if n== 0 then
@@ -9,10 +9,22 @@ function fact(n)
     end
 end
 
-print("enter a number:")
-a = io.read("*number")
-print(fact(a))
+-- print("enter a number:")
+-- a = io.read("*number")
+-- print(fact(a))
 
 print(b)
 b = 10
 print(b)
+
+--[[
+-- Just a lot of lines comments
+-- ]]--
+
+-- Lua Types Tutorial
+
+
+
+
+
+
