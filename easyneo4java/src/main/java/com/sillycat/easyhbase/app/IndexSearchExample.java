@@ -25,18 +25,27 @@ public class IndexSearchExample {
 			// cleanup first for this tutorial
 			GraphUtil.cleanUp(graphDb, nodeIndex);
 
+			//create the first node for Peter
 			Node userNode1 = graphDb.createNode();
+			//Peter's properties
 			userNode1.setProperty("id", 1);
 			userNode1.setProperty("name", "Peter");
+			
+			//add index
 			nodeIndex.add(userNode1, "id", 1);
 			nodeIndex.add(userNode1, "name", "Peter");
 
+			//create the second node for Ray
 			Node userNode2 = graphDb.createNode();
+			//Ray's properties
 			userNode2.setProperty("id", 2);
 			userNode2.setProperty("name", "Ray");
+			
+			//add index
 			nodeIndex.add(userNode2, "id", 2);
 			nodeIndex.add(userNode2, "name", "Ray");
 
+			//commit the changes
 			tx.success();
 
 			System.out.println("searching for user with id=2..");
@@ -50,7 +59,6 @@ public class IndexSearchExample {
 					+ user2.getProperty("id"));
 		} finally {
 			tx.close();
-			;
 			graphDb.shutdown();
 		}
 

@@ -13,8 +13,11 @@ public class GraphUtil {
 		for (Node node : GlobalGraphOperations.at(graphDb).getAllNodes()) {
 			for (Relationship rel : node.getRelationships()) {
 				rel.delete();
+				//delete all relationship
 			}
+			//remove all nodes from index
 			nodeIndex.remove(node);
+			//remote node itself
 			node.delete();
 		}
  
