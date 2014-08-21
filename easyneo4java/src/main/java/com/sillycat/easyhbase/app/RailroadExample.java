@@ -1,11 +1,14 @@
 package com.sillycat.easyhbase.app;
 
+import java.util.Iterator;
+
 import org.neo4j.graphalgo.GraphAlgoFactory;
 import org.neo4j.graphalgo.PathFinder;
 import org.neo4j.graphalgo.WeightedPath;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Path;
 import org.neo4j.graphdb.PathExpanders;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
@@ -26,34 +29,44 @@ public class RailroadExample {
 		Transaction tx = graphDb.beginTx();
 		try {
 			Index<Node> nodeIndex = graphDb.index().forNodes("nodes");
+			
 			Node londonNode = graphDb.createNode();
+			//create node London
 			londonNode.setProperty("name", "London");
+			//add name into index
 			nodeIndex.add(londonNode, "name", "London");
  
+			//Brighton
 			Node brightonNode = graphDb.createNode();
 			brightonNode.setProperty("name", "Brighton");
 			nodeIndex.add(brightonNode, "name", "Brighton");
  
+			//Portsmouth
 			Node portsmouthNode = graphDb.createNode();
 			portsmouthNode.setProperty("name", "Portsmouth");
 			nodeIndex.add(portsmouthNode, "name", "Portsmouth");
  
+			//Bristol
 			Node bristolNode = graphDb.createNode();
 			bristolNode.setProperty("name", "Bristol");
 			nodeIndex.add(bristolNode, "name", "Bristol");
  
+			//Oxford
 			Node oxfordNode = graphDb.createNode();
 			oxfordNode.setProperty("name", "Oxford");
 			nodeIndex.add(oxfordNode, "name", "Oxford");
  
+			//Gloucester
 			Node gloucesterNode = graphDb.createNode();
 			gloucesterNode.setProperty("name", "Gloucester");
 			nodeIndex.add(gloucesterNode, "name", "Gloucester");
  
+			//Northampton
 			Node northamptonNode = graphDb.createNode();
 			northamptonNode.setProperty("name", "Northampton");
 			nodeIndex.add(northamptonNode, "name", "Northampton");
  
+			//Southampton
 			Node southamptonNode = graphDb.createNode();
 			southamptonNode.setProperty("name", "Southampton");
 			nodeIndex.add(southamptonNode, "name", "Southampton");
@@ -61,6 +74,7 @@ public class RailroadExample {
 			// london -> brighton ~ 52mi
 			Relationship r1 = londonNode.createRelationshipTo(brightonNode,
 					RelTypes.LEADS_TO);
+			//relationship gets property distance
 			r1.setProperty("distance", 52);
  
 			// brighton -> portsmouth ~ 49mi
@@ -110,27 +124,36 @@ public class RailroadExample {
  
 			tx.success();
  
-			System.out
-					.println("searching for the shortest route from London to Bristol..");
+			System.out.println("searching for the shortest route from London to Bristol..");
 			PathFinder<WeightedPath> finder = GraphAlgoFactory.dijkstra(
-					PathExpanders.forTypeAndDirection(RelTypes.LEADS_TO,
-							Direction.BOTH), "distance");
+					PathExpanders.forTypeAndDirection(RelTypes.LEADS_TO,Direction.OUTGOING), "distance");
  
 			WeightedPath path = finder.findSinglePath(londonNode, bristolNode);
-			System.out.println("London - Bristol with a distance of: "
-					+ path.weight() + " and via: ");
+			System.out.println("London - Bristol with a distance of: " + path.weight() + " and via: ");
 			for (Node n : path.nodes()) {
 				System.out.print(" " + n.getProperty("name"));
+			}
+			
+			System.out.println();
+			System.out.println();
+			
+			System.out.println("searching for all routes from London to southamptonNode..");
+			PathFinder<Path> finderAll = GraphAlgoFactory.allPaths(
+					PathExpanders.forTypeAndDirection(RelTypes.LEADS_TO,Direction.OUTGOING), Integer.MAX_VALUE);
+			
+			Iterable<Path> allPaths = finderAll.findAllPaths(londonNode, southamptonNode);
+			Iterator<Path> it = allPaths.iterator();
+			while(it.hasNext()){
+				Path tmp_path = (Path) it.next();
+				System.out.println("Path is as follow: ");
+				int distance = 0;
+				for (Node n : tmp_path.nodes()) {
+					System.out.print(" " + n.getProperty("name"));
+					distance = distance + (Integer)n.getRelationships(RelTypes.LEADS_TO, Direction.OUTGOING).iterator().next().getProperty("distance");
+				}
+				System.out.println(" with distance:" + distance);
 			}
  
-			System.out
-					.println("\nsearching for the shortest route from Northampton to Brighton..");
-			path = finder.findSinglePath(northamptonNode, brightonNode);
-			System.out.println("Northampton - Brighton with a distance of: "
-					+ path.weight() + " and via: ");
-			for (Node n : path.nodes()) {
-				System.out.print(" " + n.getProperty("name"));
-			}
  
 		} finally {
 			tx.close();;
