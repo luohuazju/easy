@@ -3,3 +3,5 @@ easypoll/__pycache__
 polls/__pycache__/
 static/
 polls/migrations/__pycache__
+easypoll/*.pyc
+polls/*.pyc
