@@ -6,7 +6,8 @@ var log4js = require('log4js');
 
 var app = express();
 app.use(bodyParser());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
+//app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
+app.use(bodyParser.json());
 
 log4js.configure(__dirname +'/config/log/log4js.json');
 

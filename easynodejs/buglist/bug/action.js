@@ -23,7 +23,8 @@ var pool = poolModule.Pool({
 	log: false
 });
 
-var memcached = new Memcached({'127.0.0.1:11211': 1, '127.0.0.1:11212': 1 })
+//var memcached = new Memcached({'127.0.0.1:11211': 1, '127.0.0.1:11212': 1 })
+var memcached = new Memcached({'127.0.0.1:11211': 1 })
 
 // Returns all the bugs
 exports.getAll = function(req, res) {
@@ -57,11 +58,7 @@ exports.getAll = function(req, res) {
 // Creates a bug
 exports.create = function(req, res) {
 	var body = req.body;
-	console.log("post body  = " + body);
-	console.log("create title = " + body.title);
-	console.log("create creation = " + body.creation);
-	console.log("create status = " + body.status);
-	console.log("create assignee = " + body.assignee);
+	console.log("post body  = " + JSON.stringify(body));
 
 	pool.acquire(function(err, db){
 		if (err) { 
