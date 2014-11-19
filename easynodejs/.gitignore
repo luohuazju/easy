@@ -2,7 +2,6 @@
 /.project
 .DS_Store
 express/node_modules/
-userlist/bin/
 userlist/node_modules/
 buglist/node_modules/
 sillycat-platform/npm-debug.log
