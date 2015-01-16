@@ -15,5 +15,5 @@ request  = function()
 end
 
 response = function(status, headers, body)
-    -- print(body)
+    print(body)
 end
