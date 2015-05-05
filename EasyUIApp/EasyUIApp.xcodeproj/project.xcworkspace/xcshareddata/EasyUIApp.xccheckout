@@ -10,29 +10,29 @@
 	<string>EasyUIApp</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>FE03F9B3-3C40-41EF-A95C-0AA3022F85B6</key>
+		<key>FA521592A7C5F10B71A6410F1E119EB5D9EDFF11</key>
 		<string>https://github.com/luohuazju/easy.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>EasyUIApp/EasyUIApp.xcodeproj/project.xcworkspace</string>
+	<string>EasyUIApp/EasyUIApp.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>FE03F9B3-3C40-41EF-A95C-0AA3022F85B6</key>
+		<key>FA521592A7C5F10B71A6410F1E119EB5D9EDFF11</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/luohuazju/easy.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>FE03F9B3-3C40-41EF-A95C-0AA3022F85B6</string>
+	<string>FA521592A7C5F10B71A6410F1E119EB5D9EDFF11</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>FE03F9B3-3C40-41EF-A95C-0AA3022F85B6</string>
+			<string>FA521592A7C5F10B71A6410F1E119EB5D9EDFF11</string>
 			<key>IDESourceControlWCCName</key>
 			<string>easy</string>
 		</dict>
