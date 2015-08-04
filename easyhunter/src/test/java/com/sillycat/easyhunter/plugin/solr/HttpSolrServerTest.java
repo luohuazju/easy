@@ -29,6 +29,7 @@ public class HttpSolrServerTest {
 		// Server side must support gzip or deflate for this to have any effect. 
 		server.setAllowCompression(true); 
 		server.setMaxRetries(1); // defaults to 0.  > 1 not recommended. 
+		
 		 
 		//sorlr J 目前使用二进制的格式作为默认的格式。对于solr1.2的用户通过显示的设置才能使用XML格式。
 		server.setParser(new XMLResponseParser());
