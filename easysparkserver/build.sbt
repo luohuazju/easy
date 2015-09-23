@@ -1,7 +1,6 @@
-import sbt._
-import Keys._
-import sbtassembly.Plugin._
-import AssemblyKeys._
+import sbtassembly.MergeStrategy
+import sbtassembly.PathList
+import sbtassembly.AssemblyKeys
 
 name := "easysparkserver" 
 
@@ -33,10 +32,8 @@ libraryDependencies ++= Seq(
     "mysql"               %   "mysql-connector-java"      % "5.1.24"
 )
 
-seq(Revolver.settings: _*)
 
 
-seq(assemblySettings: _*)
 
 mainClass in assembly := Some("com.sillycat.easysparkserver.temp.ComplexJob")
 
