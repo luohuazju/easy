@@ -1,0 +1,15 @@
+{
+    "autoload" : {
+        "psr-0": {
+            "PHPUnitEventDemo": "src/"
+        }
+    },
+    "require": {
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.1.*",
+        "phpunit/dbunit": ">=1.2",
+        "phpunit/php-invoker": "*"
+    }
+}
+
