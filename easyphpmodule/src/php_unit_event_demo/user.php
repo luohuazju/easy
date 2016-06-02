@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPUnitEventDemo;
+namespace php_unit_event_demo;
 
 class User
 {

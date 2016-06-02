@@ -1,7 +1,7 @@
 {
     "autoload" : {
         "psr-0": {
-            "PHPUnitEventDemo": "src/"
+            "php_unit_event_demo": "src/"
         }
     },
     "require": {

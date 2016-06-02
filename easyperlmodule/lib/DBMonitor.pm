@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-package DBMonitor;
+package lib::DBMonitor;
 
 $DBMonitor::VERSION = '0.1';
 
