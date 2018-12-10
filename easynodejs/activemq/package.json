@@ -1,0 +1,9 @@
+{
+	"name": "sillycatactivemq",
+	"description": "Connect to ActiveMQ Demo",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"stompit": "0.26.0"
+	}
+}

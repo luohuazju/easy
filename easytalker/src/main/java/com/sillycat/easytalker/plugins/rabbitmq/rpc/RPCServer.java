@@ -1,22 +1,26 @@
 package com.sillycat.easytalker.plugins.rabbitmq.rpc;
 
-import com.rabbitmq.client.AMQP.BasicProperties;
+import java.io.IOException;
+
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.Consumer;
+import com.rabbitmq.client.DefaultConsumer;
+import com.rabbitmq.client.Envelope;
 
 public class RPCServer {
-	
+
 	private static final String RPC_QUEUE_NAME = "rpc_queue";
-	
-	private final static String SERVER_HOST = "www.neptune.com";
+
+	private final static String SERVER_HOST = "centos-dev1";
 
 	private static int fib(int n) {
-		if (n == 0){
+		if (n == 0) {
 			return 0;
 		}
-		if (n == 1){
+		if (n == 1) {
 			return 1;
 		}
 		return fib(n - 1) + fib(n - 2);
@@ -24,40 +28,52 @@ public class RPCServer {
 
 	public static void main(String[] argv) {
 		Connection connection = null;
-		Channel channel = null;
 		try {
 			ConnectionFactory factory = new ConnectionFactory();
 			factory.setHost(SERVER_HOST);
+			factory.setUsername("carl");
+			factory.setPassword("kaishi");
 			connection = factory.newConnection();
-			channel = connection.createChannel();
-			
+			final Channel channel = connection.createChannel();
+
 			channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
 			channel.basicQos(1);
-			
-			QueueingConsumer consumer = new QueueingConsumer(channel);
-			channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
-			
+
 			System.out.println(" [x] Awaiting RPC requests");
+
+			Consumer consumer = new DefaultConsumer(channel) {
+				@Override
+				public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties,
+						byte[] body) throws IOException {
+					AMQP.BasicProperties replyProps = new AMQP.BasicProperties.Builder()
+							.correlationId(properties.getCorrelationId()).build();
+					String response = "";
+					try {
+						String message = new String(body, "UTF-8");
+						int n = Integer.parseInt(message);
+						System.out.println(" [.] fib(" + message + ")");
+						response += fib(n);
+					} catch (RuntimeException e) {
+						System.out.println(" [.] " + e.toString());
+					} finally {
+						channel.basicPublish("", properties.getReplyTo(), replyProps, response.getBytes("UTF-8"));
+						channel.basicAck(envelope.getDeliveryTag(), false);
+						// RabbitMq consumer worker thread notifies the RPC server owner thread
+						synchronized (this) {
+							this.notify();
+						}
+					}
+				}
+			};
+			channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
+			// Wait and be prepared to consume the message from RPC client.
 			while (true) {
-				String response = null;
-				QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-				BasicProperties props = delivery.getProperties();
-				BasicProperties replyProps = new BasicProperties.Builder()
-						.correlationId(props.getCorrelationId()).build();
-				try {
-					String message = new String(delivery.getBody(), "UTF-8");
-					int n = Integer.parseInt(message);
-					System.out.println(" [.] fib(" + message + ")");
-					response = "" + fib(n);
-				} catch (Exception e) {
-					System.out.println(" [.] " + e.toString());
-					response = "";
-				} finally {
-					//send back the result
-					channel.basicPublish("", props.getReplyTo(), replyProps,
-							response.getBytes("UTF-8"));
-					channel.basicAck(delivery.getEnvelope().getDeliveryTag(),
-							false);
+				synchronized (consumer) {
+					try {
+						consumer.wait();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		} catch (Exception e) {

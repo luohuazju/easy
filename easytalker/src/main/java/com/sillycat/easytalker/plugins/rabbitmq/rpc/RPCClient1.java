@@ -1,53 +1,54 @@
 package com.sillycat.easytalker.plugins.rabbitmq.rpc;
 
+import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
-import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.DefaultConsumer;
+import com.rabbitmq.client.Envelope;
 
 public class RPCClient1 {
 	
 	private Connection connection;
-	private Channel channel;
+	  private Channel channel;
+	  private String requestQueueName = "rpc_queue";
+	  private String replyQueueName;
 	
-	private String requestQueueName = "rpc_queue";
-	
-	private String replyQueueName;
-	private QueueingConsumer consumer;
-	
-	private final static String SERVER_HOST = "www.neptune.com";
+	private final static String SERVER_HOST = "centos-dev1";
 
 	public RPCClient1() throws Exception {
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost(SERVER_HOST);
-		connection = factory.newConnection();
-		channel = connection.createChannel();
-		
-		replyQueueName = channel.queueDeclare().getQueue();
-		
-		consumer = new QueueingConsumer(channel);
-		channel.basicConsume(replyQueueName, true, consumer);
+	    factory.setHost(SERVER_HOST);
+	    factory.setUsername("carl");
+	    factory.setPassword("kaishi");
+	    connection = factory.newConnection();
+	    channel = connection.createChannel();
+	    replyQueueName = channel.queueDeclare().getQueue();
 	}
 
 	public String call(String message) throws Exception {
-		String response = null;
-		String corrId = UUID.randomUUID().toString();
-		BasicProperties props = new BasicProperties.Builder()
-				.correlationId(corrId).replyTo(replyQueueName).build();
-		channel.basicPublish("", requestQueueName, props, message.getBytes());
-		
-		while (true) {
-			QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-			if (delivery.getProperties().getCorrelationId().equals(corrId)) {
-				//if the id is the same, we will get the response
-				response = new String(delivery.getBody(), "UTF-8");
-				break;
-			}
-		}
-		return response;
+		final String corrId = UUID.randomUUID().toString();
+	    AMQP.BasicProperties props = new AMQP.BasicProperties
+	            .Builder()
+	            .correlationId(corrId)
+	            .replyTo(replyQueueName)
+	            .build();
+	    channel.basicPublish("", requestQueueName, props, message.getBytes("UTF-8"));
+	    final BlockingQueue<String> response = new ArrayBlockingQueue<String>(1);
+	    channel.basicConsume(replyQueueName, true, new DefaultConsumer(channel) {
+	      @Override
+	      public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+	        if (properties.getCorrelationId().equals(corrId)) {
+	          response.offer(new String(body, "UTF-8"));
+	        }
+	      }
+	    });
+	    return response.take();
 	}
 
 	public void close() throws Exception {
