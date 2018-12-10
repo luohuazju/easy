@@ -1,0 +1,12 @@
+sourceRoot: src
+outputRoot: out
+logFile: log.fmpp
+modes: [
+	execute(*.ftl)
+]
+replaceExtensions:[ftl, html]
+data: {
+	tdd(../data/hellosillycat.tdd)
+	csv: csv(../data/hellosillycat.csv)
+	devices: csv(../data/devices.csv)
+}
