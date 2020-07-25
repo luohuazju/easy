@@ -1,6 +1,0 @@
-[Info] [10:18:47] [@ seelogcustom.go.9] Start server at:%vlocahost
-[Critical] [10:18:47] [@ seelogcustom.go.11] Server err:%vFail to start the server.
-[Info] [10:19:31] [@ seelogcustom.go.9] Start server at:locahost
-[Critical] [10:19:31] [@ seelogcustom.go.11] Server err:Fail to start the server.
-[Info] [10:53:15] [@ seelogcustom.go.9] Start server at:locahost
-[Critical] [10:53:15] [@ seelogcustom.go.11] Server err:Fail to start the server.
