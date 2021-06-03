@@ -86,7 +86,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.3.6</version>
+			<version>4.5.13</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
