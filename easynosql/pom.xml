@@ -9,7 +9,7 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<spring.data.mongodb.version>1.1.0.BUILD-SNAPSHOT</spring.data.mongodb.version>
+		<spring.data.mongodb.version>3.3.5</spring.data.mongodb.version>
 		<spring.core.version>3.1.1.RELEASE</spring.core.version>
 		<neo4j.kernel.version>1.7</neo4j.kernel.version>
 		<neo4j.cypher.version>1.7</neo4j.cypher.version>
