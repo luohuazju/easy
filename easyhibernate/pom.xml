@@ -11,7 +11,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<groovy.plugin.version>1.5</groovy.plugin.version>
-		<springframework.version>3.2.1.RELEASE</springframework.version>
+		<springframework.version>3.2.5.RELEASE</springframework.version>
 		<hibernate.version>3.3.1.GA</hibernate.version>
 	</properties>
 
